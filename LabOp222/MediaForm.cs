@@ -110,25 +110,25 @@ namespace LabOp222
             else TextBoxCreatePageLengthOfVideo.Visible = false;
 
         }
-        private void CPShowComboBoxes(object[] upperSource, object[] lowerSource, List<Object> selectedObjects)
+        private void CPShowComboBoxes(object[] upperSource, object[] lowerSource, object dataSource)
         {
             if (upperSource != null)
             {
-                ComboBoxCreatePagePhotos.DataSource = upperSource;
+                ComboBoxCreatePagePhotos.DataSource = upperSource;                
                 ComboBoxCreatePagePhotos.Visible = true;
             }
             else ComboBoxCreatePagePhotos.Visible = false;
 
             if (lowerSource != null)
             {
-                ComboBoxCreatePageVideos.DataSource = lowerSource;
+                ComboBoxCreatePageVideos.DataSource = lowerSource;                
                 ComboBoxCreatePageVideos.Visible = true;
             }
             else ComboBoxCreatePageVideos.Visible = false;
 
-            if (selectedObjects != null)
+            if (dataSource != null)
             {
-                ComboBoxCreatePageSelectedObjects.DataSource = selectedObjects;
+                ComboBoxCreatePageSelectedObjects.DataSource = dataSource;                
                 ComboBoxCreatePageSelectedObjects.Visible = true;
             }
             else ComboBoxCreatePageSelectedObjects.Visible = false;
@@ -137,6 +137,11 @@ namespace LabOp222
         {
             BtnCreatePageClear.Visible = clearBtn;
             BtnCreatePageSave.Visible = saveBtn;
+        }
+       
+        private void CPUpdate()
+        {
+            ComboBoxCreatePageSelectedObjects.DataSource = helpedList;
         }
 
         private void ComboBoxCreatePageSelectClass_SelectedIndexChanged(object sender, EventArgs e)
@@ -163,29 +168,38 @@ namespace LabOp222
                 }
             }
         }
-
+        
         private void ComboBoxCreatePagePhotos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePagePhotos.SelectedIndex != -1)
+            if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePagePhotos.SelectedIndex != -1 && ComboBoxCreatePagePhotos.Focused)
             {
-                helpedList.Add(ComboBoxCreatePagePhotos.SelectedItem as Photo);
+                if(!helpedList.Contains(ComboBoxCreatePagePhotos.SelectedItem as Photo))
+                    helpedList.Add(ComboBoxCreatePagePhotos.SelectedItem as Photo);
+                //CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), helpedList);
+                CPUpdate();
+                MessageBox.Show(helpedList.Count.ToString());
             }
-
         }
 
         private void ComboBoxCreatePageVideos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageVideos.SelectedIndex != -1)
+            if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageVideos.SelectedIndex != -1 && ComboBoxCreatePageVideos.Focused)
             {
-                helpedList.Add(ComboBoxCreatePageVideos.SelectedItem as Video);
+                if (!helpedList.Contains(ComboBoxCreatePageVideos.SelectedItem as Video))
+                    helpedList.Add(ComboBoxCreatePageVideos.SelectedItem as Video);                
+                CPUpdate();
+                MessageBox.Show(helpedList.Count.ToString());
             }
         }
 
         private void ComboBoxCreatePageSelectedObjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectedObjects.SelectedIndex != -1)
+            if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectedObjects.SelectedIndex != -1 && ComboBoxCreatePageSelectedObjects.Focused)
             {
                 helpedList.RemoveAt(ComboBoxCreatePageSelectedObjects.SelectedIndex);
+                //CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), helpedList);
+                CPUpdate();
+                MessageBox.Show(helpedList.Count.ToString());
             }
         }
 
