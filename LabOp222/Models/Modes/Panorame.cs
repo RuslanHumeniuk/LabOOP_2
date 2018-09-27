@@ -27,5 +27,6 @@ namespace LabOp222.Models.Modes
         {
             return PhotoMessage;
         }
+        public override void Delete() { }
     }
 }

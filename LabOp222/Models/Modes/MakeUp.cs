@@ -43,5 +43,7 @@ namespace LabOp222.Models.Modes
         {
             return VideoMessage;
         }
+
+        public override void Delete() {}
     }
 }
