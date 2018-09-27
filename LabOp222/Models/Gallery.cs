@@ -97,5 +97,24 @@ namespace LabOp222.Models
             Videos.Add(video);
         }
 
+        public static void DeleteGallery(Gallery gallery)
+        {
+            gallery.DeleteGallery();
+        }
+        public static void DeleteGallery(int indexOfGallery)
+        {
+            if (indexOfGallery < 0 || indexOfGallery >= Galleries.Count)
+                throw new ArgumentException(indexOfGallery + " is wrong index!");
+            Gallery gallery = Galleries[indexOfGallery];
+            gallery.DeleteGallery();
+        }
+
+        public void DeleteGallery()
+        {
+            photos.Clear();
+            videos.Clear();
+            Galleries.Remove(this);
+        }
+       
     }
 }
