@@ -97,6 +97,47 @@ namespace LabOp222.Models
             Videos.Add(video);
         }
        
+
+        public void RemovePhotoFromGallery(Photo photo)
+        {
+            Photos.Remove(photo);
+        }
+        public void RemoveVideoFromGallery(Video video)
+        {
+            Videos.Remove(video);
+        }
+
+        public void RemovePhotoFromGallery(Guid photoGuid)
+        {
+            if (photos.Contains(photoGuid))
+                photos.Remove(photoGuid);
+            else
+                throw new ArgumentException(this.Title + " does not contain photo with guid " + photoGuid);
+        }
+        public void RemoveVideoFromGallery(Guid videoGuid)
+        {
+            if (videos.Contains(videoGuid))
+                videos.Remove(videoGuid);
+            else
+                throw new ArgumentException(this.Title + " does not contain video with guid " + videoGuid);
+        }
+
+        public void RemovePhotoFromGallery(int index)
+        {
+            if (index < 0 || index >= photos.Count)
+                photos.RemoveAt(index);
+            else
+                throw new ArgumentException(index + " is wrong photo index. ");
+        }
+        public void RemoveVideoFromGallery(int index)
+        {
+            if (index < 0 || index >= videos.Count)
+                videos.RemoveAt(index);
+            else
+                throw new ArgumentException(index + " is wrong video index. ");
+        }
+
+
         public static void Delete(int index)
         {
             if (index < 0 || index >= Galleries.Count)
