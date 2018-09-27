@@ -21,9 +21,17 @@ namespace LabOp222.Models
             Mode = new DefaultMode();
             AllPhotos.Add(this);
         }
+        public Photo(string title) : this()
+        {
+            this.Title = title;
+        }
         public Photo(Gallery gallery) : this()
         {
             gallery.AddPhoto(this);
+        }
+        public Photo(string title, Gallery gallery) : this(gallery)
+        {
+            this.Title = title;
         }
         public Photo(IPhotoMode mode) : this()
         {

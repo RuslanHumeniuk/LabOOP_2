@@ -33,9 +33,17 @@ namespace LabOp222.Models
             Mode = new DefaultMode();
             AllVideos.Add(this);
         }
+        public Video(string title) : this()
+        {
+            Title = title;
+        }
         public Video(Gallery gallery) : this()
         {
             gallery.Videos.Add(this);
+        }
+        public Video(Gallery gallery, string title) : this(gallery)
+        {
+            Title = title;
         }
         public Video(IVideoMode mode) : this()
         {

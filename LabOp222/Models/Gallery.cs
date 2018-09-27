@@ -75,6 +75,10 @@ namespace LabOp222.Models
         {
             Galleries.Add(this);
         }
+        public Gallery(string title) : this()
+        {
+            Title = title;
+        }
         public Gallery(Photo[] photos) : this()
         {
             Photos = photos.ToList();
