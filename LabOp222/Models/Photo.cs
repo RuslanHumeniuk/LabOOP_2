@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 using LabOp222.Models.Modes;
-using LabOp222.Models.Galleries;
+using LabOp222.Models;
 using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models

@@ -522,8 +522,7 @@
             this.Controls.Add(this.TabControlMain);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MediaForm";
-            this.Text = "Media form";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Text = "Media form";            
             this.TabControlMain.ResumeLayout(false);
             this.TabPageCreate.ResumeLayout(false);
             this.TabPageCreate.PerformLayout();

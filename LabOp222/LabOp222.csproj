@@ -54,7 +54,7 @@
     </Compile>
     <Compile Include="Models\MediaInfo.cs" />
     <Compile Include="Models\Modes\DefaultMode.cs" />
-    <Compile Include="Models\Galleries\Gallery.cs" />
+    <Compile Include="Models\Gallery.cs" />
     <Compile Include="Models\Interfaces\IVideoMode.cs" />
     <Compile Include="Models\Interfaces\IPhotoMode.cs" />
     <Compile Include="Models\Modes\MakeUp.cs" />

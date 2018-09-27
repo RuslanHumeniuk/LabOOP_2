@@ -5,10 +5,12 @@ using System.Text;
 
 using LabOp222.Models;
 
-namespace LabOp222.Models.Galleries
+namespace LabOp222.Models
 {
     internal class Gallery : MediaInfo
     {
+        public static List<Gallery> Galleries = new List<Gallery>();
+
         private List<Guid> photos = new List<Guid>();
         private List<Guid> videos = new List<Guid>();
 
@@ -69,7 +71,10 @@ namespace LabOp222.Models.Galleries
             }
         }
 
-        public Gallery() : base() { }
+        public Gallery() : base()
+        {
+            Galleries.Add(this);
+        }
         public Gallery(Photo[] photos) : this()
         {
             Photos = photos.ToList();
