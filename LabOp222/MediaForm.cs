@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace LabOp222
 {
-    public partial class MainForm : Form
+    public partial class MediaForm : Form
     {
-        public MainForm()
+        public MediaForm()
         {
             InitializeComponent();
         }
