@@ -54,5 +54,17 @@ namespace LabOp222.Models
             }
             else return "Please select some mode";
         }
+
+        public static void Delete(int index)
+        {
+            if (index < 0 || index >= AllVideos.Count)
+                throw new ArgumentException(index + " is wrong index!");
+            Video video = AllVideos[index];
+            video.Delete();
+        }
+        public override void Delete()
+        {
+            AllVideos.Remove(this);
+        }
     }
 }

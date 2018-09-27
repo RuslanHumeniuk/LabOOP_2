@@ -40,5 +40,17 @@ namespace LabOp222.Models
                 return Mode.TakeAPhoto();
             else return "Please select some mode!";
         }
+
+        public static void Delete(int index)
+        {
+            if (index < 0 || index >= AllPhotos.Count)
+                throw new ArgumentException(index + " is wrong index!");
+            Photo photo = AllPhotos[index];
+            photo.Delete();
+        }
+        public override void Delete()
+        {
+            AllPhotos.Remove(this);
+        }
     }
 }
