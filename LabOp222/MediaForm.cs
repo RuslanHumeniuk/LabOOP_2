@@ -13,10 +13,12 @@ namespace LabOp222
 {
     public partial class MediaForm : Form
     {
-        List<MediaInfo> helpedList = new List<MediaInfo>();
+        List<Object> helpedList = new List<object>();
+
         public MediaForm()
         {
             InitializeComponent();
+            helpedList = new List<Object>();
 
             Photo firstPhoto = new Photo("First Ph");
             Photo secondPhoto = new Photo("Second Ph");
@@ -26,6 +28,11 @@ namespace LabOp222
 
             Gallery gallery = new Gallery("Main gallery");
             Gallery secondGallery = new Gallery("Second gallery");
+
+            ComboBoxCreatePageSelectedObjects.Visible = true;
+            helpedList.Add(firstPhoto);
+            helpedList.Add(secondVideo);
+            ComboBoxCreatePageSelectedObjects.DataSource = helpedList;
         }
 
         #region Creating page
@@ -110,25 +117,28 @@ namespace LabOp222
             else TextBoxCreatePageLengthOfVideo.Visible = false;
 
         }
-        private void CPShowComboBoxes(object[] upperSource, object[] lowerSource, object dataSource)
+        private void CPShowComboBoxes(object[] upperSource, object[] lowerSource, List<MediaInfo> dataSource)
         {
             if (upperSource != null)
             {
-                ComboBoxCreatePagePhotos.DataSource = upperSource;                
+                ComboBoxCreatePagePhotos.DataSource = upperSource;
+                ComboBoxCreatePagePhotos.SelectedIndex = -1;
                 ComboBoxCreatePagePhotos.Visible = true;
             }
             else ComboBoxCreatePagePhotos.Visible = false;
 
             if (lowerSource != null)
             {
-                ComboBoxCreatePageVideos.DataSource = lowerSource;                
+                ComboBoxCreatePageVideos.DataSource = lowerSource;      
+                ComboBoxCreatePageVideos.SelectedIndex = -1;
                 ComboBoxCreatePageVideos.Visible = true;
             }
             else ComboBoxCreatePageVideos.Visible = false;
 
             if (dataSource != null)
             {
-                ComboBoxCreatePageSelectedObjects.DataSource = dataSource;                
+                ComboBoxCreatePageSelectedObjects.DataSource = dataSource;
+                ComboBoxCreatePageSelectedObjects.SelectedIndex = -1;                
                 ComboBoxCreatePageSelectedObjects.Visible = true;
             }
             else ComboBoxCreatePageSelectedObjects.Visible = false;
@@ -148,6 +158,7 @@ namespace LabOp222
         {
             if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectClass.SelectedIndex != -1)
             {
+                helpedList = new List<MediaInfo>();
                 switch (ComboBoxCreatePageSelectClass.SelectedIndex)
                 {
                     case 0:
@@ -167,17 +178,18 @@ namespace LabOp222
                         }
                 }
             }
-        }
-        
+        }        
+
         private void ComboBoxCreatePagePhotos_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePagePhotos.SelectedIndex != -1 && ComboBoxCreatePagePhotos.Focused)
             {
                 if(!helpedList.Contains(ComboBoxCreatePagePhotos.SelectedItem as Photo))
                     helpedList.Add(ComboBoxCreatePagePhotos.SelectedItem as Photo);
-                //CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), helpedList);
-                CPUpdate();
-                MessageBox.Show(helpedList.Count.ToString());
+                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), helpedList);
+
+                MessageBox.Show("help : " + helpedList.Count.ToString()
+                 + "\ndata source : " + ComboBoxCreatePageSelectedObjects.Items.Count);
             }
         }
 
@@ -186,9 +198,12 @@ namespace LabOp222
             if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageVideos.SelectedIndex != -1 && ComboBoxCreatePageVideos.Focused)
             {
                 if (!helpedList.Contains(ComboBoxCreatePageVideos.SelectedItem as Video))
-                    helpedList.Add(ComboBoxCreatePageVideos.SelectedItem as Video);                
-                CPUpdate();
-                MessageBox.Show(helpedList.Count.ToString());
+                    helpedList.Add(ComboBoxCreatePageVideos.SelectedItem as Video);
+                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), helpedList);
+
+                MessageBox.Show("help : " + helpedList.Count.ToString()
+                    + "\ndata source : " + ComboBoxCreatePageSelectedObjects.Items.Count);
+                
             }
         }
 
@@ -196,10 +211,12 @@ namespace LabOp222
         {
             if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectedObjects.SelectedIndex != -1 && ComboBoxCreatePageSelectedObjects.Focused)
             {
-                helpedList.RemoveAt(ComboBoxCreatePageSelectedObjects.SelectedIndex);
-                //CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), helpedList);
-                CPUpdate();
-                MessageBox.Show(helpedList.Count.ToString());
+                //helpedList.RemoveAt(ComboBoxCreatePageSelectedObjects.SelectedIndex);
+                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), helpedList);
+
+                MessageBox.Show("Deleted, now: " + helpedList.Count.ToString());
+                MessageBox.Show("help : " + helpedList.Count.ToString()
+                 + "\ndata source : " + ComboBoxCreatePageSelectedObjects.Items.Count);
             }
         }
 
