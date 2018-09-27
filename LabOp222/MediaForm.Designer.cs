@@ -146,6 +146,7 @@
             this.ComboBoxCreatePageVideos.Size = new System.Drawing.Size(139, 24);
             this.ComboBoxCreatePageVideos.TabIndex = 30;
             this.ComboBoxCreatePageVideos.Visible = false;
+            this.ComboBoxCreatePageVideos.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePageVideos_SelectedIndexChanged);
             // 
             // LblCreatePageVideos
             // 
@@ -183,6 +184,7 @@
             this.ComboBoxCreatePagePhotos.Size = new System.Drawing.Size(139, 24);
             this.ComboBoxCreatePagePhotos.TabIndex = 26;
             this.ComboBoxCreatePagePhotos.Visible = false;
+            this.ComboBoxCreatePagePhotos.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePagePhotos_SelectedIndexChanged);
             // 
             // LblCreatePagePhotos
             // 
@@ -539,6 +541,7 @@
             this.ComboBoxCreatePageSelectedObjects.Size = new System.Drawing.Size(139, 24);
             this.ComboBoxCreatePageSelectedObjects.TabIndex = 34;
             this.ComboBoxCreatePageSelectedObjects.Visible = false;
+            this.ComboBoxCreatePageSelectedObjects.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePageSelectedObjects_SelectedIndexChanged);
             // 
             // LblCreatePageSelectedObject
             // 

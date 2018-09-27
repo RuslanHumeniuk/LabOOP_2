@@ -13,6 +13,7 @@ namespace LabOp222
 {
     public partial class MediaForm : Form
     {
+        List<MediaInfo> helpedList = new List<MediaInfo>();
         public MediaForm()
         {
             InitializeComponent();
@@ -47,7 +48,7 @@ namespace LabOp222
         {
             CPShowLabels("Title", null, "All photo", "All video", "Seleted objects");
             CPShowTextBoxes(String.Empty, null);
-            CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), new List<object>());
+            CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), helpedList);
             CPShowButtons(true, true);
         }
 
@@ -163,6 +164,33 @@ namespace LabOp222
             }
         }
 
+        private void ComboBoxCreatePagePhotos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePagePhotos.SelectedIndex != -1)
+            {
+                helpedList.Add(ComboBoxCreatePagePhotos.SelectedItem as Photo);
+            }
+
+        }
+
+        private void ComboBoxCreatePageVideos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageVideos.SelectedIndex != -1)
+            {
+                helpedList.Add(ComboBoxCreatePageVideos.SelectedItem as Video);
+            }
+        }
+
+        private void ComboBoxCreatePageSelectedObjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectedObjects.SelectedIndex != -1)
+            {
+                helpedList.RemoveAt(ComboBoxCreatePageSelectedObjects.SelectedIndex);
+            }
+        }
+
+       
+
         private void BtnCreatePageClear_Click(object sender, EventArgs e)
         {
             TextBoxCreatePageLengthOfVideo.Clear();
@@ -175,6 +203,7 @@ namespace LabOp222
             
         }
 
+
         #endregion
 
         #region Editing page
@@ -185,6 +214,6 @@ namespace LabOp222
 
         #endregion
 
-
+       
     }
 }
