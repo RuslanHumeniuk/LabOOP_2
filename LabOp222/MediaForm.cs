@@ -31,11 +31,7 @@ namespace LabOp222
             Gallery gallery = new Gallery("Main gallery");
             Gallery secondGallery = new Gallery("Second gallery");
 
-            ProfessionalMode professionalMode = new ProfessionalMode();
-            professionalMode.PhotoMessage = "NEW PHOTO MESSAGe";
-
-            ProfessionalMode mode = new ProfessionalMode();
-            MessageBox.Show($"1: {professionalMode.PhotoMessage}\n2: {mode.PhotoMessage}");
+            RadioButtonCreatePageCreateMode.Checked = true;
         }
 
         #region Creating page
@@ -74,11 +70,11 @@ namespace LabOp222
 
             if (lengthLabel != null)
             {
-                LblCreatePageLength.Text = lengthLabel;
-                LblCreatePageLength.Visible = true;
+                LblCreatePageMiddle.Text = lengthLabel;
+                LblCreatePageMiddle.Visible = true;
             }
             else
-                LblCreatePageLength.Visible = false;
+                LblCreatePageMiddle.Visible = false;
 
             if (photoLabel != null)
             {
@@ -114,10 +110,10 @@ namespace LabOp222
 
             if (lengthTextBox != null)
             {
-                TextBoxCreatePageLengthOfVideo.Text = lengthTextBox;
-                TextBoxCreatePageLengthOfVideo.Visible = true;
+                TextBoxCreatePageMiddle.Text = lengthTextBox;
+                TextBoxCreatePageMiddle.Visible = true;
             }
-            else TextBoxCreatePageLengthOfVideo.Visible = false;
+            else TextBoxCreatePageMiddle.Visible = false;
 
         }
         private void CPShowComboBoxes(object[] upperSource, object[] lowerSource, MediaInfo[] dataSource)
@@ -181,7 +177,7 @@ namespace LabOp222
             }
             if (textBoxLength)
             {
-                TextBoxCreatePageLengthOfVideo.Clear();
+                TextBoxCreatePageMiddle.Clear();
             }
             if (helpedList)
             {
@@ -266,7 +262,7 @@ namespace LabOp222
                         }
                     case 1:
                         {
-                            if (int.TryParse(TextBoxCreatePageLengthOfVideo.Text, out int length) && length >= 0) 
+                            if (int.TryParse(TextBoxCreatePageMiddle.Text, out int length) && length >= 0) 
                             {
                                 newObj = new Video() { Title = TextBoxCreatePageTitle.Text, Length = length } ;                                
                             }
@@ -289,7 +285,17 @@ namespace LabOp222
             }           
         }
 
+        private void ChangeWorkMode(bool isCreateMode)
+        {
+            if (isCreateMode)
+            {
+                
+            }
+            else
+            {
 
+            }
+        }
         #endregion
 
         #region Editing page
@@ -303,6 +309,11 @@ namespace LabOp222
         private void ComboBoxDeletePageSelectClass_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void RadioButtonCreatePageCreateMode_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeWorkMode(RadioButtonCreatePageCreateMode.Checked);
         }
     }
 }
