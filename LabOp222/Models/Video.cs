@@ -13,12 +13,12 @@ namespace LabOp222.Models
     {
         public static List<Video> AllVideos = new List<Video>();
 
-        public int length = 0;
+        private int length = 0;
         public int Length
         {
             get => length;
             set
-            {
+            {                
                 if (value >= 0)
                     length = value;
                 else

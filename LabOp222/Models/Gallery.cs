@@ -71,6 +71,41 @@ namespace LabOp222.Models
             }
         }
 
+        public List<MediaInfo> Files
+        {
+            get
+            {
+                if (videos.Count < 1 && photos.Count < 1)
+                    return null;
+
+                List<MediaInfo> fileList = new List<MediaInfo>();
+
+                foreach (var item in Photos)
+                {
+                    fileList.Add(item);
+                }
+                foreach (var item in Videos)
+                {
+                    fileList.Add(item);
+                }
+
+                return fileList;
+            }
+            set
+            {
+                videos.Clear();
+                photos.Clear();
+
+                foreach (var item in value)
+                {
+                    if (item is Photo)
+                        photos.Add(item.Id);
+                    else if (item is Video)
+                        videos.Add(item.Id);
+                }
+            }
+        }
+
         public Gallery() : base()
         {
             Galleries.Add(this);

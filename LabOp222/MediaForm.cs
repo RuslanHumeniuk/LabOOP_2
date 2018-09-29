@@ -9,16 +9,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using LabOp222.Models;
+using LabOp222.Models.Modes;
+
 namespace LabOp222
 {
     public partial class MediaForm : Form
     {
-        List<Object> helpedList = new List<object>();
+        List<MediaInfo> HelpedList = new List<MediaInfo>();
 
         public MediaForm()
         {
             InitializeComponent();
-            helpedList = new List<Object>();
+            HelpedList = new List<MediaInfo>();
 
             Photo firstPhoto = new Photo("First Ph");
             Photo secondPhoto = new Photo("Second Ph");
@@ -29,10 +31,11 @@ namespace LabOp222
             Gallery gallery = new Gallery("Main gallery");
             Gallery secondGallery = new Gallery("Second gallery");
 
-            ComboBoxCreatePageSelectedObjects.Visible = true;
-            helpedList.Add(firstPhoto);
-            helpedList.Add(secondVideo);
-            ComboBoxCreatePageSelectedObjects.DataSource = helpedList;
+            ProfessionalMode professionalMode = new ProfessionalMode();
+            professionalMode.PhotoMessage = "NEW PHOTO MESSAGe";
+
+            ProfessionalMode mode = new ProfessionalMode();
+            MessageBox.Show($"1: {professionalMode.PhotoMessage}\n2: {mode.PhotoMessage}");
         }
 
         #region Creating page
@@ -55,7 +58,7 @@ namespace LabOp222
         {
             CPShowLabels("Title", null, "All photo", "All video", "Seleted objects");
             CPShowTextBoxes(String.Empty, null);
-            CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), helpedList);
+            CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray());
             CPShowButtons(true, true);
         }
 
@@ -117,8 +120,8 @@ namespace LabOp222
             else TextBoxCreatePageLengthOfVideo.Visible = false;
 
         }
-        private void CPShowComboBoxes(object[] upperSource, object[] lowerSource, List<MediaInfo> dataSource)
-        {
+        private void CPShowComboBoxes(object[] upperSource, object[] lowerSource, MediaInfo[] dataSource)
+        {            
             if (upperSource != null)
             {
                 ComboBoxCreatePagePhotos.DataSource = upperSource;
@@ -148,17 +151,50 @@ namespace LabOp222
             BtnCreatePageClear.Visible = clearBtn;
             BtnCreatePageSave.Visible = saveBtn;
         }
-       
-        private void CPUpdate()
+
+        private void CPClearFields()
         {
-            ComboBoxCreatePageSelectedObjects.DataSource = helpedList;
+            switch (ComboBoxCreatePageSelectClass.SelectedIndex)
+            {
+                case 0:
+                    {
+                        CPClearAllFields(true, false, false);
+                        break;
+                    }
+                case 1:
+                    {
+                        CPClearAllFields(true, true, false);
+                        break;
+                    }
+                case 2:
+                    {
+                        CPClearAllFields(true, true, true);
+                        break;
+                    }
+            }
         }
+        private void CPClearAllFields(bool textBoxTitle, bool textBoxLength, bool helpedList)
+        {
+            if (textBoxTitle)
+            {
+                TextBoxCreatePageTitle.Clear();
+            }
+            if (textBoxLength)
+            {
+                TextBoxCreatePageLengthOfVideo.Clear();
+            }
+            if (helpedList)
+            {
+                HelpedList = new List<MediaInfo>();
+                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray());
+            }
+        }               
 
         private void ComboBoxCreatePageSelectClass_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectClass.SelectedIndex != -1)
             {
-                helpedList = new List<MediaInfo>();
+                HelpedList = new List<MediaInfo>();
                 switch (ComboBoxCreatePageSelectClass.SelectedIndex)
                 {
                     case 0:
@@ -184,54 +220,73 @@ namespace LabOp222
         {
             if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePagePhotos.SelectedIndex != -1 && ComboBoxCreatePagePhotos.Focused)
             {
-                if(!helpedList.Contains(ComboBoxCreatePagePhotos.SelectedItem as Photo))
-                    helpedList.Add(ComboBoxCreatePagePhotos.SelectedItem as Photo);
-                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), helpedList);
+                if(!HelpedList.Contains(ComboBoxCreatePagePhotos.SelectedItem as Photo))
+                    HelpedList.Add(ComboBoxCreatePagePhotos.SelectedItem as Photo);
 
-                MessageBox.Show("help : " + helpedList.Count.ToString()
-                 + "\ndata source : " + ComboBoxCreatePageSelectedObjects.Items.Count);
+                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray());                
             }
         }
-
         private void ComboBoxCreatePageVideos_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageVideos.SelectedIndex != -1 && ComboBoxCreatePageVideos.Focused)
             {
-                if (!helpedList.Contains(ComboBoxCreatePageVideos.SelectedItem as Video))
-                    helpedList.Add(ComboBoxCreatePageVideos.SelectedItem as Video);
-                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), helpedList);
+                if (!HelpedList.Contains(ComboBoxCreatePageVideos.SelectedItem as Video))
+                    HelpedList.Add(ComboBoxCreatePageVideos.SelectedItem as Video);
 
-                MessageBox.Show("help : " + helpedList.Count.ToString()
-                    + "\ndata source : " + ComboBoxCreatePageSelectedObjects.Items.Count);
-                
+                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray());                
             }
         }
-
         private void ComboBoxCreatePageSelectedObjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectedObjects.SelectedIndex != -1 && ComboBoxCreatePageSelectedObjects.Focused)
             {
-                //helpedList.RemoveAt(ComboBoxCreatePageSelectedObjects.SelectedIndex);
-                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), helpedList);
+                if (HelpedList.Contains(ComboBoxCreatePageSelectedObjects.SelectedItem as MediaInfo))
+                    HelpedList.Remove(ComboBoxCreatePageSelectedObjects.SelectedItem as MediaInfo);                      
 
-                MessageBox.Show("Deleted, now: " + helpedList.Count.ToString());
-                MessageBox.Show("help : " + helpedList.Count.ToString()
-                 + "\ndata source : " + ComboBoxCreatePageSelectedObjects.Items.Count);
+                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray());
             }
-        }
-
-       
-
+        }       
+        
         private void BtnCreatePageClear_Click(object sender, EventArgs e)
         {
-            TextBoxCreatePageLengthOfVideo.Clear();
-            TextBoxCreatePageTitle.Clear();
-            ComboBoxCreatePageSelectedObjects.DataSource = new List<Object>();
+            CPClearFields();
         }
-
         private void BtnCreatePageSave_Click(object sender, EventArgs e)
         {
-            
+            MediaInfo newObj = null;
+
+            try
+            {
+                switch (ComboBoxCreatePageSelectClass.SelectedIndex)
+                {
+                    case 0:
+                        {
+                            newObj = new Photo() { Title = TextBoxCreatePageTitle.Text };                            
+                            break;
+                        }
+                    case 1:
+                        {
+                            if (int.TryParse(TextBoxCreatePageLengthOfVideo.Text, out int length) && length >= 0) 
+                            {
+                                newObj = new Video() { Title = TextBoxCreatePageTitle.Text, Length = length } ;                                
+                            }
+                            else throw new ArgumentException("Please input non-negative integer");
+                            
+                            break;
+                        }
+                    case 2:
+                        {
+                            newObj = new Gallery(TextBoxCreatePageTitle.Text) { Files = HelpedList };                            
+                            break;
+                        }
+                }
+                CPClearFields();
+                MessageBox.Show(newObj.ToString() + " added");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }           
         }
 
 
@@ -245,6 +300,9 @@ namespace LabOp222
 
         #endregion
 
-       
+        private void ComboBoxDeletePageSelectClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

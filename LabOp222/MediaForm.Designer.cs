@@ -30,6 +30,8 @@
         {
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.TabPageCreate = new System.Windows.Forms.TabPage();
+            this.ComboBoxCreatePageSelectedObjects = new System.Windows.Forms.ComboBox();
+            this.LblCreatePageSelectedObject = new System.Windows.Forms.Label();
             this.BtnCreatePageClear = new System.Windows.Forms.Button();
             this.BtnCreatePageSave = new System.Windows.Forms.Button();
             this.ComboBoxCreatePageVideos = new System.Windows.Forms.ComboBox();
@@ -72,13 +74,25 @@
             this.LblDeletePageObject = new System.Windows.Forms.Label();
             this.ComboBoxDeletePageSelectClass = new System.Windows.Forms.ComboBox();
             this.LblDeletePageClass = new System.Windows.Forms.Label();
-            this.ComboBoxCreatePageSelectedObjects = new System.Windows.Forms.ComboBox();
-            this.LblCreatePageSelectedObject = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.GroupBoxCreatePageSelectWorkMode = new System.Windows.Forms.GroupBox();
+            this.RadioButtonCreatePageCreateMode = new System.Windows.Forms.RadioButton();
+            this.RadioButtonCreatePageEditMode = new System.Windows.Forms.RadioButton();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.TabControlMain.SuspendLayout();
             this.TabPageCreate.SuspendLayout();
             this.TabPageEdit.SuspendLayout();
             this.GroupBoxEditPageModeType.SuspendLayout();
             this.TabPageDelete.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.GroupBoxCreatePageSelectWorkMode.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -89,11 +103,19 @@
             this.TabControlMain.Location = new System.Drawing.Point(13, 13);
             this.TabControlMain.Name = "TabControlMain";
             this.TabControlMain.SelectedIndex = 0;
-            this.TabControlMain.Size = new System.Drawing.Size(709, 312);
+            this.TabControlMain.Size = new System.Drawing.Size(709, 339);
             this.TabControlMain.TabIndex = 0;
             // 
             // TabPageCreate
             // 
+            this.TabPageCreate.Controls.Add(this.textBox1);
+            this.TabPageCreate.Controls.Add(this.label2);
+            this.TabPageCreate.Controls.Add(this.textBox2);
+            this.TabPageCreate.Controls.Add(this.label3);
+            this.TabPageCreate.Controls.Add(this.GroupBoxCreatePageSelectWorkMode);
+            this.TabPageCreate.Controls.Add(this.groupBox1);
+            this.TabPageCreate.Controls.Add(this.comboBox1);
+            this.TabPageCreate.Controls.Add(this.label1);
             this.TabPageCreate.Controls.Add(this.ComboBoxCreatePageSelectedObjects);
             this.TabPageCreate.Controls.Add(this.LblCreatePageSelectedObject);
             this.TabPageCreate.Controls.Add(this.BtnCreatePageClear);
@@ -111,14 +133,34 @@
             this.TabPageCreate.Location = new System.Drawing.Point(4, 25);
             this.TabPageCreate.Name = "TabPageCreate";
             this.TabPageCreate.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageCreate.Size = new System.Drawing.Size(701, 283);
+            this.TabPageCreate.Size = new System.Drawing.Size(701, 310);
             this.TabPageCreate.TabIndex = 0;
             this.TabPageCreate.Text = "Creating page";
             this.TabPageCreate.UseVisualStyleBackColor = true;
             // 
+            // ComboBoxCreatePageSelectedObjects
+            // 
+            this.ComboBoxCreatePageSelectedObjects.FormattingEnabled = true;
+            this.ComboBoxCreatePageSelectedObjects.Location = new System.Drawing.Point(553, 120);
+            this.ComboBoxCreatePageSelectedObjects.Name = "ComboBoxCreatePageSelectedObjects";
+            this.ComboBoxCreatePageSelectedObjects.Size = new System.Drawing.Size(139, 24);
+            this.ComboBoxCreatePageSelectedObjects.TabIndex = 34;
+            this.ComboBoxCreatePageSelectedObjects.Visible = false;
+            this.ComboBoxCreatePageSelectedObjects.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePageSelectedObjects_SelectedIndexChanged);
+            // 
+            // LblCreatePageSelectedObject
+            // 
+            this.LblCreatePageSelectedObject.AutoSize = true;
+            this.LblCreatePageSelectedObject.Location = new System.Drawing.Point(435, 120);
+            this.LblCreatePageSelectedObject.Name = "LblCreatePageSelectedObject";
+            this.LblCreatePageSelectedObject.Size = new System.Drawing.Size(112, 17);
+            this.LblCreatePageSelectedObject.TabIndex = 33;
+            this.LblCreatePageSelectedObject.Text = "Selected objects";
+            this.LblCreatePageSelectedObject.Visible = false;
+            // 
             // BtnCreatePageClear
             // 
-            this.BtnCreatePageClear.Location = new System.Drawing.Point(283, 228);
+            this.BtnCreatePageClear.Location = new System.Drawing.Point(283, 254);
             this.BtnCreatePageClear.Name = "BtnCreatePageClear";
             this.BtnCreatePageClear.Size = new System.Drawing.Size(157, 37);
             this.BtnCreatePageClear.TabIndex = 32;
@@ -129,7 +171,7 @@
             // 
             // BtnCreatePageSave
             // 
-            this.BtnCreatePageSave.Location = new System.Drawing.Point(535, 228);
+            this.BtnCreatePageSave.Location = new System.Drawing.Point(535, 254);
             this.BtnCreatePageSave.Name = "BtnCreatePageSave";
             this.BtnCreatePageSave.Size = new System.Drawing.Size(157, 37);
             this.BtnCreatePageSave.TabIndex = 31;
@@ -223,7 +265,7 @@
             "Gallery"});
             this.ComboBoxCreatePageSelectClass.Location = new System.Drawing.Point(11, 38);
             this.ComboBoxCreatePageSelectClass.Name = "ComboBoxCreatePageSelectClass";
-            this.ComboBoxCreatePageSelectClass.Size = new System.Drawing.Size(121, 24);
+            this.ComboBoxCreatePageSelectClass.Size = new System.Drawing.Size(156, 24);
             this.ComboBoxCreatePageSelectClass.TabIndex = 18;
             this.ComboBoxCreatePageSelectClass.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePageSelectClass_SelectedIndexChanged);
             // 
@@ -467,6 +509,7 @@
             this.RichTextBoxDeletePageInfo.Size = new System.Drawing.Size(506, 174);
             this.RichTextBoxDeletePageInfo.TabIndex = 34;
             this.RichTextBoxDeletePageInfo.Text = "";
+            this.RichTextBoxDeletePageInfo.Visible = false;
             // 
             // BtnDeletePageCancel
             // 
@@ -476,6 +519,7 @@
             this.BtnDeletePageCancel.TabIndex = 33;
             this.BtnDeletePageCancel.Text = "Cancel";
             this.BtnDeletePageCancel.UseVisualStyleBackColor = true;
+            this.BtnDeletePageCancel.Visible = false;
             // 
             // LblDeletePageInfo
             // 
@@ -485,6 +529,7 @@
             this.LblDeletePageInfo.Size = new System.Drawing.Size(113, 17);
             this.LblDeletePageInfo.TabIndex = 32;
             this.LblDeletePageInfo.Text = "Info about object";
+            this.LblDeletePageInfo.Visible = false;
             // 
             // BtnDeletePageDelete
             // 
@@ -494,6 +539,7 @@
             this.BtnDeletePageDelete.TabIndex = 31;
             this.BtnDeletePageDelete.Text = "Delete";
             this.BtnDeletePageDelete.UseVisualStyleBackColor = true;
+            this.BtnDeletePageDelete.Visible = false;
             // 
             // ComboBoxDeletePageSelectObject
             // 
@@ -502,6 +548,7 @@
             this.ComboBoxDeletePageSelectObject.Name = "ComboBoxDeletePageSelectObject";
             this.ComboBoxDeletePageSelectObject.Size = new System.Drawing.Size(121, 24);
             this.ComboBoxDeletePageSelectObject.TabIndex = 20;
+            this.ComboBoxDeletePageSelectObject.Visible = false;
             // 
             // LblDeletePageObject
             // 
@@ -511,6 +558,7 @@
             this.LblDeletePageObject.Size = new System.Drawing.Size(89, 17);
             this.LblDeletePageObject.TabIndex = 19;
             this.LblDeletePageObject.Text = "Select object";
+            this.LblDeletePageObject.Visible = false;
             // 
             // ComboBoxDeletePageSelectClass
             // 
@@ -523,6 +571,7 @@
             this.ComboBoxDeletePageSelectClass.Name = "ComboBoxDeletePageSelectClass";
             this.ComboBoxDeletePageSelectClass.Size = new System.Drawing.Size(121, 24);
             this.ComboBoxDeletePageSelectClass.TabIndex = 18;
+            this.ComboBoxDeletePageSelectClass.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDeletePageSelectClass_SelectedIndexChanged);
             // 
             // LblDeletePageClass
             // 
@@ -533,31 +582,129 @@
             this.LblDeletePageClass.TabIndex = 17;
             this.LblDeletePageClass.Text = "Select class";
             // 
-            // ComboBoxCreatePageSelectedObjects
+            // groupBox1
             // 
-            this.ComboBoxCreatePageSelectedObjects.FormattingEnabled = true;
-            this.ComboBoxCreatePageSelectedObjects.Location = new System.Drawing.Point(553, 120);
-            this.ComboBoxCreatePageSelectedObjects.Name = "ComboBoxCreatePageSelectedObjects";
-            this.ComboBoxCreatePageSelectedObjects.Size = new System.Drawing.Size(139, 24);
-            this.ComboBoxCreatePageSelectedObjects.TabIndex = 34;
-            this.ComboBoxCreatePageSelectedObjects.Visible = false;
-            this.ComboBoxCreatePageSelectedObjects.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePageSelectedObjects_SelectedIndexChanged);
+            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Enabled = false;
+            this.groupBox1.Location = new System.Drawing.Point(11, 219);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(156, 75);
+            this.groupBox1.TabIndex = 37;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Mode\'s types";
             // 
-            // LblCreatePageSelectedObject
+            // checkBox1
             // 
-            this.LblCreatePageSelectedObject.AutoSize = true;
-            this.LblCreatePageSelectedObject.Location = new System.Drawing.Point(435, 120);
-            this.LblCreatePageSelectedObject.Name = "LblCreatePageSelectedObject";
-            this.LblCreatePageSelectedObject.Size = new System.Drawing.Size(112, 17);
-            this.LblCreatePageSelectedObject.TabIndex = 33;
-            this.LblCreatePageSelectedObject.Text = "Selected objects";
-            this.LblCreatePageSelectedObject.Visible = false;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(7, 49);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(66, 21);
+            this.checkBox1.TabIndex = 1;
+            this.checkBox1.Text = "Video";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(7, 22);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(67, 21);
+            this.checkBox2.TabIndex = 0;
+            this.checkBox2.Text = "Photo";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(11, 180);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(156, 24);
+            this.comboBox1.TabIndex = 36;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(11, 154);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 17);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "Select object";
+            // 
+            // GroupBoxCreatePageSelectWorkMode
+            // 
+            this.GroupBoxCreatePageSelectWorkMode.Controls.Add(this.RadioButtonCreatePageEditMode);
+            this.GroupBoxCreatePageSelectWorkMode.Controls.Add(this.RadioButtonCreatePageCreateMode);
+            this.GroupBoxCreatePageSelectWorkMode.Location = new System.Drawing.Point(11, 68);
+            this.GroupBoxCreatePageSelectWorkMode.Name = "GroupBoxCreatePageSelectWorkMode";
+            this.GroupBoxCreatePageSelectWorkMode.Size = new System.Drawing.Size(156, 83);
+            this.GroupBoxCreatePageSelectWorkMode.TabIndex = 38;
+            this.GroupBoxCreatePageSelectWorkMode.TabStop = false;
+            this.GroupBoxCreatePageSelectWorkMode.Text = "Choose work mode";
+            // 
+            // RadioButtonCreatePageCreateMode
+            // 
+            this.RadioButtonCreatePageCreateMode.AutoSize = true;
+            this.RadioButtonCreatePageCreateMode.Location = new System.Drawing.Point(3, 26);
+            this.RadioButtonCreatePageCreateMode.Name = "RadioButtonCreatePageCreateMode";
+            this.RadioButtonCreatePageCreateMode.Size = new System.Drawing.Size(121, 21);
+            this.RadioButtonCreatePageCreateMode.TabIndex = 0;
+            this.RadioButtonCreatePageCreateMode.TabStop = true;
+            this.RadioButtonCreatePageCreateMode.Text = "Creating mode";
+            this.RadioButtonCreatePageCreateMode.UseVisualStyleBackColor = true;
+            // 
+            // RadioButtonCreatePageEditMode
+            // 
+            this.RadioButtonCreatePageEditMode.AutoSize = true;
+            this.RadioButtonCreatePageEditMode.Location = new System.Drawing.Point(3, 53);
+            this.RadioButtonCreatePageEditMode.Name = "RadioButtonCreatePageEditMode";
+            this.RadioButtonCreatePageEditMode.Size = new System.Drawing.Size(111, 21);
+            this.RadioButtonCreatePageEditMode.TabIndex = 1;
+            this.RadioButtonCreatePageEditMode.TabStop = true;
+            this.RadioButtonCreatePageEditMode.Text = "Editing mode";
+            this.RadioButtonCreatePageEditMode.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(283, 164);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(130, 22);
+            this.textBox1.TabIndex = 42;
+            this.textBox1.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(173, 163);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 17);
+            this.label2.TabIndex = 41;
+            this.label2.Text = "Length of video";
+            this.label2.Visible = false;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(283, 122);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(130, 22);
+            this.textBox2.TabIndex = 40;
+            this.textBox2.Visible = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(173, 121);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 17);
+            this.label3.TabIndex = 39;
+            this.label3.Text = "Title";
+            this.label3.Visible = false;
             // 
             // MediaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 337);
+            this.ClientSize = new System.Drawing.Size(734, 364);
             this.Controls.Add(this.TabControlMain);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MediaForm";
@@ -571,6 +718,10 @@
             this.GroupBoxEditPageModeType.PerformLayout();
             this.TabPageDelete.ResumeLayout(false);
             this.TabPageDelete.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.GroupBoxCreatePageSelectWorkMode.ResumeLayout(false);
+            this.GroupBoxCreatePageSelectWorkMode.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -623,6 +774,18 @@
         private System.Windows.Forms.Label LblEditPageLower;
         private System.Windows.Forms.ComboBox ComboBoxCreatePageSelectedObjects;
         private System.Windows.Forms.Label LblCreatePageSelectedObject;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox GroupBoxCreatePageSelectWorkMode;
+        private System.Windows.Forms.RadioButton RadioButtonCreatePageEditMode;
+        private System.Windows.Forms.RadioButton RadioButtonCreatePageCreateMode;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 
