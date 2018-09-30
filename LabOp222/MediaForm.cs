@@ -23,10 +23,10 @@ namespace LabOp222
 
             HelpedList = new List<MediaInfo>();
 
-            Photo firstPhoto = new Photo("First Ph");
+            Photo firstPhoto = new Photo("First Ph") { Mode = new ProfessionalMode()};
             Photo secondPhoto = new Photo("Second Ph");
 
-            Video firstVideo = new Video("First Vid");
+            Video firstVideo = new Video("First Vid") { Mode = new TimeLaps()};
             Video secondVideo = new Video("Second Vid");
 
             Gallery gallery = new Gallery("Main gallery");
@@ -305,19 +305,9 @@ namespace LabOp222
         {
             ChangeWorkMode(RadioButtonCreatePageCreateMode.Checked);
         }
-        #endregion
-
-        #region Editing page
-
-        #endregion
+        #endregion       
 
         #region Deleting page
-
-        //private void ComboBoxDeletePageSelectClass_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    if(TabControlMain.SelectedIndex == 1 && ComboBoxDeletePageSelectClass.Sele ComboBoxDeletePageSelectClass.Focused)
-        //}
-
         private void ComboBoxDeletePageSelectClass_SelectedValueChanged(object sender, EventArgs e)
         {
             if (TabControlMain.SelectedIndex == 1 && ComboBoxDeletePageSelectClass.SelectedItem != null && ComboBoxDeletePageSelectClass.Focused)
@@ -401,14 +391,10 @@ namespace LabOp222
             BtnDeletePageDelete.Visible = deleteButton;
         }
 
-
-        #endregion
-
         private void BtnDeletePageCancel_Click(object sender, EventArgs e)
         {
             DPHideElements();
         }
-
         private void BtnDeletePageDelete_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Deleting", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -423,5 +409,6 @@ namespace LabOp222
             else
                 MessageBox.Show("Okey");
         }
+        #endregion
     }
 }
