@@ -14,6 +14,13 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222
 {
+    /*TODO:
+     * change selectedIndexChanged on SelectedValueChanged in Create page
+     * refactor
+     * using modes
+     * hidding edit combo box when edit
+     * comment it all
+    */
     public partial class MediaForm : Form
     {
         List<MediaInfo> HelpedList = new List<MediaInfo>();
