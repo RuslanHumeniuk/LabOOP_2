@@ -25,7 +25,7 @@ namespace LabOp222
         public MediaInfo()
         {
             Id = Guid.NewGuid();
-            Title = new DateTime().ToUniversalTime().ToString();
+            Title = DateTime.Now.ToLocalTime().ToString();
         }
 
         public void ChangeTitle(string newTitle)
