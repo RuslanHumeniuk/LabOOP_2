@@ -375,6 +375,7 @@
             // 
             // RichTextBoxDeletePageInfo
             // 
+            this.RichTextBoxDeletePageInfo.Enabled = false;
             this.RichTextBoxDeletePageInfo.Location = new System.Drawing.Point(189, 31);
             this.RichTextBoxDeletePageInfo.Name = "RichTextBoxDeletePageInfo";
             this.RichTextBoxDeletePageInfo.Size = new System.Drawing.Size(506, 174);
