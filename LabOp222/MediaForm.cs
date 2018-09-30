@@ -10,12 +10,17 @@ using System.Windows.Forms;
 
 using LabOp222.Models;
 using LabOp222.Models.Modes;
+using LabOp222.Models.Interfaces;
 
 namespace LabOp222
 {
     public partial class MediaForm : Form
     {
         List<MediaInfo> HelpedList = new List<MediaInfo>();
+        MediaInfo[] Modes = new MediaInfo[] { new DefaultMode(), new MakeUp(), new Panorame(), new ProfessionalMode(), new TimeLaps() };
+        MediaInfo[] PhotoModes = new MediaInfo[] { new DefaultMode(), new MakeUp(), new Panorame(), new ProfessionalMode() };
+        MediaInfo[] VideoModes = new MediaInfo[] { new DefaultMode(), new MakeUp(), new ProfessionalMode(), new TimeLaps() };
+        MediaInfo CurrentMediaFile = null;
 
         public MediaForm()
         {
@@ -33,37 +38,118 @@ namespace LabOp222
             Gallery secondGallery = new Gallery("Second gallery");
 
             gallery.AddPhoto(firstPhoto);
-            gallery.AddVideo(secondVideo);
-
-            RadioButtonCreatePageCreateMode.Checked = true;
+            gallery.AddVideo(secondVideo);            
         }
 
         #region Creating page
 
-        private void CPShowPhotoInfo()
-        {
-            CPShowLabels("Title", null, null, null, null);
-            CPShowTextBoxes(String.Empty, null);
-            CPShowComboBoxes(null, null, null);
-            CPShowButtons(true, true);
+        private void ChangeWorkMode(bool isCreateMode)
+        {            
+            if (isCreateMode)
+            {
+                CPHideEditMode();
+                switch (ComboBoxCreatePageSelectClass.SelectedIndex)
+                {
+                    case 0:
+                        {
+                            CPShowPhotoInfo(null);
+                            break;
+                        }
+                    case 1:
+                        {
+                            CPShowVideoInfo(null);
+                            break;
+                        }
+                    case 2:
+                        {
+                            CPShowGalleryInfo(null);
+                            break;
+                        }
+                }
+            }
+            else
+            {
+                CPHideCreateMode();
+                CPUpdateLabels("Select object", null, null, null, null, null, null);
+                switch (ComboBoxCreatePageSelectClass.SelectedIndex)
+                {
+                    case 0:
+                        {
+                            CPUpdateComboBoxes(null, null, null, Photo.AllPhotos.ToArray());
+                            break;
+                        }
+                    case 1:
+                        {
+                            CPUpdateComboBoxes(null, null, null, Video.AllVideos.ToArray());
+                            break;
+                        }
+                    case 2:
+                        {
+                            CPUpdateComboBoxes(null, null, null, Gallery.Galleries.ToArray());
+                            break;
+                        }
+                    case 3:
+                        {
+                            CPUpdateComboBoxes(null, null, null, Modes);
+                            break;
+                        }
+                }                
+            }
         }
-        private void CPShowVideoInfo()
+        
+        private void CPShowPhotoInfo(Photo photo)
         {
-            CPShowLabels("Title", "Length of video", null, null, null);
-            CPShowTextBoxes(String.Empty, String.Empty);
-            CPShowComboBoxes(null, null, null);
-            CPShowButtons(true, true);
-        }
-        private void CPShowGalleryInfo()
+            CurrentMediaFile = photo;
+
+            CPUpdateGroupBoxes(2, null);
+            CPUpdateLabels(null, "Title", null, null, null, null, null);
+            CPUpdateTextBoxes(photo?.Title ?? String.Empty, null, null);
+            CPUpdateComboBoxes(null, null, null, null);
+            CPUpdateButtons(true, true);
+        }        
+        private void CPShowVideoInfo(Video video)
         {
-            CPShowLabels("Title", null, "All photo", "All video", "Seleted objects");
-            CPShowTextBoxes(String.Empty, null);
-            CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray());
-            CPShowButtons(true, true);
+            CurrentMediaFile = video;
+
+            CPUpdateGroupBoxes(2, null);
+            CPUpdateLabels(null, "Title", "Length of video", null, null, null, null);
+            CPUpdateTextBoxes(video?.Title ?? String.Empty, video?.Length.ToString() ?? String.Empty, null);
+            CPUpdateComboBoxes(null, null, null, null);
+            CPUpdateButtons(true, true);
+        }        
+        private void CPShowGalleryInfo(Gallery gallery)
+        {
+            CurrentMediaFile = gallery;
+            HelpedList = gallery?.Files ?? new List<MediaInfo>();
+            CPUpdateGroupBoxes(2, null);
+            CPUpdateLabels(null, "Title", null, null, "All photo", "All video", "Selected files");
+            CPUpdateTextBoxes(gallery?.Title ?? String.Empty, null, null);
+            CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);
+            CPUpdateButtons(true, true);
+        }        
+        private void CPShowModeInfo(MediaInfo mode)
+        {
+            CurrentMediaFile = mode;
+            bool isPhotoMode = mode is IPhotoMode;
+            bool isVideoMode = mode is IVideoMode;
+
+            CPUpdateButtons(mode != null, mode != null);
+            CPUpdateModeGroupBox(new bool[] { isPhotoMode, isVideoMode });
+            CPUpdateLabels("Select mode", "Title", isPhotoMode ? "Photo message" : null, isVideoMode ? "Video message" : null, null, null, null);
+            //TODO: user can not change mode title
+            CPUpdateTextBoxes(mode?.GetType().Name, isPhotoMode ? (mode as IPhotoMode).PhotoMessage : null, isVideoMode ? (mode as IVideoMode).VideoMessage : null);
         }
 
-        private void CPShowLabels(string titleLabel, string lengthLabel, string photoLabel, string videoLabel, string selectedObjectLabel)
+        private void CPUpdateLabels(string editObjLbl, string titleLabel, string middleLbl, string lowerLbl, string photoLabel, string videoLabel, string selectedObjectLabel)
         {
+            if (editObjLbl != null)
+            {
+                LblCreatePageSelectEditObject.Text = editObjLbl;
+                LblCreatePageSelectEditObject.Visible = true;
+            }
+            else
+                LblCreatePageSelectEditObject.Visible = false;
+
             if (titleLabel != null)
             {
                 LblCreatePageTitle.Text = titleLabel;
@@ -72,13 +158,21 @@ namespace LabOp222
             else
                 LblCreatePageTitle.Visible = false;
 
-            if (lengthLabel != null)
+            if (middleLbl != null)
             {
-                LblCreatePageMiddle.Text = lengthLabel;
+                LblCreatePageMiddle.Text = middleLbl;
                 LblCreatePageMiddle.Visible = true;
             }
             else
                 LblCreatePageMiddle.Visible = false;
+
+            if (lowerLbl != null)
+            {
+                LblCreatePageLower.Text = lowerLbl;
+                LblCreatePageLower.Visible = true;
+            }
+            else
+                LblCreatePageLower.Visible = false;
 
             if (photoLabel != null)
             {
@@ -103,7 +197,7 @@ namespace LabOp222
             }
             else LblCreatePageSelectedObject.Visible = false;
         }
-        private void CPShowTextBoxes(string titleTextBox, string lengthTextBox)
+        private void CPUpdateTextBoxes(string titleTextBox, string middleTextBox, string lowerTextBox)
         {
             if (titleTextBox != null)
             {
@@ -112,44 +206,117 @@ namespace LabOp222
             }
             else TextBoxCreatePageTitle.Visible = false;
 
-            if (lengthTextBox != null)
+            if (middleTextBox != null)
             {
-                TextBoxCreatePageMiddle.Text = lengthTextBox;
+                TextBoxCreatePageMiddle.Text = middleTextBox;
                 TextBoxCreatePageMiddle.Visible = true;
             }
             else TextBoxCreatePageMiddle.Visible = false;
 
-        }
-        private void CPShowComboBoxes(object[] upperSource, object[] lowerSource, MediaInfo[] dataSource)
-        {            
-            if (upperSource != null)
+            if (lowerTextBox != null)
             {
-                ComboBoxCreatePagePhotos.DataSource = upperSource;
+                TextBoxCreatePageLower.Text = lowerTextBox;
+                TextBoxCreatePageLower.Visible = true;
+            }
+            else TextBoxCreatePageLower.Visible = false;
+
+        }
+        private void CPUpdateComboBoxes(object[] photos, object[] videos, MediaInfo[] selectedMediaFiles, MediaInfo[] objectsToEdit)
+        {            
+            if (photos != null)
+            {
+                ComboBoxCreatePagePhotos.DataSource = photos;
                 ComboBoxCreatePagePhotos.SelectedIndex = -1;
                 ComboBoxCreatePagePhotos.Visible = true;
             }
             else ComboBoxCreatePagePhotos.Visible = false;
 
-            if (lowerSource != null)
+            if (videos != null)
             {
-                ComboBoxCreatePageVideos.DataSource = lowerSource;      
+                ComboBoxCreatePageVideos.DataSource = videos;      
                 ComboBoxCreatePageVideos.SelectedIndex = -1;
                 ComboBoxCreatePageVideos.Visible = true;
             }
             else ComboBoxCreatePageVideos.Visible = false;
 
-            if (dataSource != null)
+            if (selectedMediaFiles != null)
             {
-                ComboBoxCreatePageSelectedObjects.DataSource = dataSource;
+                ComboBoxCreatePageSelectedObjects.DataSource = selectedMediaFiles;
                 ComboBoxCreatePageSelectedObjects.SelectedIndex = -1;                
                 ComboBoxCreatePageSelectedObjects.Visible = true;
             }
             else ComboBoxCreatePageSelectedObjects.Visible = false;
+
+            if (objectsToEdit != null)
+            {
+                ComboBoxCreatePageEditObject.DataSource = objectsToEdit;
+                ComboBoxCreatePageEditObject.SelectedIndex = -1;
+                ComboBoxCreatePageEditObject.Visible = true;
+            }
+            else ComboBoxCreatePageEditObject.Visible = false;
         }
-        private void CPShowButtons(bool clearBtn, bool saveBtn)
+        private void CPUpdateButtons(bool clearBtn, bool saveBtn)
         {
             BtnCreatePageClear.Visible = clearBtn;
             BtnCreatePageSave.Visible = saveBtn;
+        }
+
+        private void CPUpdateGroupBoxes(byte workMode, bool[] modes)
+        {
+            CPUpdateWorkGroupBox(workMode);
+            CPUpdateModeGroupBox(modes);
+        }
+        private void CPUpdateWorkGroupBox(byte workMode)
+        {
+            GroupBoxCreatePageSelectWorkMode.Visible = workMode != 0;
+
+            switch (workMode)
+            {
+                case 2:
+                    {
+                        GroupBoxCreatePageSelectWorkMode.Enabled = true;
+                        break;
+                    }
+                case 1:
+                    {
+                        GroupBoxCreatePageSelectWorkMode.Enabled = false;                        
+                        RadioButtonCreatePageEditMode.Checked = true;                        
+                        break;
+                    }
+                case 0:
+                    {
+                        RadioButtonCreatePageCreateMode.Checked = false;
+                        RadioButtonCreatePageEditMode.Checked = false;
+                        break;
+                    }
+            }
+        }
+        private void CPUpdateModeGroupBox(bool[] modes)
+        {
+
+            if (modes != null)
+            {
+                GroupBoxCreatePageModeType.Visible = true;
+                CheckBoxCreatePagePhotoMode.Checked = modes[0];
+                CheckBoxCreatePageVideoMode.Checked = modes[1];
+            }
+            else
+            {
+                GroupBoxCreatePageModeType.Visible = false;
+                CheckBoxCreatePagePhotoMode.Checked = false;
+                CheckBoxCreatePageVideoMode.Checked = false;
+            }
+
+        }
+
+
+        private void CPClearAndHideAll()
+        {
+            CPHideEditMode();
+            CPHideCreateMode();
+            CPUpdateComboBoxes(null, null, null, null);
+            CPUpdateTextBoxes(null, null, null);
+            CPUpdateLabels(null, null, null, null, null, null, null);
         }
 
         private void CPClearFields()
@@ -172,7 +339,7 @@ namespace LabOp222
                         break;
                     }
             }
-        }
+        }        
         private void CPClearAllFields(bool textBoxTitle, bool textBoxLength, bool helpedList)
         {
             if (textBoxTitle)
@@ -186,35 +353,90 @@ namespace LabOp222
             if (helpedList)
             {
                 HelpedList = new List<MediaInfo>();
-                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray());
+                CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);
             }
-        }               
+        }
+        
+        private void CPHideCreateMode()
+        {
+            CPUpdateLabels("Select obj", null, null, null, null, null, null);
+            CPUpdateTextBoxes(null, null, null);
+            CPUpdateButtons(false, false);
+
+            ComboBoxCreatePagePhotos.Visible = false;
+            ComboBoxCreatePageVideos.Visible = false;
+            ComboBoxCreatePageSelectedObjects.Visible = false;
+        }
+        private void CPHideEditMode()
+        {
+            CPUpdateLabels(null, null, null, null, null, null, null);
+            CPUpdateModeGroupBox(null);
+            ComboBoxCreatePageEditObject.Visible = false;
+        }        
+
+        private void RadioButtonCreatePageCreateMode_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeWorkMode(RadioButtonCreatePageCreateMode.Checked);
+        }
+
 
         private void ComboBoxCreatePageSelectClass_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectClass.SelectedIndex != -1)
             {
+                CPHideCreateMode();
+                CPHideEditMode();
                 HelpedList = new List<MediaInfo>();
                 switch (ComboBoxCreatePageSelectClass.SelectedIndex)
                 {
-                    case 0:
-                        {
-                            CPShowPhotoInfo();
-                            break;
-                        }
+                    case 0:                        
                     case 1:
-                        {
-                            CPShowVideoInfo();
-                            break;
-                        }
                     case 2:
                         {
-                            CPShowGalleryInfo();
+                            CPUpdateWorkGroupBox(2);                            
+                            break;
+                        }
+                    case 3:
+                        {
+                            CPUpdateWorkGroupBox(1);
+                            ChangeWorkMode(false);
                             break;
                         }
                 }
             }
-        }        
+        }
+
+        private void ComboBoxCreatePageModes_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageEditObject.SelectedItem != null && ComboBoxCreatePageEditObject.Focused)
+            {
+                MediaInfo obj = ComboBoxCreatePageEditObject.SelectedItem as MediaInfo;
+                switch (ComboBoxCreatePageSelectClass.SelectedIndex)
+                {                    
+                    case 0:
+                        {
+                            CPShowPhotoInfo(obj as Photo);
+                            break;
+                        }
+                    case 1:
+                        {
+                            CPShowVideoInfo(obj as Video);
+                            break;
+                        }
+                    case 2:
+                        {
+                            CPShowGalleryInfo(obj as Gallery);
+                            break;
+                        }
+                    case 3:
+                        {
+                            CPShowModeInfo(obj);
+                            break;
+                        }
+                }
+            }
+        }
+       
 
         private void ComboBoxCreatePagePhotos_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -223,7 +445,7 @@ namespace LabOp222
                 if(!HelpedList.Contains(ComboBoxCreatePagePhotos.SelectedItem as Photo))
                     HelpedList.Add(ComboBoxCreatePagePhotos.SelectedItem as Photo);
 
-                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray());                
+                CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);                
             }
         }
         private void ComboBoxCreatePageVideos_SelectedIndexChanged(object sender, EventArgs e)
@@ -233,7 +455,7 @@ namespace LabOp222
                 if (!HelpedList.Contains(ComboBoxCreatePageVideos.SelectedItem as Video))
                     HelpedList.Add(ComboBoxCreatePageVideos.SelectedItem as Video);
 
-                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray());                
+                CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);                
             }
         }
         private void ComboBoxCreatePageSelectedObjects_SelectedIndexChanged(object sender, EventArgs e)
@@ -243,68 +465,105 @@ namespace LabOp222
                 if (HelpedList.Contains(ComboBoxCreatePageSelectedObjects.SelectedItem as MediaInfo))
                     HelpedList.Remove(ComboBoxCreatePageSelectedObjects.SelectedItem as MediaInfo);                      
 
-                CPShowComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray());
+                CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);
             }
         }       
         
+
         private void BtnCreatePageClear_Click(object sender, EventArgs e)
         {
             CPClearFields();
         }
         private void BtnCreatePageSave_Click(object sender, EventArgs e)
         {
-            MediaInfo newObj = null;
-
             try
             {
-                switch (ComboBoxCreatePageSelectClass.SelectedIndex)
+                if(CurrentMediaFile == null)
                 {
-                    case 0:
-                        {
-                            newObj = new Photo() { Title = TextBoxCreatePageTitle.Text };                            
-                            break;
-                        }
-                    case 1:
-                        {
-                            if (int.TryParse(TextBoxCreatePageMiddle.Text, out int length) && length >= 0) 
+                    MediaInfo newObj = null;
+
+                    switch (ComboBoxCreatePageSelectClass.SelectedIndex)
+                    {
+                        case 0:
                             {
-                                newObj = new Video() { Title = TextBoxCreatePageTitle.Text, Length = length } ;                                
+                                newObj = new Photo() { Title = TextBoxCreatePageTitle.Text };
+                                break;
                             }
-                            else throw new ArgumentException("Please input non-negative integer");
-                            
-                            break;
-                        }
-                    case 2:
-                        {
-                            newObj = new Gallery(TextBoxCreatePageTitle.Text) { Files = HelpedList };                            
-                            break;
-                        }
+                        case 1:
+                            {
+                                if (int.TryParse(TextBoxCreatePageMiddle.Text, out int length) && length >= 0)
+                                {
+                                    newObj = new Video() { Title = TextBoxCreatePageTitle.Text, Length = length };
+                                }
+                                else throw new ArgumentException("Please input non-negative integer");
+
+                                break;
+                            }
+                        case 2:
+                            {
+                                newObj = new Gallery(TextBoxCreatePageTitle.Text) { Files = HelpedList };
+                                break;
+                            }
+                    }
+                    MessageBox.Show(newObj.ToString() + " added");
                 }
-                CPClearFields();
-                MessageBox.Show(newObj.ToString() + " added");
+                else
+                {
+                    switch (ComboBoxCreatePageSelectClass.SelectedIndex)
+                    {
+                        case 0:
+                            {
+                                Photo currentPhoto = CurrentMediaFile as Photo;
+                                currentPhoto.Title = TextBoxCreatePageTitle.Text;
+                                currentPhoto.Mode = ComboBoxCreatePagePhotos.SelectedItem as IPhotoMode;
+                                
+                                break;
+                            }
+                        case 1:
+                            {
+                                if (int.TryParse(TextBoxCreatePageMiddle.Text, out int length) && length >= 0)
+                                {
+                                    Video currentVideo = CurrentMediaFile as Video;
+                                    currentVideo.Title = TextBoxCreatePageTitle.Text;
+                                    currentVideo.Length = length;
+                                    currentVideo.Mode = ComboBoxCreatePageVideos.SelectedItem as IVideoMode;
+                                }
+                                else throw new ArgumentException("Please input non-negative integer");
+
+                                break;
+                            }
+                        case 2:
+                            {
+                                Gallery currentGallery = CurrentMediaFile as Gallery;
+                                currentGallery.Title = TextBoxCreatePageTitle.Text;
+                                currentGallery.Files = HelpedList;                                
+                                break;
+                            }
+                        case 3:
+                            {
+                                if(CurrentMediaFile is IPhotoMode)
+                                {
+                                    IPhotoMode mode = CurrentMediaFile as IPhotoMode;
+                                    mode.PhotoMessage = TextBoxCreatePageMiddle.Text;
+                                }
+                                if(CurrentMediaFile is IVideoMode)
+                                {
+                                    IVideoMode mode = CurrentMediaFile as IVideoMode;
+                                    mode.VideoMessage = TextBoxCreatePageLower.Text;
+                                }
+                                break;
+                            }
+                    }
+                    MessageBox.Show(CurrentMediaFile.ToString() + " edited");                    
+                }
+
+                CPClearAndHideAll();          
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }           
-        }
-
-        private void ChangeWorkMode(bool isCreateMode)
-        {
-            if (isCreateMode)
-            {
-                
-            }
-            else
-            {
-
-            }
-        }
-
-        private void RadioButtonCreatePageCreateMode_CheckedChanged(object sender, EventArgs e)
-        {
-            ChangeWorkMode(RadioButtonCreatePageCreateMode.Checked);
-        }
+        }           
         #endregion       
 
         #region Deleting page
@@ -409,6 +668,13 @@ namespace LabOp222
             else
                 MessageBox.Show("Okey");
         }
+
         #endregion
+
+        private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CPClearFields();
+            DPHideElements();
+        }
     }
 }
