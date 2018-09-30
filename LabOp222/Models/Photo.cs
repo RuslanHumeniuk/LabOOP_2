@@ -11,9 +11,26 @@ namespace LabOp222.Models
 {
     internal class Photo : MediaInfo
     {
-        public static List<Photo> AllPhotos = new List<Photo>();
+        public static List<Photo> AllPhotos = new List<Photo>();        
 
-        //private byte[] bytesOfPhoto { get; set; }
+        public bool IsInGallery
+        {
+            get => Gallery != null;
+        }
+
+        public Gallery Gallery
+        {
+            get
+            {
+                foreach (var gallery in Gallery.Galleries)
+                {
+                    if (gallery.Photos.Contains(this))
+                        return gallery;
+                }
+                return null;
+            }            
+        }
+
         public IPhotoMode Mode { get; set; }
 
         public Photo() : base()
@@ -49,6 +66,11 @@ namespace LabOp222.Models
             else return "Please select some mode!";
         }
 
+        public override string GetInfo()
+        {
+            return base.GetInfo() + "\nGallery: " + (Gallery?.Title ?? "no one") + "\nCurrent mode: " + Mode;
+        }
+
         public static void Delete(int index)
         {
             if (index < 0 || index >= AllPhotos.Count)
@@ -59,6 +81,7 @@ namespace LabOp222.Models
         public override void Delete()
         {
             AllPhotos.Remove(this);
+            Gallery?.RemovePhotoFromGallery(this.Id);
         }
     }
 }

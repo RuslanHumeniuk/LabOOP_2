@@ -26,6 +26,25 @@ namespace LabOp222.Models
             }
         }
 
+        public bool IsInGallery
+        {
+            get => Gallery != null;
+        }
+
+        public Gallery Gallery
+        {
+            get
+            {
+                foreach (var gallery in Gallery.Galleries)
+                {
+                    if (gallery.Videos.Contains(this))
+                        return gallery;
+                }
+                return null;
+            }
+        }
+
+
         public IVideoMode Mode { get; set; }
 
         public Video() : base()
@@ -63,6 +82,11 @@ namespace LabOp222.Models
             else return "Please select some mode";
         }
 
+        public override string GetInfo()
+        {
+            return base.GetInfo() + "\nGallery: " + (Gallery?.Title ?? "no one") + "\nCurrent mode: " + Mode + "\nLength of video: " + length;
+        }
+
         public static void Delete(int index)
         {
             if (index < 0 || index >= AllVideos.Count)
@@ -73,6 +97,7 @@ namespace LabOp222.Models
         public override void Delete()
         {
             AllVideos.Remove(this);
+            Gallery?.RemoveVideoFromGallery(this.Id);
         }
     }
 }

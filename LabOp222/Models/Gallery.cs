@@ -18,8 +18,6 @@ namespace LabOp222.Models
         {
             get
             {
-                if (photos.Count < 1)
-                    return null;
                 List<Photo> photoSet = new List<Photo>();
                 foreach (var photoGuid in photos)
                 {
@@ -46,10 +44,8 @@ namespace LabOp222.Models
         {
             get
             {
-                if (videos.Count < 1)
-                    return null;
                 List<Video> videoList = new List<Video>();
-                foreach (var videoGuid in photos)
+                foreach (var videoGuid in videos)
                 {
                     foreach (var video in Video.AllVideos)
                     {
@@ -129,11 +125,11 @@ namespace LabOp222.Models
 
         public void AddPhoto(Photo photo)
         {
-            Photos.Add(photo);
+            photos.Add(photo.Id);
         }
         public void AddVideo(Video video)
         {
-            Videos.Add(video);
+            videos.Add(video.Id);
         }
        
 
@@ -176,6 +172,24 @@ namespace LabOp222.Models
                 throw new ArgumentException(index + " is wrong video index. ");
         }
 
+        public override string GetInfo()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(base.GetInfo());
+            stringBuilder.AppendLine("Count of photos: " + photos.Count + ", count of videos: " + videos.Count);
+            stringBuilder.AppendLine("Inner files:");
+            List<MediaInfo> files = Files;
+            if (files != null)
+            {
+                foreach (var item in Files)
+                {
+                    stringBuilder.AppendLine(item.ToString());
+                }
+            }
+            else
+                stringBuilder.Append("No one file!");
+            return stringBuilder.ToString();
+        }
 
         public static void Delete(int index)
         {

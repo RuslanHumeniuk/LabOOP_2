@@ -20,6 +20,7 @@ namespace LabOp222
         public MediaForm()
         {
             InitializeComponent();
+
             HelpedList = new List<MediaInfo>();
 
             Photo firstPhoto = new Photo("First Ph");
@@ -30,6 +31,9 @@ namespace LabOp222
 
             Gallery gallery = new Gallery("Main gallery");
             Gallery secondGallery = new Gallery("Second gallery");
+
+            gallery.AddPhoto(firstPhoto);
+            gallery.AddVideo(secondVideo);
 
             RadioButtonCreatePageCreateMode.Checked = true;
         }
@@ -296,6 +300,11 @@ namespace LabOp222
 
             }
         }
+
+        private void RadioButtonCreatePageCreateMode_CheckedChanged(object sender, EventArgs e)
+        {
+            ChangeWorkMode(RadioButtonCreatePageCreateMode.Checked);
+        }
         #endregion
 
         #region Editing page
@@ -304,16 +313,115 @@ namespace LabOp222
 
         #region Deleting page
 
-        #endregion
+        //private void ComboBoxDeletePageSelectClass_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if(TabControlMain.SelectedIndex == 1 && ComboBoxDeletePageSelectClass.Sele ComboBoxDeletePageSelectClass.Focused)
+        //}
 
-        private void ComboBoxDeletePageSelectClass_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxDeletePageSelectClass_SelectedValueChanged(object sender, EventArgs e)
         {
-
+            if (TabControlMain.SelectedIndex == 1 && ComboBoxDeletePageSelectClass.SelectedItem != null && ComboBoxDeletePageSelectClass.Focused)
+            {
+                DPHideElements();
+                switch (ComboBoxDeletePageSelectClass.SelectedIndex)
+                {
+                    case 0:
+                        {
+                            DPUpdateObjList(Photo.AllPhotos.ToArray());
+                            break;
+                        }
+                    case 1:
+                        {
+                            DPUpdateObjList(Video.AllVideos.ToArray());
+                            break;
+                        }
+                    case 2:
+                        {
+                            DPUpdateObjList(Gallery.Galleries.ToArray());
+                            break;
+                        }
+                }
+                DPUpdateLabels(true, false);
+            }
+        }
+        private void ComboBoxDeletePageSelectObject_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if(TabControlMain.SelectedIndex == 1 && ComboBoxDeletePageSelectObject.SelectedItem != null && ComboBoxDeletePageSelectObject.Focused)
+            {
+                DPShowButtons(true, true);
+                DPUpdateLabels(true, true);
+                DPUpdateInfoTextBox(ComboBoxDeletePageSelectObject.SelectedItem as MediaInfo);
+            }
         }
 
-        private void RadioButtonCreatePageCreateMode_CheckedChanged(object sender, EventArgs e)
+        private void DPHideElements()
         {
-            ChangeWorkMode(RadioButtonCreatePageCreateMode.Checked);
+            DPShowButtons(false, false);
+            DPUpdateInfoTextBox(null);
+            DPUpdateObjList(null);
+            DPUpdateLabels(false, false);
+        }
+        private void DPUpdateLabels(bool selectObjectLabel, bool infoLabel)
+        {
+            LblDeletePageObject.Visible = selectObjectLabel;
+            LblDeletePageInfo.Visible = infoLabel;
+        }
+        private void DPUpdateObjList(MediaInfo[] array)
+        {
+            if (array != null)
+            {
+                ComboBoxDeletePageSelectObject.DataSource = array;
+                ComboBoxDeletePageSelectObject.SelectedIndex = -1;
+                ComboBoxDeletePageSelectObject.Visible = true;
+            }
+            else
+            {
+                ComboBoxDeletePageSelectObject.Visible = false;
+                ComboBoxDeletePageSelectObject.DataSource = null;
+            }
+            
+        }
+        private void DPUpdateInfoTextBox(MediaInfo obj)
+        {
+            if (obj != null)
+            {
+                RichTextBoxDeletePageInfo.Text = obj.GetInfo();
+                RichTextBoxDeletePageInfo.Visible = true;
+            }
+            else
+            {
+                RichTextBoxDeletePageInfo.Text = null;
+                RichTextBoxDeletePageInfo.Visible = false;
+            }          
+
+        }
+        private void DPShowButtons(bool cancelButton, bool deleteButton)
+        {
+            BtnDeletePageCancel.Visible = cancelButton;
+            BtnDeletePageDelete.Visible = deleteButton;
+        }
+
+
+        #endregion
+
+        private void BtnDeletePageCancel_Click(object sender, EventArgs e)
+        {
+            DPHideElements();
+        }
+
+        private void BtnDeletePageDelete_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Deleting", "Are you sure?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                MediaInfo obj = ComboBoxDeletePageSelectObject.SelectedItem as MediaInfo;
+                obj.Delete();
+                MessageBox.Show(obj.ToString() + " is deleted!");
+
+                ComboBoxDeletePageSelectClass.SelectedItem = null;
+                DPHideElements();
+            }
+            else
+                MessageBox.Show("Okey");
         }
     }
 }

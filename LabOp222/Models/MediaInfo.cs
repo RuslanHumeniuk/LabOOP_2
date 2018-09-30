@@ -33,6 +33,11 @@ namespace LabOp222
             Title = newTitle;
         }
 
+        public virtual string GetInfo()
+        {
+            return ToString();
+        }
+
         public override string ToString()
         {
             return GetType().Name + ": " + Title;
@@ -43,6 +48,6 @@ namespace LabOp222
             obj.Delete();
         }        
 
-        public abstract void Delete();
+        public abstract void Delete();        
     }
 }
