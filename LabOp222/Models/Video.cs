@@ -44,12 +44,21 @@ namespace LabOp222.Models
             }
         }
 
-
-        public IVideoMode Mode { get; set; }
+        private IVideoMode mode = new DefaultMode();
+        public IVideoMode Mode
+        {
+            get => mode;
+            set
+            {
+                if(value != null && value is IVideoMode)
+                {
+                    mode = value;
+                }
+            }
+        }
 
         public Video() : base()
         {
-            Mode = new DefaultMode();
             AllVideos.Add(this);
         }
         public Video(string title) : this()

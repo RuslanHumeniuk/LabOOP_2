@@ -31,7 +31,18 @@ namespace LabOp222.Models
             }            
         }
 
-        public IPhotoMode Mode { get; set; }
+        private IPhotoMode mode = new DefaultMode();
+        public IPhotoMode Mode
+        {
+            get => mode;
+            set
+            {
+                if(value != null && value is IPhotoMode)
+                {
+                    mode = value;
+                }
+            }
+        }
 
         public Photo() : base()
         {
