@@ -77,7 +77,7 @@
             this.TabControlMain.Location = new System.Drawing.Point(13, 13);
             this.TabControlMain.Name = "TabControlMain";
             this.TabControlMain.SelectedIndex = 0;
-            this.TabControlMain.Size = new System.Drawing.Size(709, 339);
+            this.TabControlMain.Size = new System.Drawing.Size(784, 339);
             this.TabControlMain.TabIndex = 0;
             this.TabControlMain.SelectedIndexChanged += new System.EventHandler(this.TabControlMain_SelectedIndexChanged);
             // 
@@ -106,7 +106,7 @@
             this.TabPageCreate.Location = new System.Drawing.Point(4, 25);
             this.TabPageCreate.Name = "TabPageCreate";
             this.TabPageCreate.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageCreate.Size = new System.Drawing.Size(701, 310);
+            this.TabPageCreate.Size = new System.Drawing.Size(776, 310);
             this.TabPageCreate.TabIndex = 0;
             this.TabPageCreate.Text = "Creating page";
             this.TabPageCreate.UseVisualStyleBackColor = true;
@@ -115,7 +115,7 @@
             // 
             this.TextBoxCreatePageLower.Location = new System.Drawing.Point(283, 122);
             this.TextBoxCreatePageLower.Name = "TextBoxCreatePageLower";
-            this.TextBoxCreatePageLower.Size = new System.Drawing.Size(130, 22);
+            this.TextBoxCreatePageLower.Size = new System.Drawing.Size(165, 22);
             this.TextBoxCreatePageLower.TabIndex = 40;
             this.TextBoxCreatePageLower.Visible = false;
             // 
@@ -221,9 +221,9 @@
             // ComboBoxCreatePageSelectedObjects
             // 
             this.ComboBoxCreatePageSelectedObjects.FormattingEnabled = true;
-            this.ComboBoxCreatePageSelectedObjects.Location = new System.Drawing.Point(553, 120);
+            this.ComboBoxCreatePageSelectedObjects.Location = new System.Drawing.Point(600, 122);
             this.ComboBoxCreatePageSelectedObjects.Name = "ComboBoxCreatePageSelectedObjects";
-            this.ComboBoxCreatePageSelectedObjects.Size = new System.Drawing.Size(139, 24);
+            this.ComboBoxCreatePageSelectedObjects.Size = new System.Drawing.Size(165, 24);
             this.ComboBoxCreatePageSelectedObjects.TabIndex = 34;
             this.ComboBoxCreatePageSelectedObjects.Visible = false;
             this.ComboBoxCreatePageSelectedObjects.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePageSelectedObjects_SelectedIndexChanged);
@@ -231,7 +231,7 @@
             // LblCreatePageSelectedObject
             // 
             this.LblCreatePageSelectedObject.AutoSize = true;
-            this.LblCreatePageSelectedObject.Location = new System.Drawing.Point(435, 120);
+            this.LblCreatePageSelectedObject.Location = new System.Drawing.Point(465, 122);
             this.LblCreatePageSelectedObject.Name = "LblCreatePageSelectedObject";
             this.LblCreatePageSelectedObject.Size = new System.Drawing.Size(112, 17);
             this.LblCreatePageSelectedObject.TabIndex = 33;
@@ -240,9 +240,9 @@
             // 
             // BtnCreatePageClear
             // 
-            this.BtnCreatePageClear.Location = new System.Drawing.Point(283, 254);
+            this.BtnCreatePageClear.Location = new System.Drawing.Point(283, 252);
             this.BtnCreatePageClear.Name = "BtnCreatePageClear";
-            this.BtnCreatePageClear.Size = new System.Drawing.Size(157, 37);
+            this.BtnCreatePageClear.Size = new System.Drawing.Size(165, 37);
             this.BtnCreatePageClear.TabIndex = 32;
             this.BtnCreatePageClear.Text = "Clear fields";
             this.BtnCreatePageClear.UseVisualStyleBackColor = true;
@@ -251,9 +251,9 @@
             // 
             // BtnCreatePageSave
             // 
-            this.BtnCreatePageSave.Location = new System.Drawing.Point(535, 254);
+            this.BtnCreatePageSave.Location = new System.Drawing.Point(600, 252);
             this.BtnCreatePageSave.Name = "BtnCreatePageSave";
-            this.BtnCreatePageSave.Size = new System.Drawing.Size(157, 37);
+            this.BtnCreatePageSave.Size = new System.Drawing.Size(167, 37);
             this.BtnCreatePageSave.TabIndex = 31;
             this.BtnCreatePageSave.Text = "Save";
             this.BtnCreatePageSave.UseVisualStyleBackColor = true;
@@ -263,9 +263,9 @@
             // ComboBoxCreatePageVideos
             // 
             this.ComboBoxCreatePageVideos.FormattingEnabled = true;
-            this.ComboBoxCreatePageVideos.Location = new System.Drawing.Point(553, 81);
+            this.ComboBoxCreatePageVideos.Location = new System.Drawing.Point(600, 83);
             this.ComboBoxCreatePageVideos.Name = "ComboBoxCreatePageVideos";
-            this.ComboBoxCreatePageVideos.Size = new System.Drawing.Size(139, 24);
+            this.ComboBoxCreatePageVideos.Size = new System.Drawing.Size(165, 24);
             this.ComboBoxCreatePageVideos.TabIndex = 30;
             this.ComboBoxCreatePageVideos.Visible = false;
             this.ComboBoxCreatePageVideos.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePageVideos_SelectedIndexChanged);
@@ -273,7 +273,7 @@
             // LblCreatePageVideos
             // 
             this.LblCreatePageVideos.AutoSize = true;
-            this.LblCreatePageVideos.Location = new System.Drawing.Point(435, 81);
+            this.LblCreatePageVideos.Location = new System.Drawing.Point(465, 83);
             this.LblCreatePageVideos.Name = "LblCreatePageVideos";
             this.LblCreatePageVideos.Size = new System.Drawing.Size(61, 17);
             this.LblCreatePageVideos.TabIndex = 29;
@@ -284,7 +284,7 @@
             // 
             this.TextBoxCreatePageMiddle.Location = new System.Drawing.Point(283, 83);
             this.TextBoxCreatePageMiddle.Name = "TextBoxCreatePageMiddle";
-            this.TextBoxCreatePageMiddle.Size = new System.Drawing.Size(130, 22);
+            this.TextBoxCreatePageMiddle.Size = new System.Drawing.Size(165, 22);
             this.TextBoxCreatePageMiddle.TabIndex = 28;
             this.TextBoxCreatePageMiddle.Visible = false;
             // 
@@ -301,9 +301,9 @@
             // ComboBoxCreatePagePhotos
             // 
             this.ComboBoxCreatePagePhotos.FormattingEnabled = true;
-            this.ComboBoxCreatePagePhotos.Location = new System.Drawing.Point(553, 39);
+            this.ComboBoxCreatePagePhotos.Location = new System.Drawing.Point(600, 41);
             this.ComboBoxCreatePagePhotos.Name = "ComboBoxCreatePagePhotos";
-            this.ComboBoxCreatePagePhotos.Size = new System.Drawing.Size(139, 24);
+            this.ComboBoxCreatePagePhotos.Size = new System.Drawing.Size(165, 24);
             this.ComboBoxCreatePagePhotos.TabIndex = 26;
             this.ComboBoxCreatePagePhotos.Visible = false;
             this.ComboBoxCreatePagePhotos.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePagePhotos_SelectedIndexChanged);
@@ -311,7 +311,7 @@
             // LblCreatePagePhotos
             // 
             this.LblCreatePagePhotos.AutoSize = true;
-            this.LblCreatePagePhotos.Location = new System.Drawing.Point(435, 39);
+            this.LblCreatePagePhotos.Location = new System.Drawing.Point(465, 41);
             this.LblCreatePagePhotos.Name = "LblCreatePagePhotos";
             this.LblCreatePagePhotos.Size = new System.Drawing.Size(63, 17);
             this.LblCreatePagePhotos.TabIndex = 25;
@@ -322,7 +322,7 @@
             // 
             this.TextBoxCreatePageTitle.Location = new System.Drawing.Point(283, 41);
             this.TextBoxCreatePageTitle.Name = "TextBoxCreatePageTitle";
-            this.TextBoxCreatePageTitle.Size = new System.Drawing.Size(130, 22);
+            this.TextBoxCreatePageTitle.Size = new System.Drawing.Size(165, 22);
             this.TextBoxCreatePageTitle.TabIndex = 24;
             this.TextBoxCreatePageTitle.Visible = false;
             // 
@@ -372,7 +372,7 @@
             this.TabPageDelete.Location = new System.Drawing.Point(4, 25);
             this.TabPageDelete.Name = "TabPageDelete";
             this.TabPageDelete.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageDelete.Size = new System.Drawing.Size(701, 310);
+            this.TabPageDelete.Size = new System.Drawing.Size(776, 310);
             this.TabPageDelete.TabIndex = 2;
             this.TabPageDelete.Text = "Deleting page";
             this.TabPageDelete.UseVisualStyleBackColor = true;
@@ -382,7 +382,7 @@
             this.RichTextBoxDeletePageInfo.Enabled = false;
             this.RichTextBoxDeletePageInfo.Location = new System.Drawing.Point(189, 31);
             this.RichTextBoxDeletePageInfo.Name = "RichTextBoxDeletePageInfo";
-            this.RichTextBoxDeletePageInfo.Size = new System.Drawing.Size(506, 174);
+            this.RichTextBoxDeletePageInfo.Size = new System.Drawing.Size(581, 174);
             this.RichTextBoxDeletePageInfo.TabIndex = 34;
             this.RichTextBoxDeletePageInfo.Text = "";
             this.RichTextBoxDeletePageInfo.Visible = false;
@@ -465,7 +465,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 364);
+            this.ClientSize = new System.Drawing.Size(809, 364);
             this.Controls.Add(this.TabControlMain);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MediaForm";
