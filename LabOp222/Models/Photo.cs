@@ -68,7 +68,7 @@ namespace LabOp222.Models
 
         public override string GetInfo()
         {
-            return base.GetInfo() + "\nGallery: " + (Gallery?.Title ?? "no one") + "\nCurrent mode: " + Mode.GetType().Name;
+            return base.GetInfo() + "\nGallery: " + (Gallery?.Title ?? "no one") + "\nCurrent mode: " + Mode?.GetType().Name ?? "unknown";
         }
 
         public static void Delete(int index)

@@ -84,7 +84,7 @@ namespace LabOp222.Models
 
         public override string GetInfo()
         {
-            return base.GetInfo() + "\nGallery: " + (Gallery?.Title ?? "no one") + "\nCurrent mode: " + Mode.GetType().Name + "\nLength of video: " + length;
+            return base.GetInfo() + "\nGallery: " + (Gallery?.Title ?? "no one") + ("\nCurrent mode: " + Mode?.GetType().Name ?? "unknown") + "\nLength of video: " + length;
         }
 
         public static void Delete(int index)

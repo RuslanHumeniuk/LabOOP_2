@@ -15,6 +15,7 @@ using LabOp222.Models.Interfaces;
 namespace LabOp222
 {
     /*TODO:
+     + * added selecting mode for photo\video
      * change selectedIndexChanged on SelectedValueChanged in Create page
      * refactor
      * using modes
@@ -109,20 +110,20 @@ namespace LabOp222
             CurrentMediaFile = photo;
 
             CPUpdateGroupBoxes(2, null);
-            CPUpdateLabels(photo != null ? "Select photo" : null, "Title", null, null, null, null, null);
+            CPUpdateLabels(photo != null ? "Select photo" : null, "Title", null, null, "Select photo mode", null, null);
             CPUpdateTextBoxes(photo?.Title ?? String.Empty, null, null);
-            CPUpdateComboBoxes(null, null, null, photo != null ? Photo.AllPhotos.ToArray() : null);
-            CPUpdateButtons(true, true);            
+            CPUpdateComboBoxes(PhotoModes, null, null, photo != null ? Photo.AllPhotos.ToArray() : null);
+            CPUpdateButtons(photo == null, true);            
         }        
         private void CPShowVideoInfo(Video video)
         {
             CurrentMediaFile = video;
 
             CPUpdateGroupBoxes(2, null);
-            CPUpdateLabels(video != null ? "Select video" : null, "Title", "Length of video", null, null, null, null);
+            CPUpdateLabels(video != null ? "Select video" : null, "Title", "Length of video", null, null, "Select video mode", null);
             CPUpdateTextBoxes(video?.Title ?? String.Empty, video?.Length.ToString() ?? String.Empty, null);
-            CPUpdateComboBoxes(null, null, null, video != null ? Video.AllVideos.ToArray() : null);
-            CPUpdateButtons(true, true);
+            CPUpdateComboBoxes(null, VideoModes, null, video != null ? Video.AllVideos.ToArray() : null);
+            CPUpdateButtons(video == null, true);
         }        
         private void CPShowGalleryInfo(Gallery gallery)
         {
@@ -132,7 +133,7 @@ namespace LabOp222
             CPUpdateLabels(gallery != null ? "Select gallery" : null, "Title", null, null, "All photo", "All video", "Selected files");
             CPUpdateTextBoxes(gallery?.Title ?? String.Empty, null, null);
             CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), gallery != null ? Gallery.Galleries.ToArray() : null);
-            CPUpdateButtons(true, true);
+            CPUpdateButtons(gallery == null, true);
         }        
         private void CPShowModeInfo(MediaInfo mode)
         {
@@ -140,7 +141,7 @@ namespace LabOp222
             bool isPhotoMode = mode is IPhotoMode;
             bool isVideoMode = mode is IVideoMode;
 
-            CPUpdateButtons(mode != null, mode != null);
+            CPUpdateButtons(false, mode != null);
             CPUpdateModeGroupBox(new bool[] { isPhotoMode, isVideoMode });
             CPUpdateLabels("Select mode", "Title", isPhotoMode ? "Photo message" : null, isVideoMode ? "Video message" : null, null, null, null);
             //TODO: user can not change mode title
@@ -301,7 +302,6 @@ namespace LabOp222
         }
         private void CPUpdateModeGroupBox(bool[] modes)
         {
-
             if (modes != null)
             {
                 GroupBoxCreatePageModeType.Visible = true;
@@ -314,12 +314,12 @@ namespace LabOp222
                 CheckBoxCreatePagePhotoMode.Checked = false;
                 CheckBoxCreatePageVideoMode.Checked = false;
             }
-
         }
 
 
         private void CPClearAndHideAll()
         {
+            HelpedList = new List<MediaInfo>();
             CPHideEditMode();
             CPHideCreateMode();
             CPUpdateComboBoxes(null, null, null, null);
@@ -392,22 +392,22 @@ namespace LabOp222
         {
             if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectClass.SelectedIndex != -1)
             {
-                CPHideCreateMode();
-                CPHideEditMode();
-                HelpedList = new List<MediaInfo>();
+                CPClearAndHideAll();
                 switch (ComboBoxCreatePageSelectClass.SelectedIndex)
                 {
                     case 0:                        
                     case 1:
                     case 2:
                         {
-                            CPUpdateWorkGroupBox(2);                            
+                            CPUpdateWorkGroupBox(2);
+                            TextBoxCreatePageTitle.Enabled = true;
                             break;
                         }
                     case 3:
                         {
                             CPUpdateWorkGroupBox(1);
                             ChangeWorkMode(false);
+                            TextBoxCreatePageTitle.Enabled = false; //user can not change title of mode, because Title of some mode - is Name of its type
                             break;
                         }
                 }
@@ -480,20 +480,26 @@ namespace LabOp222
         {
             if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePagePhotos.SelectedIndex != -1 && ComboBoxCreatePagePhotos.Focused)
             {
-                if(!HelpedList.Contains(ComboBoxCreatePagePhotos.SelectedItem as Photo))
-                    HelpedList.Add(ComboBoxCreatePagePhotos.SelectedItem as Photo);
+                if(ComboBoxCreatePageSelectClass.SelectedIndex == 2)
+                {
+                    if (!HelpedList.Contains(ComboBoxCreatePagePhotos.SelectedItem as Photo))
+                        HelpedList.Add(ComboBoxCreatePagePhotos.SelectedItem as Photo);
 
-                CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);                
+                    CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);
+                }                          
             }
         }
         private void ComboBoxCreatePageVideos_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageVideos.SelectedIndex != -1 && ComboBoxCreatePageVideos.Focused)
             {
-                if (!HelpedList.Contains(ComboBoxCreatePageVideos.SelectedItem as Video))
-                    HelpedList.Add(ComboBoxCreatePageVideos.SelectedItem as Video);
+                if (ComboBoxCreatePageSelectClass.SelectedIndex == 2)
+                {
+                    if (!HelpedList.Contains(ComboBoxCreatePageVideos.SelectedItem as Video))
+                        HelpedList.Add(ComboBoxCreatePageVideos.SelectedItem as Video);
 
-                CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);                
+                    CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);
+                }
             }
         }
         private void ComboBoxCreatePageSelectedObjects_SelectedIndexChanged(object sender, EventArgs e)
@@ -524,14 +530,14 @@ namespace LabOp222
                     {
                         case 0:
                             {
-                                newObj = new Photo() { Title = TextBoxCreatePageTitle.Text };
+                                newObj = new Photo() { Title = TextBoxCreatePageTitle.Text, Mode = ComboBoxCreatePagePhotos.SelectedItem as IPhotoMode };
                                 break;
                             }
                         case 1:
                             {
                                 if (int.TryParse(TextBoxCreatePageMiddle.Text, out int length) && length >= 0)
                                 {
-                                    newObj = new Video() { Title = TextBoxCreatePageTitle.Text, Length = length };
+                                    newObj = new Video() { Title = TextBoxCreatePageTitle.Text, Length = length, Mode = ComboBoxCreatePageVideos.SelectedItem as IVideoMode };
                                 }
                                 else throw new ArgumentException("Please input non-negative integer");
 
@@ -711,10 +717,9 @@ namespace LabOp222
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CPClearFields();
+            CPClearAndHideAll();
             DPHideElements();
         }
-
         
     }
 }
