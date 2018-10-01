@@ -206,7 +206,7 @@
             this.ComboBoxCreatePageEditObject.Size = new System.Drawing.Size(156, 24);
             this.ComboBoxCreatePageEditObject.TabIndex = 36;
             this.ComboBoxCreatePageEditObject.Visible = false;
-            this.ComboBoxCreatePageEditObject.SelectedValueChanged += new System.EventHandler(this.ComboBoxCreatePageModes_SelectedValueChanged);
+            this.ComboBoxCreatePageEditObject.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePageEditObject_SelectedIndexChanged);
             // 
             // LblCreatePageSelectEditObject
             // 

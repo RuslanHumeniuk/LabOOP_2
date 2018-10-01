@@ -18,7 +18,7 @@ namespace LabOp222
      * change selectedIndexChanged on SelectedValueChanged in Create page
      * refactor
      * using modes
-     * hidding edit combo box when edit
+     + * hidding edit combo box when edit
      * comment it all
     */
     public partial class MediaForm : Form
@@ -109,19 +109,19 @@ namespace LabOp222
             CurrentMediaFile = photo;
 
             CPUpdateGroupBoxes(2, null);
-            CPUpdateLabels(null, "Title", null, null, null, null, null);
+            CPUpdateLabels(photo != null ? "Select photo" : null, "Title", null, null, null, null, null);
             CPUpdateTextBoxes(photo?.Title ?? String.Empty, null, null);
-            CPUpdateComboBoxes(null, null, null, null);
-            CPUpdateButtons(true, true);
+            CPUpdateComboBoxes(null, null, null, photo != null ? Photo.AllPhotos.ToArray() : null);
+            CPUpdateButtons(true, true);            
         }        
         private void CPShowVideoInfo(Video video)
         {
             CurrentMediaFile = video;
 
             CPUpdateGroupBoxes(2, null);
-            CPUpdateLabels(null, "Title", "Length of video", null, null, null, null);
+            CPUpdateLabels(video != null ? "Select video" : null, "Title", "Length of video", null, null, null, null);
             CPUpdateTextBoxes(video?.Title ?? String.Empty, video?.Length.ToString() ?? String.Empty, null);
-            CPUpdateComboBoxes(null, null, null, null);
+            CPUpdateComboBoxes(null, null, null, video != null ? Video.AllVideos.ToArray() : null);
             CPUpdateButtons(true, true);
         }        
         private void CPShowGalleryInfo(Gallery gallery)
@@ -129,9 +129,9 @@ namespace LabOp222
             CurrentMediaFile = gallery;
             HelpedList = gallery?.Files ?? new List<MediaInfo>();
             CPUpdateGroupBoxes(2, null);
-            CPUpdateLabels(null, "Title", null, null, "All photo", "All video", "Selected files");
+            CPUpdateLabels(gallery != null ? "Select gallery" : null, "Title", null, null, "All photo", "All video", "Selected files");
             CPUpdateTextBoxes(gallery?.Title ?? String.Empty, null, null);
-            CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);
+            CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), gallery != null ? Gallery.Galleries.ToArray() : null);
             CPUpdateButtons(true, true);
         }        
         private void CPShowModeInfo(MediaInfo mode)
@@ -145,6 +145,7 @@ namespace LabOp222
             CPUpdateLabels("Select mode", "Title", isPhotoMode ? "Photo message" : null, isVideoMode ? "Video message" : null, null, null, null);
             //TODO: user can not change mode title
             CPUpdateTextBoxes(mode?.GetType().Name, isPhotoMode ? (mode as IPhotoMode).PhotoMessage : null, isVideoMode ? (mode as IVideoMode).VideoMessage : null);
+            CPUpdateComboBoxes(null, null, null, Modes);
         }
 
         private void CPUpdateLabels(string editObjLbl, string titleLabel, string middleLbl, string lowerLbl, string photoLabel, string videoLabel, string selectedObjectLabel)
@@ -413,13 +414,44 @@ namespace LabOp222
             }
         }
 
-        private void ComboBoxCreatePageModes_SelectedValueChanged(object sender, EventArgs e)
+        //private void ComboBoxCreatePageModes_SelectedValueChanged(object sender, EventArgs e)
+        //{
+        //    if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageEditObject.SelectedItem != null && ComboBoxCreatePageEditObject.Focused)
+        //    {
+        //        MediaInfo obj = ComboBoxCreatePageEditObject.SelectedItem as MediaInfo;
+        //        switch (ComboBoxCreatePageSelectClass.SelectedIndex)
+        //        {                    
+        //            case 0:
+        //                {
+        //                    CPShowPhotoInfo(obj as Photo);
+        //                    break;
+        //                }
+        //            case 1:
+        //                {
+        //                    CPShowVideoInfo(obj as Video);
+        //                    break;
+        //                }
+        //            case 2:
+        //                {
+        //                    CPShowGalleryInfo(obj as Gallery);
+        //                    break;
+        //                }
+        //            case 3:
+        //                {
+        //                    CPShowModeInfo(obj);
+        //                    break;
+        //                }
+        //        }
+        //    }
+        //}
+        private void ComboBoxCreatePageEditObject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageEditObject.SelectedItem != null && ComboBoxCreatePageEditObject.Focused)
+            if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageEditObject.SelectedIndex != -1 && ComboBoxCreatePageEditObject.Focused)
             {
+                CPHideEditMode();
                 MediaInfo obj = ComboBoxCreatePageEditObject.SelectedItem as MediaInfo;
                 switch (ComboBoxCreatePageSelectClass.SelectedIndex)
-                {                    
+                {
                     case 0:
                         {
                             CPShowPhotoInfo(obj as Photo);
@@ -440,10 +472,9 @@ namespace LabOp222
                             CPShowModeInfo(obj);
                             break;
                         }
-                }
+                }                
             }
         }
-       
 
         private void ComboBoxCreatePagePhotos_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -683,5 +714,7 @@ namespace LabOp222
             CPClearFields();
             DPHideElements();
         }
+
+        
     }
 }
