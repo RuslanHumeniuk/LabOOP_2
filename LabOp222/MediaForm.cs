@@ -16,7 +16,7 @@ namespace LabOp222
 {
     /*TODO:
      + * added selecting mode for photo\video
-     * change selectedIndexChanged on SelectedValueChanged in Create page
+     - * change selectedIndexChanged on SelectedValueChanged in Create page
      * refactor
      * using modes
      + * hidding edit combo box when edit
@@ -34,12 +34,10 @@ namespace LabOp222
         {
             InitializeComponent();
 
-            HelpedList = new List<MediaInfo>();
-
-            Photo firstPhoto = new Photo("First Ph") { Mode = new ProfessionalMode()};
+            Photo firstPhoto = new Photo("First Ph") { Mode = PhotoModes[3] as IPhotoMode };
             Photo secondPhoto = new Photo("Second Ph");
 
-            Video firstVideo = new Video("First Vid") { Mode = new TimeLaps()};
+            Video firstVideo = new Video("First Vid") { Mode = VideoModes[3] as IVideoMode };
             Video secondVideo = new Video("Second Vid");
 
             Gallery gallery = new Gallery("Main gallery");
@@ -113,7 +111,9 @@ namespace LabOp222
             CPUpdateLabels(photo != null ? "Select photo" : null, "Title", null, null, "Select photo mode", null, null);
             CPUpdateTextBoxes(photo?.Title ?? String.Empty, null, null);
             CPUpdateComboBoxes(PhotoModes, null, null, photo != null ? Photo.AllPhotos.ToArray() : null);
-            CPUpdateButtons(photo == null, true);            
+            CPUpdateButtons(photo == null, true);      
+            
+            ComboBoxCreatePagePhotos.SelectedItem = photo?.Mode;
         }        
         private void CPShowVideoInfo(Video video)
         {
@@ -124,6 +124,8 @@ namespace LabOp222
             CPUpdateTextBoxes(video?.Title ?? String.Empty, video?.Length.ToString() ?? String.Empty, null);
             CPUpdateComboBoxes(null, VideoModes, null, video != null ? Video.AllVideos.ToArray() : null);
             CPUpdateButtons(video == null, true);
+
+            ComboBoxCreatePageVideos.SelectedItem = video?.Mode;
         }        
         private void CPShowGalleryInfo(Gallery gallery)
         {
@@ -413,37 +415,7 @@ namespace LabOp222
                 }
             }
         }
-
-        //private void ComboBoxCreatePageModes_SelectedValueChanged(object sender, EventArgs e)
-        //{
-        //    if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageEditObject.SelectedItem != null && ComboBoxCreatePageEditObject.Focused)
-        //    {
-        //        MediaInfo obj = ComboBoxCreatePageEditObject.SelectedItem as MediaInfo;
-        //        switch (ComboBoxCreatePageSelectClass.SelectedIndex)
-        //        {                    
-        //            case 0:
-        //                {
-        //                    CPShowPhotoInfo(obj as Photo);
-        //                    break;
-        //                }
-        //            case 1:
-        //                {
-        //                    CPShowVideoInfo(obj as Video);
-        //                    break;
-        //                }
-        //            case 2:
-        //                {
-        //                    CPShowGalleryInfo(obj as Gallery);
-        //                    break;
-        //                }
-        //            case 3:
-        //                {
-        //                    CPShowModeInfo(obj);
-        //                    break;
-        //                }
-        //        }
-        //    }
-        //}
+        
         private void ComboBoxCreatePageEditObject_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageEditObject.SelectedIndex != -1 && ComboBoxCreatePageEditObject.Focused)
