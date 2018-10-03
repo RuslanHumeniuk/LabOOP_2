@@ -3,37 +3,21 @@
   <Class Name="LabOp222.MediaInfo">
     <Position X="5.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAQAAAAEAEAAAAAAAAAAEAAAAAAAAEAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAQAAAAEAEAAAAAAAAAAEAAEAAAAAEAAAAAAA=</HashCode>
       <FileName>Models\MediaInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LabOp222.Models.Photo">
     <Position X="7.25" Y="0.75" Width="1.5" />
-    <InheritanceLine Type="LabOp222.MediaInfo" ManuallyRouted="true">
-      <Path>
-        <Point X="6" Y="4.25" />
-        <Point X="6" Y="4.02" />
-        <Point X="8" Y="4.02" />
-        <Point X="8" Y="3.271" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>QAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAAAAAACAAAAAA=</HashCode>
+      <HashCode>QAAAAAAAAIAAAACAAAABABAAAAEAAEAAAAAACAAAAAA=</HashCode>
       <FileName>Models\Photo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LabOp222.Models.Video">
     <Position X="2.75" Y="0.75" Width="1.5" />
-    <InheritanceLine Type="LabOp222.MediaInfo" FixedFromPoint="true">
-      <Path>
-        <Point X="6" Y="4.25" />
-        <Point X="6" Y="4.03" />
-        <Point X="3.5" Y="4.03" />
-        <Point X="3.5" Y="3.655" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAABEAAAABAAAEAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAACABEABABBAAAEAAEAAAAACAAAAAAA=</HashCode>
       <FileName>Models\Video.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -77,10 +61,10 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="LabOp222.Models.Gallery" Collapsed="true">
+  <Class Name="LabOp222.Models.Gallery">
     <Position X="5.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIAAAACQAAAAAAAAAAAkAAABAQAAASAAAAIg=</HashCode>
+      <HashCode>AAAAAAAAIAAAACQAAAAAAAAAAAkAAEBAQAAASAAAAIg=</HashCode>
       <FileName>Models\Gallery.cs</FileName>
     </TypeIdentifier>
   </Class>
