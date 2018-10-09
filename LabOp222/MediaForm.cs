@@ -26,9 +26,9 @@ namespace LabOp222
     public partial class MediaForm : Form
     {
         List<MediaFile> HelpedList = new List<MediaFile>();
-        MediaInfo[] Modes = new MediaInfo[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
-        MediaInfo[] PhotoModes = new MediaInfo[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance() };
-        MediaInfo[] VideoModes = new MediaInfo[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
+        Mode[] Modes = new Mode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
+        IPhotoMode[] PhotoModes = new IPhotoMode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance() };
+        IVideoMode[] VideoModes = new IVideoMode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
         MediaInfo CurrentMediaFile = null;
 
         public MediaForm()
@@ -233,7 +233,7 @@ namespace LabOp222
             else TextBoxCreatePageLower.Visible = false;
 
         }
-        private void CPUpdateComboBoxes(object[] photos, object[] videos, MediaInfo[] selectedMediaFiles, MediaInfo[] objectsToEdit)
+        private void CPUpdateComboBoxes(object[] photos, object[] videos, MediaInfo[] selectedMediaFiles, object[] objectsToEdit)
         {            
             if (photos != null)
             {
