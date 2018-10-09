@@ -1,28 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="LabOp222.MediaInfo">
-    <Position X="5.25" Y="4.25" Width="1.5" />
+    <Position X="16.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAQAAAAEAEAAAAAAAAAAEAAEAAAAAEAAAAAAA=</HashCode>
       <FileName>Models\MediaInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LabOp222.Models.Photo">
-    <Position X="7.25" Y="0.75" Width="1.5" />
+    <Position X="18.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAIAAAACAAAABABAAAAEAAEAAAAAACAAAAAA=</HashCode>
       <FileName>Models\Photo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LabOp222.Models.Video">
-    <Position X="2.75" Y="0.75" Width="1.5" />
+    <Position X="15" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAACABEABABBAAAEAAEAAAAACAAAAAAA=</HashCode>
       <FileName>Models\Video.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="LabOp222.Models.Modes.TimeLaps">
-    <Position X="7" Y="5" Width="1.5" />
+    <Position X="18.5" Y="9.75" Width="1.5" />
+    <InheritanceLine Type="LabOp222.MediaInfo" FixedFromPoint="true">
+      <Path>
+        <Point X="18.25" Y="10.938" />
+        <Point X="18.5" Y="10.938" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAACAAAAAgAAAAAAAAAAAAAAEAAAAAAAACAAAAAAA=</HashCode>
       <FileName>Models\Modes\TimeLaps.cs</FileName>
@@ -30,7 +36,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="LabOp222.Models.Modes.ProfessionalMode">
-    <Position X="7" Y="8" Width="1.5" />
+    <Position X="18.5" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAACAgAAAgAAAAAAAAAAAAAAEAAAAAAAACCAAAAAA=</HashCode>
       <FileName>Models\Modes\ProfessionalMode.cs</FileName>
@@ -38,7 +44,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="LabOp222.Models.Modes.Panorame">
-    <Position X="3.5" Y="5" Width="1.5" />
+    <Position X="15" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAAAAgAAAAAAAAAAAAAAAAAAEAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Models\Modes\Panorame.cs</FileName>
@@ -46,7 +52,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="LabOp222.Models.Modes.MakeUp">
-    <Position X="3.5" Y="8" Width="1.5" />
+    <Position X="15" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAACAgAAAgAAAAAAAAAAAAAAEAAAAAAAACCAAAAAA=</HashCode>
       <FileName>Models\Modes\MakeUp.cs</FileName>
@@ -54,7 +60,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="LabOp222.Models.Modes.DefaultMode">
-    <Position X="5.25" Y="8" Width="1.5" />
+    <Position X="16.75" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAACAgAAAgAAAAAAAAAAAAAAEAAAAAAAACCAAAAAA=</HashCode>
       <FileName>Models\Modes\DefaultMode.cs</FileName>
@@ -62,21 +68,21 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="LabOp222.Models.Gallery">
-    <Position X="5.25" Y="0.5" Width="1.5" />
+    <Position X="16.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAACQAAAAAAAAAAAkAAEBAQAAASAAAAIg=</HashCode>
       <FileName>Models\Gallery.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="LabOp222.Models.Interfaces.IVideoMode">
-    <Position X="8.5" Y="6.5" Width="1.5" />
+    <Position X="20.25" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>Models\Interfaces\IVideoMode.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="LabOp222.Models.Interfaces.IPhotoMode">
-    <Position X="2" Y="6.5" Width="1.5" />
+    <Position X="13.25" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Models\Interfaces\IPhotoMode.cs</FileName>
