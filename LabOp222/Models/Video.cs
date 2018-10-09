@@ -65,22 +65,15 @@ namespace LabOp222.Models
         {
             Title = title;
         }
-        public Video(Gallery gallery) : this()
-        {
-            gallery.Videos.Add(this);
-        }
-        public Video(Gallery gallery, string title) : this(gallery)
-        {
-            Title = title;
-        }
         public Video(IVideoMode mode) : this()
         {
             Mode = mode;
         }
-        public Video(IVideoMode mode, Gallery gallery) : this(gallery)
+        public Video(IVideoMode mode, string title) : this(mode)
         {
-            Mode = mode;
+            Title = title;
         }
+               
 
         public string RecordVideo()
         {
