@@ -21,8 +21,8 @@ namespace LabOp222.Models
             get
             {
                 foreach (var gallery in Gallery.Galleries)
-                {
-                    if (gallery.Files.Contains(this))
+                {                    
+                    if (gallery.Files != null && gallery.Files.Contains(this))
                         return gallery;
                 }
                 return null;
