@@ -7,7 +7,7 @@ using LabOp222.Models.Modes;
 using LabOp222.Models;
 using LabOp222.Models.Interfaces;
 
-namespace LabOp222.Models
+namespace LabOp222.Models.MediaFiles
 {
     internal class Video : MediaFile
     {

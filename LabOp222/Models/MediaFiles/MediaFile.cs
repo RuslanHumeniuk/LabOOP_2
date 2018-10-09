@@ -5,7 +5,7 @@ using System.Text;
 
 using LabOp222.Models.Modes;
 
-namespace LabOp222.Models
+namespace LabOp222.Models.MediaFiles
 {
     internal abstract class MediaFile : MediaInfo
     {

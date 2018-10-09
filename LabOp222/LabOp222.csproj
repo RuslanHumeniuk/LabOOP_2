@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\MediaFile.cs" />
+    <Compile Include="Models\MediaFiles\MediaFile.cs" />
     <Compile Include="MediaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,10 +61,10 @@
     <Compile Include="Models\Interfaces\IPhotoMode.cs" />
     <Compile Include="Models\Modes\MakeUp.cs" />
     <Compile Include="Models\Modes\Panorame.cs" />
-    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\MediaFiles\Photo.cs" />
     <Compile Include="Models\Modes\TimeLaps.cs" />
     <Compile Include="Models\Modes\ProfessionalMode.cs" />
-    <Compile Include="Models\Video.cs" />
+    <Compile Include="Models\MediaFiles\Video.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MediaForm.resx">

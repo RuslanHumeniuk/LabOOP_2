@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using LabOp222.Models;
 using LabOp222.Models.Modes;
 using LabOp222.Models.Interfaces;
+using LabOp222.Models.MediaFiles;
 
 namespace LabOp222
 {
