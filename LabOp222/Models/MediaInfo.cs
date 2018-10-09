@@ -20,7 +20,7 @@ namespace LabOp222
             }
         }
 
-        public Guid Id { get; private set; }
+        public readonly Guid Id;
 
         public MediaInfo()
         {
@@ -42,6 +42,7 @@ namespace LabOp222
         {
             return GetType().Name + ": " + Title;
         }
+        
 
         public static void Delete(MediaInfo obj)
         {
@@ -49,5 +50,6 @@ namespace LabOp222
         }        
 
         public abstract void Delete();        
+        
     }
 }

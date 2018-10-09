@@ -27,7 +27,7 @@ namespace LabOp222.Models
                         {
                             photoSet.Add(photo);
                         }
-                    }                    
+                    }
                 }
                 return photoSet;
             }
@@ -120,7 +120,7 @@ namespace LabOp222.Models
         }
         public Gallery(MediaInfo[] files) : this()
         {
-            Files = files.ToList();
+            Files = files.ToList<MediaInfo>();
         }
 
         public void AddPhoto(Photo photo)
@@ -160,16 +160,16 @@ namespace LabOp222.Models
         public void RemovePhotoFromGallery(int index)
         {
             if (index < 0 || index >= photos.Count)
-                photos.RemoveAt(index);
-            else
                 throw new ArgumentException(index + " is wrong photo index. ");
+            else
+                photos.RemoveAt(index);
         }
         public void RemoveVideoFromGallery(int index)
         {
             if (index < 0 || index >= videos.Count)
-                videos.RemoveAt(index);
-            else
                 throw new ArgumentException(index + " is wrong video index. ");
+            else
+                videos.RemoveAt(index);
         }
 
         public override string GetInfo()
