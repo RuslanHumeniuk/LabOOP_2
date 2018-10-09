@@ -14,22 +14,13 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222
 {
-    /*TODO:
-     + * added selecting mode for photo\video
-     - * change selectedIndexChanged on SelectedValueChanged in Create page
-     * refactor
-     * using modes
-     + * hidding edit combo box when edit
-     * comment it all
-     * test
-    */
     public partial class MediaForm : Form
     {
         List<MediaFile> HelpedList = new List<MediaFile>();
         Mode[] Modes = new Mode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
         IPhotoMode[] PhotoModes = new IPhotoMode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance() };
         IVideoMode[] VideoModes = new IVideoMode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
-        object CurrentMediaFile = null;
+        object objectToEdit = null;
 
         public MediaForm()
         {
@@ -106,7 +97,7 @@ namespace LabOp222
         
         private void CPShowPhotoInfo(Photo photo)
         {
-            CurrentMediaFile = photo;
+            objectToEdit = photo;
 
             CPUpdateGroupBoxes(2, null);
             CPUpdateLabels(photo != null ? "Select photo" : null, "Title", null, null, "Select photo mode", null, null);
@@ -118,7 +109,7 @@ namespace LabOp222
         }        
         private void CPShowVideoInfo(Video video)
         {
-            CurrentMediaFile = video;
+            objectToEdit = video;
 
             CPUpdateGroupBoxes(2, null);
             CPUpdateLabels(video != null ? "Select video" : null, "Title", "Length of video", null, null, "Select video mode", null);
@@ -130,7 +121,7 @@ namespace LabOp222
         }        
         private void CPShowGalleryInfo(Gallery gallery)
         {
-            CurrentMediaFile = gallery;
+            objectToEdit = gallery;
             HelpedList = gallery?.Files ?? new List<MediaFile>();
             CPUpdateGroupBoxes(2, null);
             CPUpdateLabels(gallery != null ? "Select gallery" : null, "Title", null, null, "All photo", "All video", "Selected files");
@@ -140,14 +131,13 @@ namespace LabOp222
         }        
         private void CPShowModeInfo(Mode mode)
         {
-            CurrentMediaFile = mode;
+            objectToEdit = mode;
             bool isPhotoMode = mode is IPhotoMode;
             bool isVideoMode = mode is IVideoMode;
 
             CPUpdateButtons(false, mode != null);
             CPUpdateModeGroupBox(new bool[] { isPhotoMode, isVideoMode });
-            CPUpdateLabels("Select mode", "Title", isPhotoMode ? "Photo message" : null, isVideoMode ? "Video message" : null, null, null, null);
-            //TODO: user can not change mode title
+            CPUpdateLabels("Select mode", "Title", isPhotoMode ? "Photo message" : null, isVideoMode ? "Video message" : null, null, null, null);            
             CPUpdateTextBoxes(mode?.GetType().Name, isPhotoMode ? (mode as IPhotoMode).PhotoMessage : null, isVideoMode ? (mode as IVideoMode).VideoMessage : null);
             CPUpdateComboBoxes(null, null, null, Modes);
         }
@@ -495,7 +485,7 @@ namespace LabOp222
         {
             try
             {
-                if(CurrentMediaFile == null)
+                if(objectToEdit == null)
                 {
                     MediaInfo newObj = null;
 
@@ -530,7 +520,7 @@ namespace LabOp222
                     {
                         case 0:
                             {
-                                Photo currentPhoto = CurrentMediaFile as Photo;
+                                Photo currentPhoto = objectToEdit as Photo;
                                 currentPhoto.Title = TextBoxCreatePageTitle.Text;
                                 currentPhoto.Mode = ComboBoxCreatePagePhotos.SelectedItem as IPhotoMode;
                                 
@@ -540,7 +530,7 @@ namespace LabOp222
                             {
                                 if (int.TryParse(TextBoxCreatePageMiddle.Text, out int length) && length >= 0)
                                 {
-                                    Video currentVideo = CurrentMediaFile as Video;
+                                    Video currentVideo = objectToEdit as Video;
                                     currentVideo.Title = TextBoxCreatePageTitle.Text;
                                     currentVideo.Length = length;
                                     currentVideo.Mode = ComboBoxCreatePageVideos.SelectedItem as IVideoMode;
@@ -551,27 +541,27 @@ namespace LabOp222
                             }
                         case 2:
                             {
-                                Gallery currentGallery = CurrentMediaFile as Gallery;
+                                Gallery currentGallery = objectToEdit as Gallery;
                                 currentGallery.Title = TextBoxCreatePageTitle.Text;
                                 currentGallery.Files = HelpedList;                                
                                 break;
                             }
                         case 3:
                             {
-                                if(CurrentMediaFile is IPhotoMode)
+                                if(objectToEdit is IPhotoMode)
                                 {
-                                    IPhotoMode mode = CurrentMediaFile as IPhotoMode;
+                                    IPhotoMode mode = objectToEdit as IPhotoMode;
                                     mode.PhotoMessage = TextBoxCreatePageMiddle.Text;
                                 }
-                                if(CurrentMediaFile is IVideoMode)
+                                if(objectToEdit is IVideoMode)
                                 {
-                                    IVideoMode mode = CurrentMediaFile as IVideoMode;
+                                    IVideoMode mode = objectToEdit as IVideoMode;
                                     mode.VideoMessage = TextBoxCreatePageLower.Text;
                                 }
                                 break;
                             }
                     }
-                    MessageBox.Show(CurrentMediaFile.ToString() + " edited");                    
+                    MessageBox.Show(objectToEdit.ToString() + " edited");                    
                 }
 
                 CPClearAndHideAll();          
@@ -692,7 +682,6 @@ namespace LabOp222
         {
             CPClearAndHideAll();
             DPHideElements();
-        }
-        
+        }        
     }
 }
