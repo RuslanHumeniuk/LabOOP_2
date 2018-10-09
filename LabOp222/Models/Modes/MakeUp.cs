@@ -12,6 +12,19 @@ namespace LabOp222.Models.Modes
         private string photoMessage = "You look much better on this photo";
         private string videoMessage = "You look much better on this video!";
 
+        private static MakeUp instance = null;
+
+        private MakeUp() { }
+
+        public static MakeUp GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new MakeUp();
+            }
+            return instance;
+        }
+
         public string PhotoMessage
         {
             get => photoMessage;

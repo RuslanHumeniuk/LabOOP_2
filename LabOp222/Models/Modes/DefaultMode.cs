@@ -12,6 +12,19 @@ namespace LabOp222.Models.Modes
         private string photoMessage = "You have made a photo by default mode";
         private string videoMessage = "You have made a video by default mode";
 
+        private static DefaultMode instance = null;
+
+        private DefaultMode() { }
+
+        public static DefaultMode GetInstance()
+        {
+            if(instance == null)
+            {
+                instance = new DefaultMode();
+            }
+            return instance;
+        }
+
         public string PhotoMessage
         {
             get => photoMessage;

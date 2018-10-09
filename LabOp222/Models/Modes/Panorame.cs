@@ -11,6 +11,19 @@ namespace LabOp222.Models.Modes
     {
         private string photoMessage = "Wow, this is a panorama";
 
+        private static Panorame instance = null;
+
+        private Panorame() { }
+
+        public static Panorame GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new Panorame();
+            }
+            return instance;
+        }
+
         public string PhotoMessage
         {
             get => photoMessage;

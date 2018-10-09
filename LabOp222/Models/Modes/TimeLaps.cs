@@ -11,6 +11,19 @@ namespace LabOp222.Models.Modes
     {
         private string videoMessage = "Cooool, this video in timelaps";
 
+        private static TimeLaps instance = null;
+
+        private TimeLaps() { }
+
+        public static TimeLaps GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new TimeLaps();
+            }
+            return instance;
+        }
+
         public string VideoMessage
         {
             get => videoMessage;

@@ -12,6 +12,19 @@ namespace LabOp222.Models.Modes
         private string photoMessage = "That's how proffesional photo has to be looking";
         private string videoMessage = "How did you do so proffesional video?";
 
+        private static ProfessionalMode instance = null;
+
+        private ProfessionalMode() { }
+
+        public static ProfessionalMode GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new ProfessionalMode();
+            }
+            return instance;
+        }
+
         public string PhotoMessage
         {
             get => photoMessage;
