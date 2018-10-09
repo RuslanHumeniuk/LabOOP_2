@@ -51,23 +51,15 @@ namespace LabOp222.Models
         }
         public Photo(string title) : this()
         {
-            this.Title = title;
-        }
-        public Photo(Gallery gallery) : this()
-        {
-            gallery.AddPhoto(this);
-        }
-        public Photo(string title, Gallery gallery) : this(gallery)
-        {
-            this.Title = title;
+            Title = title;
         }
         public Photo(IPhotoMode mode) : this()
         {
             Mode = mode;
         }
-        public Photo(IPhotoMode mode, Gallery gallery) : this(gallery)
+        public Photo(string title, IPhotoMode mode) : this(mode)
         {
-            Mode = mode;
+            Title = title;
         }
 
         public string TakeAPhoto()
