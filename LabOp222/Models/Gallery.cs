@@ -118,9 +118,9 @@ namespace LabOp222.Models
         {
             Videos = videos.ToList();
         }
-        public Gallery(Video[] videos, Photo[] photos) : this(photos)
+        public Gallery(MediaInfo[] files) : this()
         {
-            Videos = videos.ToList();
+            Files = files.ToList();
         }
 
         public void AddPhoto(Photo photo)
