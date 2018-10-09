@@ -26,9 +26,9 @@ namespace LabOp222
     public partial class MediaForm : Form
     {
         List<MediaFile> HelpedList = new List<MediaFile>();
-        MediaInfo[] Modes = new MediaInfo[] { new DefaultMode(), new MakeUp(), new Panorame(), new ProfessionalMode(), new TimeLaps() };
-        MediaInfo[] PhotoModes = new MediaInfo[] { new DefaultMode(), new MakeUp(), new Panorame(), new ProfessionalMode() };
-        MediaInfo[] VideoModes = new MediaInfo[] { new DefaultMode(), new MakeUp(), new ProfessionalMode(), new TimeLaps() };
+        MediaInfo[] Modes = new MediaInfo[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
+        MediaInfo[] PhotoModes = new MediaInfo[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance() };
+        MediaInfo[] VideoModes = new MediaInfo[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
         MediaInfo CurrentMediaFile = null;
 
         public MediaForm()

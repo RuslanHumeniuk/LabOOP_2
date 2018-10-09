@@ -9,7 +9,7 @@ namespace LabOp222.Models
 {
     internal abstract class MediaFile : MediaInfo
     {
-        protected Mode mode = new DefaultMode();
+        protected Mode mode = DefaultMode.GetInstance();
 
         public bool IsInGallery
         {
