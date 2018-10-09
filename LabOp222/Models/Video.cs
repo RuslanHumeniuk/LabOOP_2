@@ -73,7 +73,11 @@ namespace LabOp222.Models
         {
             Title = title;
         }
-               
+
+        ~Video()
+        {
+            System.Windows.Forms.MessageBox.Show("Video " + Title + " is desctructed");
+        }
 
         public string RecordVideo()
         {

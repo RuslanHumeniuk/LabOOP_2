@@ -123,6 +123,11 @@ namespace LabOp222.Models
             Files = files.ToList<MediaInfo>();
         }
 
+        ~Gallery()
+        {
+            System.Windows.Forms.MessageBox.Show("Gallery " + Title + " is desctructed");
+        }
+
         public void AddPhoto(Photo photo)
         {
             photos.Add(photo.Id);

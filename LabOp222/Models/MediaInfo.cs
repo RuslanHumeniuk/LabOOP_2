@@ -28,6 +28,11 @@ namespace LabOp222
             Title = DateTime.Now.ToLocalTime().ToString();
         }
 
+        ~MediaInfo()
+        {
+            System.Windows.Forms.MessageBox.Show( "MediaInfo " + title + " is desctructed");
+        }
+
         public void ChangeTitle(string newTitle)
         {
             Title = newTitle;

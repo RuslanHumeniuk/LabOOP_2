@@ -61,6 +61,11 @@ namespace LabOp222.Models
             Title = title;
         }
 
+        ~Photo()
+        {
+            System.Windows.Forms.MessageBox.Show("Photo " + Title + " is desctructed");
+        }
+
         public string TakeAPhoto()
         {
             if (Mode != null)
