@@ -9,7 +9,7 @@ namespace LabOp222.Models.Modes
     {              
         public override string ToString()
         {
-            return base.ToString() + "\n is " + this.GetType().Name + " mode.";
+            return GetType().Name;
         }
 
         public override void Delete()
