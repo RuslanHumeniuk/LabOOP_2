@@ -29,7 +29,7 @@ namespace LabOp222
         Mode[] Modes = new Mode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
         IPhotoMode[] PhotoModes = new IPhotoMode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance() };
         IVideoMode[] VideoModes = new IVideoMode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
-        MediaInfo CurrentMediaFile = null;
+        object CurrentMediaFile = null;
 
         public MediaForm()
         {
@@ -138,7 +138,7 @@ namespace LabOp222
             CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), gallery != null ? Gallery.Galleries.ToArray() : null);
             CPUpdateButtons(gallery == null, true);
         }        
-        private void CPShowModeInfo(MediaInfo mode)
+        private void CPShowModeInfo(Mode mode)
         {
             CurrentMediaFile = mode;
             bool isPhotoMode = mode is IPhotoMode;
@@ -422,7 +422,7 @@ namespace LabOp222
             if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageEditObject.SelectedIndex != -1 && ComboBoxCreatePageEditObject.Focused)
             {
                 CPHideEditMode();
-                MediaInfo obj = ComboBoxCreatePageEditObject.SelectedItem as MediaInfo;
+                object obj = ComboBoxCreatePageEditObject.SelectedItem;
                 switch (ComboBoxCreatePageSelectClass.SelectedIndex)
                 {
                     case 0:
@@ -442,7 +442,7 @@ namespace LabOp222
                         }
                     case 3:
                         {
-                            CPShowModeInfo(obj);
+                            CPShowModeInfo(obj as Mode);
                             break;
                         }
                 }                
