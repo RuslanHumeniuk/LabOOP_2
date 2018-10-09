@@ -45,8 +45,7 @@ namespace LabOp222.Models
         }
 
         public Photo() : base()
-        {
-            Mode = new DefaultMode();
+        {            
             AllPhotos.Add(this);
         }
         public Photo(string title) : this()
