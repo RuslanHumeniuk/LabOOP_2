@@ -28,12 +28,7 @@ namespace LabOp222
         {
             Id = Guid.NewGuid();
             Title = DateTime.Now.ToLocalTime().ToString();
-        }
-
-        ~MediaInfo()
-        {
-            System.Windows.Forms.MessageBox.Show( "MediaInfo " + title + " is desctructed");
-        }
+        }   
 
         public virtual string GetInfo()
         {
