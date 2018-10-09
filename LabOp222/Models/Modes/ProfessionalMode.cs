@@ -7,7 +7,7 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.Modes
 {
-    internal class ProfessionalMode : MediaInfo, IVideoMode, IPhotoMode
+    internal class ProfessionalMode : Mode, IVideoMode, IPhotoMode
     {
         private string photoMessage = "That's how proffesional photo has to be looking";
         private string videoMessage = "How did you do so proffesional video?";
@@ -43,6 +43,5 @@ namespace LabOp222.Models.Modes
         {
             return VideoMessage;
         }
-        public override void Delete() { }
     }
 }

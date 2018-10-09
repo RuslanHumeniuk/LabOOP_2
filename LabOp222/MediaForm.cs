@@ -25,7 +25,7 @@ namespace LabOp222
     */
     public partial class MediaForm : Form
     {
-        List<MediaInfo> HelpedList = new List<MediaInfo>();
+        List<MediaFile> HelpedList = new List<MediaFile>();
         MediaInfo[] Modes = new MediaInfo[] { new DefaultMode(), new MakeUp(), new Panorame(), new ProfessionalMode(), new TimeLaps() };
         MediaInfo[] PhotoModes = new MediaInfo[] { new DefaultMode(), new MakeUp(), new Panorame(), new ProfessionalMode() };
         MediaInfo[] VideoModes = new MediaInfo[] { new DefaultMode(), new MakeUp(), new ProfessionalMode(), new TimeLaps() };
@@ -131,7 +131,7 @@ namespace LabOp222
         private void CPShowGalleryInfo(Gallery gallery)
         {
             CurrentMediaFile = gallery;
-            HelpedList = gallery?.Files ?? new List<MediaInfo>();
+            HelpedList = gallery?.Files ?? new List<MediaFile>();
             CPUpdateGroupBoxes(2, null);
             CPUpdateLabels(gallery != null ? "Select gallery" : null, "Title", null, null, "All photo", "All video", "Selected files");
             CPUpdateTextBoxes(gallery?.Title ?? String.Empty, null, null);
@@ -322,7 +322,7 @@ namespace LabOp222
 
         private void CPClearAndHideAll()
         {
-            HelpedList = new List<MediaInfo>();
+            HelpedList = new List<MediaFile>();
             CPHideEditMode();
             CPHideCreateMode();
             CPUpdateComboBoxes(null, null, null, null);
@@ -363,7 +363,7 @@ namespace LabOp222
             }
             if (helpedList)
             {
-                HelpedList = new List<MediaInfo>();
+                HelpedList = new List<MediaFile>();
                 CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);
             }
         }
@@ -480,7 +480,7 @@ namespace LabOp222
             if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectedObjects.SelectedIndex != -1 && ComboBoxCreatePageSelectedObjects.Focused)
             {
                 if (HelpedList.Contains(ComboBoxCreatePageSelectedObjects.SelectedItem as MediaInfo))
-                    HelpedList.Remove(ComboBoxCreatePageSelectedObjects.SelectedItem as MediaInfo);                      
+                    HelpedList.Remove(ComboBoxCreatePageSelectedObjects.SelectedItem as MediaFile);                      
 
                 CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);
             }

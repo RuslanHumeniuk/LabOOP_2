@@ -9,37 +9,18 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models
 {
-    internal class Photo : MediaInfo
+    internal class Photo : MediaFile
     {
-        public static List<Photo> AllPhotos = new List<Photo>();        
+        public static List<Photo> AllPhotos = new List<Photo>();     
 
-        public bool IsInGallery
-        {
-            get => Gallery != null;
-        }
-
-        public Gallery Gallery
-        {
-            get
-            {
-                foreach (var gallery in Gallery.Galleries)
-                {
-                    if (gallery.Photos.Contains(this))
-                        return gallery;
-                }
-                return null;
-            }            
-        }
-
-        private IPhotoMode mode = new DefaultMode();
         public IPhotoMode Mode
         {
-            get => mode;
+            get => mode as IPhotoMode;
             set
             {
                 if(value != null && value is IPhotoMode)
                 {
-                    mode = value;
+                    mode = value as Mode;
                 }
             }
         }
@@ -75,7 +56,7 @@ namespace LabOp222.Models
 
         public override string GetInfo()
         {
-            return base.GetInfo() + "\nGallery: " + (Gallery?.Title ?? "no one") + "\nCurrent mode: " + Mode?.GetType().Name ?? "unknown";
+            return base.GetInfo() + "\nCurrent mode: " + Mode?.GetType().Name ?? "unknown";
         }
 
         public static void Delete(int index)

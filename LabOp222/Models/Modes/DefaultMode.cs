@@ -7,7 +7,7 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.Modes
 {
-    internal class DefaultMode : MediaInfo, IPhotoMode, IVideoMode
+    internal class DefaultMode : Mode, IPhotoMode, IVideoMode
     {
         private string photoMessage = "You have made a photo by default mode";
         private string videoMessage = "You have made a video by default mode";
@@ -42,11 +42,6 @@ namespace LabOp222.Models.Modes
         public string RecordVideo()
         {
             return VideoMessage;
-        }
-
-        public override void Delete()
-        {           
-
-        }
+        }        
     }
 }

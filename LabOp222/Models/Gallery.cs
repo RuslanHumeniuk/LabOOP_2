@@ -67,14 +67,14 @@ namespace LabOp222.Models
             }
         }
 
-        public List<MediaInfo> Files
+        public List<MediaFile> Files
         {
             get
             {
                 if (videos.Count < 1 && photos.Count < 1)
                     return null;
 
-                List<MediaInfo> fileList = new List<MediaInfo>();
+                List<MediaFile> fileList = new List<MediaFile>();
 
                 foreach (var item in Photos)
                 {
@@ -118,9 +118,9 @@ namespace LabOp222.Models
         {
             Videos = videos.ToList();
         }
-        public Gallery(MediaInfo[] files) : this()
+        public Gallery(MediaFile[] files) : this()
         {
-            Files = files.ToList<MediaInfo>();
+            Files = files.ToList();
         }
 
         ~Gallery()
@@ -137,7 +137,12 @@ namespace LabOp222.Models
             videos.Add(video.Id);
         }
        
+        public void RemoveMediaFileFromGallery(MediaFile file)
+        {
+            Files.Remove(file);
+        }
 
+            
         public void RemovePhotoFromGallery(Photo photo)
         {
             Photos.Remove(photo);
@@ -183,7 +188,7 @@ namespace LabOp222.Models
             stringBuilder.AppendLine(base.GetInfo());
             stringBuilder.AppendLine("Count of photos: " + photos.Count + ", count of videos: " + videos.Count);
             stringBuilder.AppendLine("Inner files:");
-            List<MediaInfo> files = Files;
+            List<MediaFile> files = Files;
             if (files != null)
             {
                 foreach (var item in Files)

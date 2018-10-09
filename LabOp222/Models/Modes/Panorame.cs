@@ -7,7 +7,7 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.Modes
 {
-    internal class Panorame : MediaInfo, IPhotoMode
+    internal class Panorame : Mode, IPhotoMode
     {
         private string photoMessage = "Wow, this is a panorama";
 
@@ -27,6 +27,5 @@ namespace LabOp222.Models.Modes
         {
             return PhotoMessage;
         }
-        public override void Delete() { }
     }
 }

@@ -7,7 +7,7 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.Modes
 {
-    internal class TimeLaps : MediaInfo, IVideoMode
+    internal class TimeLaps : Mode, IVideoMode
     {
         private string videoMessage = "Cooool, this video in timelaps";
 
@@ -27,6 +27,5 @@ namespace LabOp222.Models.Modes
         {
             return VideoMessage;
         }
-        public override void Delete() {}
     }
 }

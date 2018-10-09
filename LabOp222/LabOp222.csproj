@@ -46,12 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\MediaFile.cs" />
     <Compile Include="MediaForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MediaForm.Designer.cs">
       <DependentUpon>MediaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Modes\Mode.cs" />
     <Compile Include="Models\MediaInfo.cs" />
     <Compile Include="Models\Modes\DefaultMode.cs" />
     <Compile Include="Models\Gallery.cs" />

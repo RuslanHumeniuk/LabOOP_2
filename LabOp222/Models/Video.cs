@@ -9,7 +9,7 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models
 {
-    internal class Video : MediaInfo
+    internal class Video : MediaFile
     {
         public static List<Video> AllVideos = new List<Video>();
 
@@ -25,34 +25,15 @@ namespace LabOp222.Models
                     throw new ArgumentException("Length shoud be non-negative");
             }
         }
-
-        public bool IsInGallery
-        {
-            get => Gallery != null;
-        }
-
-        public Gallery Gallery
-        {
-            get
-            {
-                foreach (var gallery in Gallery.Galleries)
-                {
-                    if (gallery.Videos.Contains(this))
-                        return gallery;
-                }
-                return null;
-            }
-        }
-
-        private IVideoMode mode = new DefaultMode();
+        
         public IVideoMode Mode
         {
-            get => mode;
+            get => mode as IVideoMode;
             set
             {
                 if(value != null && value is IVideoMode)
                 {
-                    mode = value;
+                    mode = value as Mode;
                 }
             }
         }
@@ -90,7 +71,7 @@ namespace LabOp222.Models
 
         public override string GetInfo()
         {
-            return base.GetInfo() + "\nGallery: " + (Gallery?.Title ?? "no one") + ("\nCurrent mode: " + Mode?.GetType().Name ?? "unknown") + "\nLength of video: " + length;
+            return base.GetInfo() + ("\nCurrent mode: " + Mode?.GetType().Name ?? "unknown") + "\nLength of video: " + length;
         }
 
         public static void Delete(int index)
