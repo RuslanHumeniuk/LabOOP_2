@@ -8,8 +8,11 @@ using LabOp222.Models.Interfaces;
 namespace LabOp222
 {
     abstract internal class MediaInfo
-    {        
+    {
+        public readonly Guid Id;
+
         private string title;
+
         public string Title
         {
             get => title;
@@ -19,8 +22,7 @@ namespace LabOp222
                     title = value;
             }
         }
-
-        public readonly Guid Id;
+        
 
         public MediaInfo()
         {
@@ -31,11 +33,6 @@ namespace LabOp222
         ~MediaInfo()
         {
             System.Windows.Forms.MessageBox.Show( "MediaInfo " + title + " is desctructed");
-        }
-
-        public void ChangeTitle(string newTitle)
-        {
-            Title = newTitle;
         }
 
         public virtual string GetInfo()
@@ -54,7 +51,6 @@ namespace LabOp222
             obj.Delete();
         }        
 
-        public abstract void Delete();        
-        
+        public abstract void Delete();                
     }
 }
