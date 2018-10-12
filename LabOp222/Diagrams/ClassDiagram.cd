@@ -7,20 +7,6 @@
       <FileName>Models\MediaInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="LabOp222.Models.Photo">
-    <Position X="11" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAAAAAAAAIAAAAAAAAAAAAAAAAEAAEAAAAAACAAAAAA=</HashCode>
-      <FileName>Models\Photo.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="LabOp222.Models.Video">
-    <Position X="7.5" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAABEAAAABAAAEAAEAAAAACAAAAAAA=</HashCode>
-      <FileName>Models\Video.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="LabOp222.Models.Modes.TimeLaps">
     <Position X="18.5" Y="10.5" Width="1.5" />
     <TypeIdentifier>
@@ -68,18 +54,32 @@
       <FileName>Models\Gallery.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="LabOp222.Models.MediaFile">
-    <Position X="9.25" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAACAAAABABAAAAAAAEAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\MediaFile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="LabOp222.Models.Modes.Mode">
     <Position X="16.75" Y="11" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Modes\Mode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LabOp222.Models.MediaFiles.Video">
+    <Position X="7.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAABEAAAABAAAEAAEAAAAACAAAAAAA=</HashCode>
+      <FileName>Models\MediaFiles\Video.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LabOp222.Models.MediaFiles.MediaFile">
+    <Position X="9.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAABABAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\MediaFiles\MediaFile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LabOp222.Models.MediaFiles.Photo">
+    <Position X="11" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAIAAAAAAAAAAAAAAAAEAAEAAAAAACAAAAAA=</HashCode>
+      <FileName>Models\MediaFiles\Photo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="LabOp222.Models.Interfaces.IVideoMode">
