@@ -20,6 +20,8 @@ namespace LabOp222.Models
             {
                 if (!String.IsNullOrWhiteSpace(value))
                     title = value;
+                else
+                    throw new ArgumentException("Title can not be null or empty!");
             }
         }
         
