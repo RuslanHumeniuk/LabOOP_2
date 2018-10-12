@@ -8,7 +8,7 @@ using LabOp222.Models.MediaFiles;
 
 namespace LabOp222.Models
 {
-    internal class Gallery : MediaInfo
+    public class Gallery : MediaInfo
     {
         public static List<Gallery> Galleries = new List<Gallery>();
 

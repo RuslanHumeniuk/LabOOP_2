@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LabOp222.Models.Interfaces
 {
-    internal interface IPhotoMode
+    public interface IPhotoMode
     {
         string PhotoMessage { get; set; }
 

@@ -7,7 +7,7 @@ using LabOp222.Models.Modes;
 
 namespace LabOp222.Models.MediaFiles
 {
-    internal abstract class MediaFile : MediaInfo
+    public abstract class MediaFile : MediaInfo
     {
         protected Mode mode = DefaultMode.GetInstance();
 

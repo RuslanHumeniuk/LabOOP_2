@@ -7,7 +7,7 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.Modes
 {
-    internal class TimeLaps : Mode, IVideoMode
+    public class TimeLaps : Mode, IVideoMode
     {
         private string videoMessage = "Cooool, this video in timelaps";
 

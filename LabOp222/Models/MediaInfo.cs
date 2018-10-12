@@ -7,7 +7,7 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222
 {
-    abstract internal class MediaInfo
+    abstract public class MediaInfo
     {
         public readonly Guid Id;
 

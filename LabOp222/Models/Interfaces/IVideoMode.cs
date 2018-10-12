@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LabOp222.Models.Interfaces
 {
-    internal interface IVideoMode
+    public interface IVideoMode
     {
         string VideoMessage { get; set; }
 

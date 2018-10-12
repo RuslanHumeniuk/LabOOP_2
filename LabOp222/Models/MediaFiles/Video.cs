@@ -9,7 +9,7 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.MediaFiles
 {
-    internal class Video : MediaFile
+    public class Video : MediaFile
     {
         public static List<Video> AllVideos = new List<Video>();
 
