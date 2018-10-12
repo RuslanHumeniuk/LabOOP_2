@@ -5,7 +5,7 @@ using System.Text;
 
 using LabOp222.Models.Interfaces;
 
-namespace LabOp222
+namespace LabOp222.Models
 {
     abstract public class MediaInfo
     {
