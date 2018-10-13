@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using LabOp222.Models.MediaFiles;
 
 namespace LabOp222.Models
 {
-    public class Gallery : MediaInfo
+    public class Gallery : MediaInfo, IEnumerable
     {
         public static List<Gallery> Galleries = new List<Gallery>();
 
@@ -214,6 +215,11 @@ namespace LabOp222.Models
             photos.Clear();
             videos.Clear();
             Galleries.Remove(this);
-        }       
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return Files.GetEnumerator();
+        }
     }
 }
