@@ -99,7 +99,7 @@ namespace LabOp222.Models.MediaFiles
                     videos.Add(video);
                 }
             }
-            return videos;
+            return videos.Count > 0 ? videos : null;
         }
     }
 }
