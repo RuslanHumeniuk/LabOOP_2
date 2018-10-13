@@ -33,5 +33,24 @@ namespace LabOp222.Models.MediaFiles
         {
             return base.GetInfo() + "\nGallery: " + (Gallery?.Title ?? "no one");
         }      
+
+        public static List<MediaFile> GetMediaFilesByMode(Mode mode)
+        {
+            if (Photo.AllPhotos.Count < 1 && Video.AllVideos.Count < 1) return null;
+
+            List<MediaFile> files = new List<MediaFile>();
+
+            if(mode is Interfaces.IPhotoMode)
+            {
+                files.AddRange(Photo.GetPhotosByMode(mode as Interfaces.IPhotoMode));
+            }
+
+            if(mode is Interfaces.IVideoMode)
+            {
+                files.AddRange(Video.GetVideosByMode(mode as Interfaces.IVideoMode));
+            }
+
+            return files;
+        }
     }
 }
