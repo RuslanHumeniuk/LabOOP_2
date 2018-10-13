@@ -71,5 +71,20 @@ namespace LabOp222.Models.MediaFiles
             AllPhotos.Remove(this);
             Gallery?.RemovePhotoFromGallery(this.Id);
         }
+
+        public static List<Photo> GetPhotosByMode(IPhotoMode mode)
+        {
+            if (AllPhotos.Count < 1) return null;
+
+            List<Photo> photos = new List<Photo>();
+            foreach (var photo in AllPhotos)
+            {
+                if(photo.Mode == mode)
+                {
+                    photos.Add(photo);
+                }
+            }
+            return photos.Count > 0 ? photos : null;
+        }
     }
 }
