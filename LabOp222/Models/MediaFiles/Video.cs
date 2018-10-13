@@ -86,5 +86,20 @@ namespace LabOp222.Models.MediaFiles
             AllVideos.Remove(this);
             Gallery?.RemoveVideoFromGallery(this.Id);
         }
+
+        public static List<Video> GetVideosByMode(IVideoMode mode)
+        {
+            if (AllVideos.Count < 1) return null;
+
+            List<Video> videos = new List<Video>();
+            foreach (var video in AllVideos)
+            {
+                if(video.Mode == mode)
+                {
+                    videos.Add(video);
+                }
+            }
+            return videos;
+        }
     }
 }
