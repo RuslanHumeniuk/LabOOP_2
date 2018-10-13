@@ -50,7 +50,7 @@ namespace LabOp222.Models.MediaFiles
                 files.AddRange(Video.GetVideosByMode(mode as Interfaces.IVideoMode));
             }
 
-            return files;
+            return files.Count > 0 ? files : null;
         }
     }
 }
