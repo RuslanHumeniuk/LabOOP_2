@@ -190,12 +190,11 @@ namespace LabOp222.Models
             stringBuilder.AppendLine(base.GetInfo());
             stringBuilder.AppendLine("Count of photos: " + photos.Count + ", count of videos: " + videos.Count);
             stringBuilder.AppendLine("Inner files:");
-            List<MediaFile> files = Files;
-            if (files != null)
+            if (Files != null)
             {
-                foreach (var item in Files)
+                foreach (var mediaFile in this) //using of IENUMERABLE!
                 {
-                    stringBuilder.AppendLine(item.ToString());
+                    stringBuilder.AppendLine(mediaFile.ToString());
                 }
             }
             else
