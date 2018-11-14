@@ -42,12 +42,12 @@ namespace LabOp222.Models.MediaFiles
 
             if(mode is Interfaces.IPhotoMode)
             {
-                files.AddRange(Photo.GetPhotosByMode(mode as Interfaces.IPhotoMode));
+                files.AddRange(Photo.GetPhotosByMode(mode as Interfaces.IPhotoMode) ?? new List<Photo>());
             }
 
             if(mode is Interfaces.IVideoMode)
             {
-                files.AddRange(Video.GetVideosByMode(mode as Interfaces.IVideoMode));
+                files.AddRange(Video.GetVideosByMode(mode as Interfaces.IVideoMode) ?? new List<Video>());
             }
 
             return files.Count > 0 ? files : null;
