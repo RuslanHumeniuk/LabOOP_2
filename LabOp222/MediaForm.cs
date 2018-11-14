@@ -143,6 +143,7 @@ namespace LabOp222
             CPUpdateComboBoxes(null, null, null, Modes);
         }
 
+        #region Update
         private void CPUpdateLabels(string editObjLbl, string titleLabel, string middleLbl, string lowerLbl, string photoLabel, string videoLabel, string selectedObjectLabel)
         {
             if (editObjLbl != null)
@@ -309,7 +310,7 @@ namespace LabOp222
                 CheckBoxCreatePageVideoMode.Checked = false;
             }
         }
-
+        #endregion
 
         private void CPClearAndHideAll()
         {
@@ -381,7 +382,7 @@ namespace LabOp222
             ChangeWorkMode(RadioButtonCreatePageCreateMode.Checked);
         }
 
-
+        #region Combo boxes
         private void ComboBoxCreatePageSelectClass_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectClass.SelectedIndex != -1)
@@ -475,8 +476,8 @@ namespace LabOp222
 
                 CPUpdateComboBoxes(Photo.AllPhotos.ToArray(), Video.AllVideos.ToArray(), HelpedList.ToArray(), null);
             }
-        }       
-        
+        }
+        #endregion
 
         private void BtnCreatePageClear_Click(object sender, EventArgs e)
         {
@@ -676,13 +677,39 @@ namespace LabOp222
             else
                 MessageBox.Show("Okey");
         }
-
         #endregion
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             CPClearAndHideAll();
             DPHideElements();
-        }        
+        }
+
+        #region Static page
+
+        #region Buttons
+        private void BtnStaticPageGetPhotos_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void BtnStaticPageGetVideos_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void BtnStaticPageGetFiles_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void BtnStaticPageClear_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        private void ComboBoxStaticPageMode_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
     }
 }

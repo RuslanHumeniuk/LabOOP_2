@@ -64,8 +64,8 @@
             this.ComboBoxDeletePageSelectClass = new System.Windows.Forms.ComboBox();
             this.LblDeletePageClass = new System.Windows.Forms.Label();
             this.TabPageStatic = new System.Windows.Forms.TabPage();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ComboBoxStaticPageMode = new System.Windows.Forms.ComboBox();
+            this.LblStaticPageSelectMode = new System.Windows.Forms.Label();
             this.BtnStaticPageGetPhotos = new System.Windows.Forms.Button();
             this.BtnStaticPageGetVideos = new System.Windows.Forms.Button();
             this.BtnStaticPageGetFiles = new System.Windows.Forms.Button();
@@ -506,8 +506,8 @@
             this.TabPageStatic.Controls.Add(this.BtnStaticPageGetFiles);
             this.TabPageStatic.Controls.Add(this.BtnStaticPageGetVideos);
             this.TabPageStatic.Controls.Add(this.BtnStaticPageGetPhotos);
-            this.TabPageStatic.Controls.Add(this.comboBox1);
-            this.TabPageStatic.Controls.Add(this.label1);
+            this.TabPageStatic.Controls.Add(this.ComboBoxStaticPageMode);
+            this.TabPageStatic.Controls.Add(this.LblStaticPageSelectMode);
             this.TabPageStatic.Location = new System.Drawing.Point(4, 25);
             this.TabPageStatic.Name = "TabPageStatic";
             this.TabPageStatic.Padding = new System.Windows.Forms.Padding(3);
@@ -516,25 +516,26 @@
             this.TabPageStatic.Text = "Static methods page";
             this.TabPageStatic.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // ComboBoxStaticPageMode
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(6, 35);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(181, 24);
-            this.comboBox1.TabIndex = 38;
-            this.comboBox1.Visible = false;
+            this.ComboBoxStaticPageMode.FormattingEnabled = true;
+            this.ComboBoxStaticPageMode.Location = new System.Drawing.Point(6, 35);
+            this.ComboBoxStaticPageMode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ComboBoxStaticPageMode.Name = "ComboBoxStaticPageMode";
+            this.ComboBoxStaticPageMode.Size = new System.Drawing.Size(181, 24);
+            this.ComboBoxStaticPageMode.TabIndex = 38;
+            this.ComboBoxStaticPageMode.Visible = false;
+            this.ComboBoxStaticPageMode.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxStaticPageMode_SelectionChangeCommitted);
             // 
-            // label1
+            // LblStaticPageSelectMode
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 17);
-            this.label1.TabIndex = 37;
-            this.label1.Text = "Select mode";
-            this.label1.Visible = false;
+            this.LblStaticPageSelectMode.AutoSize = true;
+            this.LblStaticPageSelectMode.Location = new System.Drawing.Point(6, 9);
+            this.LblStaticPageSelectMode.Name = "LblStaticPageSelectMode";
+            this.LblStaticPageSelectMode.Size = new System.Drawing.Size(86, 17);
+            this.LblStaticPageSelectMode.TabIndex = 37;
+            this.LblStaticPageSelectMode.Text = "Select mode";
+            this.LblStaticPageSelectMode.Visible = false;
             // 
             // BtnStaticPageGetPhotos
             // 
@@ -544,6 +545,7 @@
             this.BtnStaticPageGetPhotos.TabIndex = 39;
             this.BtnStaticPageGetPhotos.Text = "Show all photo with mode";
             this.BtnStaticPageGetPhotos.UseVisualStyleBackColor = true;
+            this.BtnStaticPageGetPhotos.Click += new System.EventHandler(this.BtnStaticPageGetPhotos_Click);
             // 
             // BtnStaticPageGetVideos
             // 
@@ -553,6 +555,7 @@
             this.BtnStaticPageGetVideos.TabIndex = 40;
             this.BtnStaticPageGetVideos.Text = "Show all video with mode";
             this.BtnStaticPageGetVideos.UseVisualStyleBackColor = true;
+            this.BtnStaticPageGetVideos.Click += new System.EventHandler(this.BtnStaticPageGetVideos_Click);
             // 
             // BtnStaticPageGetFiles
             // 
@@ -562,6 +565,7 @@
             this.BtnStaticPageGetFiles.TabIndex = 41;
             this.BtnStaticPageGetFiles.Text = "Show all files with mode";
             this.BtnStaticPageGetFiles.UseVisualStyleBackColor = true;
+            this.BtnStaticPageGetFiles.Click += new System.EventHandler(this.BtnStaticPageGetFiles_Click);
             // 
             // RichTextBoxStaticPageResult
             // 
@@ -582,6 +586,7 @@
             this.BtnStaticPageClear.TabIndex = 43;
             this.BtnStaticPageClear.Text = "Clear";
             this.BtnStaticPageClear.UseVisualStyleBackColor = true;
+            this.BtnStaticPageClear.Click += new System.EventHandler(this.BtnStaticPageClear_Click);
             // 
             // LblStaticPageResult
             // 
@@ -660,8 +665,8 @@
         private System.Windows.Forms.Button BtnStaticPageGetFiles;
         private System.Windows.Forms.Button BtnStaticPageGetVideos;
         private System.Windows.Forms.Button BtnStaticPageGetPhotos;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox ComboBoxStaticPageMode;
+        private System.Windows.Forms.Label LblStaticPageSelectMode;
     }
 }
 
