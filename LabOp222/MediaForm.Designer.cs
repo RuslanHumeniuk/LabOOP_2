@@ -64,14 +64,14 @@
             this.ComboBoxDeletePageSelectClass = new System.Windows.Forms.ComboBox();
             this.LblDeletePageClass = new System.Windows.Forms.Label();
             this.TabPageStatic = new System.Windows.Forms.TabPage();
-            this.ComboBoxStaticPageMode = new System.Windows.Forms.ComboBox();
-            this.LblStaticPageSelectMode = new System.Windows.Forms.Label();
-            this.BtnStaticPageGetPhotos = new System.Windows.Forms.Button();
-            this.BtnStaticPageGetVideos = new System.Windows.Forms.Button();
-            this.BtnStaticPageGetFiles = new System.Windows.Forms.Button();
             this.RichTextBoxStaticPageResult = new System.Windows.Forms.RichTextBox();
             this.BtnStaticPageClear = new System.Windows.Forms.Button();
             this.LblStaticPageResult = new System.Windows.Forms.Label();
+            this.BtnStaticPageGetFiles = new System.Windows.Forms.Button();
+            this.BtnStaticPageGetVideos = new System.Windows.Forms.Button();
+            this.BtnStaticPageGetPhotos = new System.Windows.Forms.Button();
+            this.ComboBoxStaticPageMode = new System.Windows.Forms.ComboBox();
+            this.LblStaticPageSelectMode = new System.Windows.Forms.Label();
             this.TabControlMain.SuspendLayout();
             this.TabPageCreate.SuspendLayout();
             this.GroupBoxCreatePageSelectWorkMode.SuspendLayout();
@@ -379,7 +379,6 @@
             this.ComboBoxCreatePageSelectClass.Name = "ComboBoxCreatePageSelectClass";
             this.ComboBoxCreatePageSelectClass.Size = new System.Drawing.Size(156, 24);
             this.ComboBoxCreatePageSelectClass.TabIndex = 18;
-            this.ComboBoxCreatePageSelectClass.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePageSelectClass_SelectedIndexChanged);
             // 
             // LblCreatePageClass
             // 
@@ -516,57 +515,6 @@
             this.TabPageStatic.Text = "Static methods page";
             this.TabPageStatic.UseVisualStyleBackColor = true;
             // 
-            // ComboBoxStaticPageMode
-            // 
-            this.ComboBoxStaticPageMode.FormattingEnabled = true;
-            this.ComboBoxStaticPageMode.Location = new System.Drawing.Point(6, 35);
-            this.ComboBoxStaticPageMode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ComboBoxStaticPageMode.Name = "ComboBoxStaticPageMode";
-            this.ComboBoxStaticPageMode.Size = new System.Drawing.Size(181, 24);
-            this.ComboBoxStaticPageMode.TabIndex = 38;
-            this.ComboBoxStaticPageMode.Visible = false;
-            this.ComboBoxStaticPageMode.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxStaticPageMode_SelectionChangeCommitted);
-            // 
-            // LblStaticPageSelectMode
-            // 
-            this.LblStaticPageSelectMode.AutoSize = true;
-            this.LblStaticPageSelectMode.Location = new System.Drawing.Point(6, 9);
-            this.LblStaticPageSelectMode.Name = "LblStaticPageSelectMode";
-            this.LblStaticPageSelectMode.Size = new System.Drawing.Size(86, 17);
-            this.LblStaticPageSelectMode.TabIndex = 37;
-            this.LblStaticPageSelectMode.Text = "Select mode";
-            this.LblStaticPageSelectMode.Visible = false;
-            // 
-            // BtnStaticPageGetPhotos
-            // 
-            this.BtnStaticPageGetPhotos.Location = new System.Drawing.Point(6, 73);
-            this.BtnStaticPageGetPhotos.Name = "BtnStaticPageGetPhotos";
-            this.BtnStaticPageGetPhotos.Size = new System.Drawing.Size(181, 24);
-            this.BtnStaticPageGetPhotos.TabIndex = 39;
-            this.BtnStaticPageGetPhotos.Text = "Show all photo with mode";
-            this.BtnStaticPageGetPhotos.UseVisualStyleBackColor = true;
-            this.BtnStaticPageGetPhotos.Click += new System.EventHandler(this.BtnStaticPageGetPhotos_Click);
-            // 
-            // BtnStaticPageGetVideos
-            // 
-            this.BtnStaticPageGetVideos.Location = new System.Drawing.Point(6, 103);
-            this.BtnStaticPageGetVideos.Name = "BtnStaticPageGetVideos";
-            this.BtnStaticPageGetVideos.Size = new System.Drawing.Size(181, 24);
-            this.BtnStaticPageGetVideos.TabIndex = 40;
-            this.BtnStaticPageGetVideos.Text = "Show all video with mode";
-            this.BtnStaticPageGetVideos.UseVisualStyleBackColor = true;
-            this.BtnStaticPageGetVideos.Click += new System.EventHandler(this.BtnStaticPageGetVideos_Click);
-            // 
-            // BtnStaticPageGetFiles
-            // 
-            this.BtnStaticPageGetFiles.Location = new System.Drawing.Point(6, 133);
-            this.BtnStaticPageGetFiles.Name = "BtnStaticPageGetFiles";
-            this.BtnStaticPageGetFiles.Size = new System.Drawing.Size(181, 24);
-            this.BtnStaticPageGetFiles.TabIndex = 41;
-            this.BtnStaticPageGetFiles.Text = "Show all files with mode";
-            this.BtnStaticPageGetFiles.UseVisualStyleBackColor = true;
-            this.BtnStaticPageGetFiles.Click += new System.EventHandler(this.BtnStaticPageGetFiles_Click);
-            // 
             // RichTextBoxStaticPageResult
             // 
             this.RichTextBoxStaticPageResult.Enabled = false;
@@ -597,13 +545,61 @@
             this.LblStaticPageResult.TabIndex = 42;
             this.LblStaticPageResult.Text = "Result:";
             // 
+            // BtnStaticPageGetFiles
+            // 
+            this.BtnStaticPageGetFiles.Location = new System.Drawing.Point(6, 133);
+            this.BtnStaticPageGetFiles.Name = "BtnStaticPageGetFiles";
+            this.BtnStaticPageGetFiles.Size = new System.Drawing.Size(181, 24);
+            this.BtnStaticPageGetFiles.TabIndex = 41;
+            this.BtnStaticPageGetFiles.Text = "Show all files with mode";
+            this.BtnStaticPageGetFiles.UseVisualStyleBackColor = true;
+            this.BtnStaticPageGetFiles.Click += new System.EventHandler(this.BtnStaticPageGetFiles_Click);
+            // 
+            // BtnStaticPageGetVideos
+            // 
+            this.BtnStaticPageGetVideos.Location = new System.Drawing.Point(6, 103);
+            this.BtnStaticPageGetVideos.Name = "BtnStaticPageGetVideos";
+            this.BtnStaticPageGetVideos.Size = new System.Drawing.Size(181, 24);
+            this.BtnStaticPageGetVideos.TabIndex = 40;
+            this.BtnStaticPageGetVideos.Text = "Show all video with mode";
+            this.BtnStaticPageGetVideos.UseVisualStyleBackColor = true;
+            this.BtnStaticPageGetVideos.Click += new System.EventHandler(this.BtnStaticPageGetVideos_Click);
+            // 
+            // BtnStaticPageGetPhotos
+            // 
+            this.BtnStaticPageGetPhotos.Location = new System.Drawing.Point(6, 73);
+            this.BtnStaticPageGetPhotos.Name = "BtnStaticPageGetPhotos";
+            this.BtnStaticPageGetPhotos.Size = new System.Drawing.Size(181, 24);
+            this.BtnStaticPageGetPhotos.TabIndex = 39;
+            this.BtnStaticPageGetPhotos.Text = "Show all photo with mode";
+            this.BtnStaticPageGetPhotos.UseVisualStyleBackColor = true;
+            this.BtnStaticPageGetPhotos.Click += new System.EventHandler(this.BtnStaticPageGetPhotos_Click);
+            // 
+            // ComboBoxStaticPageMode
+            // 
+            this.ComboBoxStaticPageMode.FormattingEnabled = true;
+            this.ComboBoxStaticPageMode.Location = new System.Drawing.Point(6, 35);
+            this.ComboBoxStaticPageMode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ComboBoxStaticPageMode.Name = "ComboBoxStaticPageMode";
+            this.ComboBoxStaticPageMode.Size = new System.Drawing.Size(181, 24);
+            this.ComboBoxStaticPageMode.TabIndex = 38;            
+            // 
+            // LblStaticPageSelectMode
+            // 
+            this.LblStaticPageSelectMode.AutoSize = true;
+            this.LblStaticPageSelectMode.Location = new System.Drawing.Point(6, 9);
+            this.LblStaticPageSelectMode.Name = "LblStaticPageSelectMode";
+            this.LblStaticPageSelectMode.Size = new System.Drawing.Size(86, 17);
+            this.LblStaticPageSelectMode.TabIndex = 37;
+            this.LblStaticPageSelectMode.Text = "Select mode";
+            // 
             // MediaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(809, 364);
             this.Controls.Add(this.TabControlMain);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MediaForm";
             this.Text = "Media form";
             this.TabControlMain.ResumeLayout(false);
