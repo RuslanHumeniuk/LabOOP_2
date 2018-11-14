@@ -37,7 +37,9 @@ namespace LabOp222
             Gallery secondGallery = new Gallery("Second gallery");
 
             gallery.AddPhoto(firstPhoto);
-            gallery.AddVideo(secondVideo);            
+            gallery.AddVideo(secondVideo);
+
+            ComboBoxStaticPageMode.DataSource = Modes;
         }
 
         #region Creating page
@@ -685,30 +687,65 @@ namespace LabOp222
             DPHideElements();
         }
 
-        #region Static page
-
-        #region Buttons
+        #region Static page        
         private void BtnStaticPageGetPhotos_Click(object sender, EventArgs e)
         {
-
+            if(ComboBoxStaticPageMode.SelectedItem != null)
+            {
+                List<Photo> result = Photo.GetPhotosByMode(ComboBoxStaticPageMode.SelectedItem as IPhotoMode);
+                if (result == null) 
+                {
+                    RichTextBoxStaticPageResult.Text = "No one photo with this mode";
+                    return;
+                }
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (var photo in result)
+                {
+                    stringBuilder.AppendLine(photo.ToString());
+                }
+                RichTextBoxStaticPageResult.Text = stringBuilder.ToString();
+            }
         }
         private void BtnStaticPageGetVideos_Click(object sender, EventArgs e)
         {
-
+            if (ComboBoxStaticPageMode.SelectedItem != null)
+            {
+                List<Video> result = Video.GetVideosByMode(ComboBoxStaticPageMode.SelectedItem as IVideoMode);
+                if (result == null)
+                {
+                    RichTextBoxStaticPageResult.Text = "No one video with this mode";
+                    return;
+                }
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (var video in result)
+                {
+                    stringBuilder.AppendLine(video.ToString());
+                }
+                RichTextBoxStaticPageResult.Text = stringBuilder.ToString();
+            }
         }
         private void BtnStaticPageGetFiles_Click(object sender, EventArgs e)
         {
-
+            if (ComboBoxStaticPageMode.SelectedItem != null)
+            {
+                List<MediaFile> result = MediaFile.GetMediaFilesByMode(ComboBoxStaticPageMode.SelectedItem as Mode);
+                if (result == null)
+                {
+                    RichTextBoxStaticPageResult.Text = "No one file with this mode";
+                    return;
+                }
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (var file in result)
+                {
+                    stringBuilder.AppendLine(file.ToString());
+                }
+                RichTextBoxStaticPageResult.Text = stringBuilder.ToString();
+            }
         }
+
         private void BtnStaticPageClear_Click(object sender, EventArgs e)
         {
-
-        }
-        #endregion
-
-        private void ComboBoxStaticPageMode_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-
+            RichTextBoxStaticPageResult.Clear();
         }
         #endregion
     }
