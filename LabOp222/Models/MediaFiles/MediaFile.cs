@@ -1,21 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 using LabOp222.Models.Modes;
 
 namespace LabOp222.Models.MediaFiles
 {
+    [KnownType(typeof(Mode))]
+    [XmlRoot("MediaFile")]
+    [DataContract]
     public abstract class MediaFile : MediaInfo
     {
-        protected Mode mode = DefaultMode.GetInstance();
+        [DataMember]
+        [XmlElement("Mode_Index")]
+        public byte modeIndex = 0;
 
+        public MediaFile() : base() { }
+
+        [XmlIgnore]
         public bool IsInGallery
         {
             get => Gallery != null;
         }
-
+              
+        [XmlIgnore]
         public Gallery Gallery
         {
             get
@@ -28,12 +36,12 @@ namespace LabOp222.Models.MediaFiles
                 return null;
             }
         }
-
+        
         public override string GetInfo()
         {
             return base.GetInfo() + "\nGallery: " + (Gallery?.Title ?? "no one");
-        }      
-
+        }
+        
         public static List<MediaFile> GetMediaFilesByMode(Mode mode)
         {
             if (Photo.AllPhotos.Count < 1 && Video.AllVideos.Count < 1) return null;
