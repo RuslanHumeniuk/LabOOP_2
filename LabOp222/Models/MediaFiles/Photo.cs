@@ -6,21 +6,33 @@ using System.Text;
 using LabOp222.Models.Modes;
 using LabOp222.Models;
 using LabOp222.Models.Interfaces;
+using System.Xml.Serialization;
+using System.IO;
+using LabOp222.Models.Interfaces.Serialization;
+using System.Threading;
 
 namespace LabOp222.Models.MediaFiles
 {
-    public class Photo : MediaFile
+    [XmlRoot("Photo")]
+    public class Photo : MediaFile, IXmlSerialization
     {
-        public static List<Photo> AllPhotos = new List<Photo>();     
+        [NonSerialized]
+        [XmlIgnore]
+        public static List<Photo> AllPhotos = new List<Photo>();
 
+        [XmlIgnore]
         public IPhotoMode Mode
         {
-            get => mode as IPhotoMode;
+            get => Modes.Mode.AllModes[modeIndex] as IPhotoMode;
             set
             {
-                if(value != null && value is IPhotoMode)
+                if (value != null && value is IPhotoMode)
                 {
-                    mode = value as Mode;
+                    for (byte i = 0; i < Modes.Mode.AllModes.Length; i++)
+                    {
+                        if (Modes.Mode.AllModes[i].Equals(value))
+                            modeIndex = i;
+                    }
                 }
             }
         }
@@ -44,7 +56,7 @@ namespace LabOp222.Models.MediaFiles
 
         ~Photo()
         {
-            System.Windows.Forms.MessageBox.Show("Photo " + Title + " is desctructed");
+            System.Windows.Forms.MessageBox.Show(SerializeXml());
         }
 
         public string TakeAPhoto()
@@ -85,6 +97,28 @@ namespace LabOp222.Models.MediaFiles
                 }
             }
             return photos.Count > 0 ? photos : null;
+        }
+
+        public string SerializeXml()
+        {            
+            XmlSerializer formatter = new XmlSerializer(AllPhotos.GetType());
+
+            using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Create, FileAccess.ReadWrite))
+            {
+                formatter.Serialize(fileStream, AllPhotos);                
+            }
+            return this + " is serialized: " + this.Id;
+        }
+
+        public string DeserializeXml()
+        {
+            XmlSerializer formatter = new XmlSerializer(typeof(Photo[]));
+            using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Open))
+            {
+                List<Photo> newPhoto = (formatter.Deserialize(fileStream) as Photo[]).ToList();
+                AllPhotos = newPhoto.ToList();
+                return AllPhotos.Count.ToString();
+            }            
         }
     }
 }
