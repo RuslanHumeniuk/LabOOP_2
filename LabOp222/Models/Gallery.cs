@@ -5,11 +5,14 @@ using System.Linq;
 using System.Text;
 
 using LabOp222.Models;
+using LabOp222.Models.Interfaces.Serialization;
+
 using LabOp222.Models.MediaFiles;
 
 namespace LabOp222.Models
 {
-    public class Gallery : MediaInfo, IEnumerable
+    [Serializable]
+    public class Gallery : MediaInfo
     {
         public static List<Gallery> Galleries = new List<Gallery>();
 
@@ -124,11 +127,7 @@ namespace LabOp222.Models
         {
             Files = files.ToList();
         }
-
-        ~Gallery()
-        {
-            System.Windows.Forms.MessageBox.Show("Gallery " + Title + " is desctructed");
-        }
+       
 
         public void AddPhoto(Photo photo)
         {
@@ -219,6 +218,6 @@ namespace LabOp222.Models
         public IEnumerator GetEnumerator()
         {
             return Files.GetEnumerator();
-        }
+        }        
     }
 }

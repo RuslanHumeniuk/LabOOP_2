@@ -379,6 +379,7 @@
             this.ComboBoxCreatePageSelectClass.Name = "ComboBoxCreatePageSelectClass";
             this.ComboBoxCreatePageSelectClass.Size = new System.Drawing.Size(156, 24);
             this.ComboBoxCreatePageSelectClass.TabIndex = 18;
+            this.ComboBoxCreatePageSelectClass.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxCreatePageSelectClass_SelectionChangeCommitted);
             // 
             // LblCreatePageClass
             // 
@@ -582,7 +583,7 @@
             this.ComboBoxStaticPageMode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ComboBoxStaticPageMode.Name = "ComboBoxStaticPageMode";
             this.ComboBoxStaticPageMode.Size = new System.Drawing.Size(181, 24);
-            this.ComboBoxStaticPageMode.TabIndex = 38;            
+            this.ComboBoxStaticPageMode.TabIndex = 38;
             // 
             // LblStaticPageSelectMode
             // 

@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Interfaces\Serialization\IBinarySerialization.cs" />
+    <Compile Include="Models\Interfaces\Serialization\IJsonSerialization.cs" />
+    <Compile Include="Models\Interfaces\Serialization\IXmlSerialization.cs" />
     <Compile Include="Models\MediaFiles\MediaFile.cs" />
     <Compile Include="MediaForm.cs">
       <SubType>Form</SubType>

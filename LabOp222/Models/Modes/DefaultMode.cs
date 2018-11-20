@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.Modes
 {
+    [DataContract]
+    [Serializable]
     public class DefaultMode : Mode, IPhotoMode, IVideoMode
     {
+        [DataMember]
         private string photoMessage = "You have made a photo by default mode";
+        [DataMember]
         private string videoMessage = "You have made a video by default mode";
 
         private static DefaultMode instance = null;

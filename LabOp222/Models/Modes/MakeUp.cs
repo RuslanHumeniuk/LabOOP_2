@@ -7,6 +7,7 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.Modes
 {
+    [Serializable]
     public class MakeUp : Mode, IPhotoMode, IVideoMode
     {
         private string photoMessage = "You look much better on this photo";

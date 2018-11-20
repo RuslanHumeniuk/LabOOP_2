@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.Modes
 {
+    [Serializable]
+    [DataContract]
     public class TimeLaps : Mode, IVideoMode
     {
+        [DataMember]
         private string videoMessage = "Cooool, this video in timelaps";
 
         private static TimeLaps instance = null;
 
-        private TimeLaps() { }
+        private TimeLaps() {}
 
         public static TimeLaps GetInstance()
         {

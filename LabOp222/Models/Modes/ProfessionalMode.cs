@@ -7,6 +7,7 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.Modes
 {
+    [Serializable]
     public class ProfessionalMode : Mode, IVideoMode, IPhotoMode
     {
         private string photoMessage = "That's how proffesional photo has to be looking";
