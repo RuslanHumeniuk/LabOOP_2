@@ -1,19 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
+using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Runtime.Serialization;
 
 using LabOp222.Models.Modes;
 using LabOp222.Models;
 using LabOp222.Models.Interfaces;
+using LabOp222.Models.Interfaces.Serialization;
+using System.Threading;
 
 namespace LabOp222.Models.MediaFiles
 {
-    public class Video : MediaFile
+    [DataContract]
+    [Serializable]
+    public class Video : MediaFile, IJsonSerialization
     {
         public static List<Video> AllVideos = new List<Video>();
 
-        private int length = 0;
+        [DataMember]
+        private int length = 0;        
         public int Length
         {
             get => length;
@@ -25,15 +32,19 @@ namespace LabOp222.Models.MediaFiles
                     throw new ArgumentException("Length shoud be non-negative");
             }
         }
-        
+
         public IVideoMode Mode
         {
-            get => mode as IVideoMode;
+            get => Modes.Mode.AllModes[modeIndex] as IVideoMode;
             set
             {
                 if(value != null && value is IVideoMode)
                 {
-                    mode = value as Mode;
+                    for (byte i = 0; i < Modes.Mode.AllModes.Length; i++)
+                    {
+                        if (Modes.Mode.AllModes[i].Equals(value))
+                            modeIndex = i;
+                    }
                 }
             }
         }
@@ -57,7 +68,7 @@ namespace LabOp222.Models.MediaFiles
 
         ~Video()
         {
-            System.Windows.Forms.MessageBox.Show("Video " + Title + " is desctructed");
+            System.Windows.Forms.MessageBox.Show(SerializeJSON());                     
         }
 
         public string RecordVideo()
@@ -94,12 +105,32 @@ namespace LabOp222.Models.MediaFiles
             List<Video> videos = new List<Video>();
             foreach (var video in AllVideos)
             {
-                if(video.Mode == mode)
+                if(video.Mode.Equals(mode))
                 {
                     videos.Add(video);
                 }
             }
             return videos.Count > 0 ? videos : null;
+        }
+
+        public string SerializeJSON()
+        {
+            DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(Video[]));
+            using (FileStream stream = new FileStream(this.GetType().Name + ".json", FileMode.Create))
+            {
+                jsonSerializer.WriteObject(stream, AllVideos.ToArray());
+            }
+            return "All objects of " + this.GetType().Name + " are serialized";
+        }
+
+        public string DeserializeJSON()
+        {
+            DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(Video[]));
+            using (FileStream fs = new FileStream(this.GetType().Name + ".json", FileMode.Open))
+            {                
+                AllVideos = new List<Video>(jsonSerializer.ReadObject(fs) as Video[]);
+                return AllVideos.Count.ToString() + (AllVideos.Count > 1 ? " objects are deserialized" : (AllVideos.Count == 1 ? " object is deserialized" : " - nothing to deserialize!"));
+            }
         }
     }
 }
