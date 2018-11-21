@@ -9,7 +9,8 @@ using System.Xml.Serialization;
 using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.Modes
-{    
+{
+    [Serializable]
     [DataContract]
     [XmlRoot("TimeLaps")]
     public class TimeLaps : Mode, IVideoMode
