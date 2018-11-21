@@ -26,12 +26,18 @@ namespace LabOp222
 
             ComboBoxStaticPageMode.DataSource = Mode.AllModes;
 
+            DeserializeAllData();           
+        }
+
+        private void DeserializeAllData()
+        {
             new Gallery().DeserializeXml();
             new Photo().DeserializeXml();
             new Video().DeserializeXml();
             foreach (var item in Mode.AllModes)
             {
-                item.DeserializeJSON();
+                item.DeserializeXml();
+                //item.DeserializeJSON();
             }
         }
 
@@ -126,8 +132,7 @@ namespace LabOp222
             CPUpdateButtons(gallery == null, true);
         }
         private void CPShowModeInfo(Mode mode)
-        {
-            //objectToEdit = mode;
+        {            
             bool isPhotoMode = mode is IPhotoMode;
             bool isVideoMode = mode is IVideoMode;
 
@@ -378,7 +383,7 @@ namespace LabOp222
         }
 
         #region Combo boxes
-        private void ComboBoxCreatePageSelectClass_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxCreatePageSelectClass_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectClass.SelectedIndex != -1)
             {
@@ -402,7 +407,7 @@ namespace LabOp222
                         }
                 }
             }
-        }
+        }        
 
         private void ComboBoxCreatePageEditObject_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -743,30 +748,6 @@ namespace LabOp222
         }
         #endregion
 
-        private void ComboBoxCreatePageSelectClass_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            if (TabControlMain.SelectedIndex == 0 && ComboBoxCreatePageSelectClass.SelectedIndex != -1)
-            {
-                CPClearAndHideAll();
-                switch (ComboBoxCreatePageSelectClass.SelectedIndex)
-                {
-                    case 0:
-                    case 1:
-                    case 2:
-                        {
-                            CPUpdateWorkGroupBox(2);
-                            TextBoxCreatePageTitle.Enabled = true;
-                            break;
-                        }
-                    case 3:
-                        {
-                            CPUpdateWorkGroupBox(1);
-                            ChangeWorkMode(false);
-                            TextBoxCreatePageTitle.Enabled = false; //user can not change title of mode, because Title of some mode - is Name of its type
-                            break;
-                        }
-                }
-            }
-        }
+       
     }
 }
