@@ -10,6 +10,7 @@ using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.Modes
 {
+    [Serializable]
     [DataContract]
     [XmlRoot("ProfessionalMode")]
     public class ProfessionalMode : Mode, IVideoMode, IPhotoMode
