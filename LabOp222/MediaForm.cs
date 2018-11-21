@@ -22,15 +22,17 @@ namespace LabOp222
 
         public MediaForm()
         {
-            InitializeComponent();
-
-            Gallery gallery = new Gallery("Main gallery");
-            Gallery secondGallery = new Gallery("Second gallery");
+            InitializeComponent();           
 
             ComboBoxStaticPageMode.DataSource = Mode.AllModes;
 
-            MessageBox.Show(new Video().DeserializeJSON());
-            MessageBox.Show(new Photo().DeserializeXml());
+            new Gallery().DeserializeXml();
+            new Photo().DeserializeXml();
+            new Video().DeserializeXml();
+            foreach (var item in Mode.AllModes)
+            {
+                item.DeserializeJSON();
+            }
         }
 
         #region Creating page
@@ -125,7 +127,7 @@ namespace LabOp222
         }
         private void CPShowModeInfo(Mode mode)
         {
-            objectToEdit = mode;
+            //objectToEdit = mode;
             bool isPhotoMode = mode is IPhotoMode;
             bool isVideoMode = mode is IVideoMode;
 
@@ -427,7 +429,8 @@ namespace LabOp222
                         }
                     case 3:
                         {
-                            CPShowModeInfo(obj as Mode);
+                            objectToEdit = Mode.AllModes[ComboBoxCreatePageEditObject.SelectedIndex];
+                            CPShowModeInfo(Mode.AllModes[ComboBoxCreatePageEditObject.SelectedIndex]);
                             break;
                         }
                 }
