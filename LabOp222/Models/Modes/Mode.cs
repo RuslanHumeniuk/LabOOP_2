@@ -17,7 +17,7 @@ namespace LabOp222.Models.Modes
     [Serializable]
     [DataContract]
     [XmlRoot("Mode")]
-    public abstract class Mode : /*IXmlSerialization*/  IJsonSerialization
+    public abstract class Mode : IXmlSerialization,  IJsonSerialization
     {
         [XmlIgnore]
         public static Mode[] AllModes = new Mode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
@@ -30,7 +30,7 @@ namespace LabOp222.Models.Modes
 
         ~Mode()
         {
-            //SerializeXml();
+            SerializeXml();
             SerializeJSON();
         }
 
@@ -49,25 +49,28 @@ namespace LabOp222.Models.Modes
             return base.GetHashCode();
         }
 
-        //public virtual string SerializeXml()
-        //{
-        //    XmlSerializer formatter = new XmlSerializer(this.GetType());
-        //    using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Create)) 
-        //    {
-        //        formatter.Serialize(fileStream, this);
-        //    }
-        //    return this + " is serialized";
-        //}
-
-        //public virtual string DeserializeXml()
-        //{
-        //    XmlSerializer formatter = new XmlSerializer(this.GetType());
-        //    using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Open)) 
-        //    {
-        //        Mode mode = formatter.Deserialize(fileStream) as Mode;
-        //        return mode + " is deserialized";
-        //    }
-        //}
+        public virtual string SerializeXml()
+        {
+            XmlSerializer formatter = new XmlSerializer(this.GetType());
+            using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Create))
+            {
+                formatter.Serialize(fileStream, this);
+            }
+            return this + " is serialized";
+        }
+        public virtual string DeserializeXml()
+        {
+            XmlSerializer formatter = new XmlSerializer(this.GetType());
+            using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Open))
+            {
+                Mode deserializedMode = formatter.Deserialize(fileStream) as Mode;
+                if (this is IPhotoMode)
+                    (this as IPhotoMode).PhotoMessage = (deserializedMode as IPhotoMode).PhotoMessage;
+                if (this is IVideoMode)
+                    (this as IVideoMode).VideoMessage = (deserializedMode as IVideoMode).VideoMessage;
+                return this.ToString() + " is deserialized!";
+            }
+        }
 
         public virtual string SerializeJSON()
         {
@@ -78,7 +81,6 @@ namespace LabOp222.Models.Modes
             }
             return "All objects of " + this.GetType().Name + " are serialized";
         }
-
         public virtual string DeserializeJSON()
         {
             DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(this.GetType());

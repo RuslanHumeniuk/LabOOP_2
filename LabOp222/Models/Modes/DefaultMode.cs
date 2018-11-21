@@ -16,9 +16,9 @@ namespace LabOp222.Models.Modes
     public class DefaultMode : Mode, IPhotoMode, IVideoMode
     {
         [DataMember]
-        private string photoMessage = "You have made a photo by default mode";
+        private string photoMessage;// = "You have made a photo by default mode";
         [DataMember]
-        private string videoMessage = "You have made a video by default mode";
+        private string videoMessage;// = "You have made a video by default mode";
 
         [XmlIgnore]
         private static DefaultMode instance = null;
@@ -64,37 +64,6 @@ namespace LabOp222.Models.Modes
         public string RecordVideo()
         {
             return VideoMessage;
-        }
-
-        //public override string SerializeXml()
-        //{
-        //    XmlSerializer formatter = new XmlSerializer(this.GetType());
-        //    using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Create))
-        //    {
-        //        formatter.Serialize(fileStream, instance);
-        //    }
-        //    return this + " is serialized";
-        //}
-        //public override string DeserializeXml()
-        //{
-        //    XmlSerializer formatter = new XmlSerializer(this.GetType());
-        //    using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Open))
-        //    {
-        //        instance = formatter.Deserialize(fileStream) as DefaultMode;                               
-        //        photoMessage = instance.photoMessage;
-        //        videoMessage = instance.videoMessage;
-        //        return instance + " is deserialized";
-        //    }
-        //}
-
-        public override string SerializeJSON()
-        {
-            DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(this.GetType());
-            using (FileStream stream = new FileStream(this.GetType().Name + ".json", FileMode.Create))
-            {
-                jsonSerializer.WriteObject(stream, GetInstance());
-            }
-            return "All objects of " + this.GetType().Name + " are serialized";
-        }
+        }        
     }
 }
