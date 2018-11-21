@@ -10,6 +10,7 @@ using LabOp222.Models;
 using LabOp222.Models.Interfaces;
 using LabOp222.Models.Interfaces.Serialization;
 using System.Threading;
+using System.Xml.Serialization;
 
 namespace LabOp222.Models.MediaFiles
 {
@@ -33,6 +34,7 @@ namespace LabOp222.Models.MediaFiles
             }
         }
 
+        [XmlIgnore]
         public IVideoMode Mode
         {
             get => Modes.Mode.AllModes[modeIndex] as IVideoMode;
@@ -68,7 +70,7 @@ namespace LabOp222.Models.MediaFiles
 
         ~Video()
         {
-            System.Windows.Forms.MessageBox.Show(SerializeJSON());                     
+            SerializeJSON();            
         }
 
         public string RecordVideo()
@@ -130,6 +132,27 @@ namespace LabOp222.Models.MediaFiles
             {                
                 AllVideos = new List<Video>(jsonSerializer.ReadObject(fs) as Video[]);
                 return AllVideos.Count.ToString() + (AllVideos.Count > 1 ? " objects are deserialized" : (AllVideos.Count == 1 ? " object is deserialized" : " - nothing to deserialize!"));
+            }
+        }
+
+        public override string SerializeXml()
+        {
+            XmlSerializer formatter = new XmlSerializer(AllVideos.GetType());
+
+            using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Create, FileAccess.ReadWrite))
+            {
+                formatter.Serialize(fileStream, AllVideos);
+            }
+            return this + " is serialized: " + this.Id;
+        }
+
+        public override string DeserializeXml()
+        {
+            XmlSerializer formatter = new XmlSerializer(typeof(Video[]));
+            using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Open))
+            {
+                AllVideos = new List<Video>(formatter.Deserialize(fileStream) as Video[]);                
+                return AllVideos.Count.ToString();
             }
         }
     }

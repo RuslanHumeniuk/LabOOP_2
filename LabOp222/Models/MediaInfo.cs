@@ -11,16 +11,16 @@ using System.Runtime.Serialization;
 
 namespace LabOp222.Models
 {
-    [DataContract]    
+    [DataContract]
     [XmlRoot("MediaInfo")]
-    public abstract class MediaInfo
+    public abstract class MediaInfo : IXmlSerialization
     {
         [DataMember]
         [XmlElement("ID")]
         public Guid Id;
-        [DataMember]        
+        [DataMember]
         private string title;
-        
+
         public string Title
         {
             get => title;
@@ -32,7 +32,7 @@ namespace LabOp222.Models
                     throw new ArgumentException("Title can not be null or empty!");
             }
         }
-        
+
 
         public MediaInfo()
         {
@@ -42,7 +42,7 @@ namespace LabOp222.Models
 
         ~MediaInfo()
         {
-           // SerializeXml();
+            SerializeXml();
         }
 
         public virtual string GetInfo()
@@ -54,34 +54,34 @@ namespace LabOp222.Models
         {
             return GetType().Name + ": " + Title;
         }
-        
+
 
         public static void Delete(MediaInfo obj)
         {
             obj.Delete();
-        }        
+        }
 
         public abstract void Delete();
 
-        //public string SerializeXml()
-        //{
-        //    XmlSerializer formatter = new XmlSerializer(this.GetType());
+        public virtual string SerializeXml()
+        {
+            XmlSerializer formatter = new XmlSerializer(this.GetType());
 
-        //    using(FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.OpenOrCreate))
-        //    {
-        //        formatter.Serialize(fileStream, this);
-        //    }
-        //    return this + " is serialized";
-        //}
+            using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.OpenOrCreate))
+            {
+                formatter.Serialize(fileStream, this);
+            }
+            return this + " is serialized";
+        }
 
-        //public string DeserializeXml()
-        //{
-        //    XmlSerializer formatter = new XmlSerializer(this.GetType());
-        //    using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Open))
-        //    {
-        //        MediaInfo newMedia = formatter.Deserialize(fileStream) as MediaInfo;
-        //        return newMedia + " is deserialized";
-        //    }            
-        //}        
+        public virtual string DeserializeXml()
+        {
+            XmlSerializer formatter = new XmlSerializer(this.GetType());
+            using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Open))
+            {
+                MediaInfo newMedia = formatter.Deserialize(fileStream) as MediaInfo;
+                return newMedia + " is deserialized";
+            }
+        }
     }
 }

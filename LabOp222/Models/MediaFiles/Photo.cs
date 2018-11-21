@@ -53,12 +53,7 @@ namespace LabOp222.Models.MediaFiles
         {
             Title = title;
         }
-
-        ~Photo()
-        {
-            System.Windows.Forms.MessageBox.Show(SerializeXml());
-        }
-
+     
         public string TakeAPhoto()
         {
             if (Mode != null)
@@ -99,7 +94,7 @@ namespace LabOp222.Models.MediaFiles
             return photos.Count > 0 ? photos : null;
         }
 
-        public string SerializeXml()
+        public override string SerializeXml()
         {            
             XmlSerializer formatter = new XmlSerializer(AllPhotos.GetType());
 
@@ -110,7 +105,7 @@ namespace LabOp222.Models.MediaFiles
             return this + " is serialized: " + this.Id;
         }
 
-        public string DeserializeXml()
+        public override string DeserializeXml()
         {
             XmlSerializer formatter = new XmlSerializer(typeof(Photo[]));
             using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Open))

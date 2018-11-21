@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-
+using System.Xml.Serialization;
 using LabOp222.Models;
 using LabOp222.Models.Interfaces.Serialization;
 
@@ -11,14 +12,21 @@ using LabOp222.Models.MediaFiles;
 
 namespace LabOp222.Models
 {
-    [Serializable]
+    [XmlRoot("Gallery")]
     public class Gallery : MediaInfo
     {
+        [XmlIgnore]
         public static List<Gallery> Galleries = new List<Gallery>();
 
-        private List<Guid> photos = new List<Guid>();
-        private List<Guid> videos = new List<Guid>();
+        [XmlArray("Photos_id")]
+        [XmlArrayItem("Id")]
+        public List<Guid> photos = new List<Guid>();
 
+        [XmlArray("Videos_id")]
+        [XmlArrayItem("Id")]
+        public List<Guid> videos = new List<Guid>();
+        
+        [XmlIgnore]
         public List<Photo> Photos
         {
             get
@@ -45,6 +53,8 @@ namespace LabOp222.Models
                 }
             }
         }
+
+        [XmlIgnore]
         public List<Video> Videos
         {
             get
@@ -72,6 +82,7 @@ namespace LabOp222.Models
             }
         }
 
+        [XmlIgnore]
         public List<MediaFile> Files
         {
             get
@@ -142,7 +153,6 @@ namespace LabOp222.Models
         {
             Files.Remove(file);
         }
-
             
         public void RemovePhotoFromGallery(Photo photo)
         {
@@ -218,6 +228,27 @@ namespace LabOp222.Models
         public IEnumerator GetEnumerator()
         {
             return Files.GetEnumerator();
-        }        
+        }
+
+        public override string SerializeXml()
+        {
+            XmlSerializer formatter = new XmlSerializer(Galleries.GetType());
+
+            using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Create, FileAccess.ReadWrite))
+            {
+                formatter.Serialize(fileStream, Galleries);
+            }
+            return this + " is serialized: " + this.Id;
+        }
+
+        public override string DeserializeXml()
+        {
+            XmlSerializer formatter = new XmlSerializer(typeof(Gallery[]));
+            using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Open))
+            {
+                Galleries = new List<Gallery>(formatter.Deserialize(fileStream) as Gallery[]);              
+                return Galleries.Count.ToString();
+            }
+        }
     }
 }
