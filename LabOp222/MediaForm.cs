@@ -38,6 +38,7 @@ namespace LabOp222
             {
                 item.DeserializeXml();
                 //item.DeserializeJSON();
+                //item.DeserializeBinary();
             }
         }
 
