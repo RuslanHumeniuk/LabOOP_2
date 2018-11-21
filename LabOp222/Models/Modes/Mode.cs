@@ -3,6 +3,7 @@ using LabOp222.Models.Interfaces.Serialization;
 using System;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Json;
 using System.Xml.Serialization;
 
@@ -17,7 +18,7 @@ namespace LabOp222.Models.Modes
     [Serializable]
     [DataContract]
     [XmlRoot("Mode")]
-    public abstract class Mode : IXmlSerialization,  IJsonSerialization
+    public abstract class Mode : IXmlSerialization,  IJsonSerialization, IBinarySerialization
     {
         [XmlIgnore]
         public static Mode[] AllModes = new Mode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
@@ -32,23 +33,22 @@ namespace LabOp222.Models.Modes
         {
             SerializeXml();
             SerializeJSON();
+            SerializeBinary();
         }
 
         public override string ToString()
         {
             return GetType().Name;
         }
-
         public override bool Equals(object obj)
         {
             return obj != null && obj.GetType().Equals(this.GetType());      
         }
-
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
-
+                
         public virtual string SerializeXml()
         {
             XmlSerializer formatter = new XmlSerializer(this.GetType());
@@ -94,5 +94,29 @@ namespace LabOp222.Models.Modes
                 return this.ToString() + " is deserialized!";
             }
         }
+
+        public string SerializeBinary()
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            using(FileStream fs = new FileStream(this.GetType().Name + ".dat", FileMode.Create))
+            {
+                formatter.Serialize(fs, this);
+            }
+            return this + " is serialized!";
+        }
+        public string DeserializeBinary()
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream reader = new FileStream(this.GetType().Name + ".dat", FileMode.Open))
+            {
+                Mode deserializedMode = formatter.Deserialize(reader) as Mode;
+                if (this is IPhotoMode)
+                    (this as IPhotoMode).PhotoMessage = (deserializedMode as IPhotoMode).PhotoMessage;
+                if (this is IVideoMode)
+                    (this as IVideoMode).VideoMessage = (deserializedMode as IVideoMode).VideoMessage;
+                return this.ToString() + " is deserialized!";
+            }            
+        }
+        
     }
 }
