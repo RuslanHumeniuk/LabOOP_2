@@ -72,12 +72,27 @@
             this.BtnStaticPageGetPhotos = new System.Windows.Forms.Button();
             this.ComboBoxStaticPageMode = new System.Windows.Forms.ComboBox();
             this.LblStaticPageSelectMode = new System.Windows.Forms.Label();
+            this.TabPageSerialization = new System.Windows.Forms.TabPage();
+            this.GroupBoxTypeSerPage = new System.Windows.Forms.GroupBox();
+            this.RadioButtonXmlSerPage = new System.Windows.Forms.RadioButton();
+            this.RadioButtonJsonSerPage = new System.Windows.Forms.RadioButton();
+            this.RadioButtonBinarySerPage = new System.Windows.Forms.RadioButton();
+            this.BtnSerializeSerPage = new System.Windows.Forms.Button();
+            this.BtnDeserializeSerPage = new System.Windows.Forms.Button();
+            this.LabelDefaultModeSerPage = new System.Windows.Forms.Label();
+            this.LblPhotoMessageSerPage = new System.Windows.Forms.Label();
+            this.LblVideoMessageSerPage = new System.Windows.Forms.Label();
+            this.RichTextBoxContentSerPage = new System.Windows.Forms.RichTextBox();
+            this.RichTextBoxPhotoMesSerPage = new System.Windows.Forms.RichTextBox();
+            this.RichTextBoxVideoMesSerPage = new System.Windows.Forms.RichTextBox();
             this.TabControlMain.SuspendLayout();
             this.TabPageCreate.SuspendLayout();
             this.GroupBoxCreatePageSelectWorkMode.SuspendLayout();
             this.GroupBoxCreatePageModeType.SuspendLayout();
             this.TabPageDelete.SuspendLayout();
             this.TabPageStatic.SuspendLayout();
+            this.TabPageSerialization.SuspendLayout();
+            this.GroupBoxTypeSerPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -85,6 +100,7 @@
             this.TabControlMain.Controls.Add(this.TabPageCreate);
             this.TabControlMain.Controls.Add(this.TabPageDelete);
             this.TabControlMain.Controls.Add(this.TabPageStatic);
+            this.TabControlMain.Controls.Add(this.TabPageSerialization);
             this.TabControlMain.Location = new System.Drawing.Point(13, 14);
             this.TabControlMain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.TabControlMain.Name = "TabControlMain";
@@ -594,6 +610,146 @@
             this.LblStaticPageSelectMode.TabIndex = 37;
             this.LblStaticPageSelectMode.Text = "Select mode";
             // 
+            // TabPageSerialization
+            // 
+            this.TabPageSerialization.Controls.Add(this.RichTextBoxVideoMesSerPage);
+            this.TabPageSerialization.Controls.Add(this.RichTextBoxPhotoMesSerPage);
+            this.TabPageSerialization.Controls.Add(this.RichTextBoxContentSerPage);
+            this.TabPageSerialization.Controls.Add(this.LblVideoMessageSerPage);
+            this.TabPageSerialization.Controls.Add(this.LblPhotoMessageSerPage);
+            this.TabPageSerialization.Controls.Add(this.LabelDefaultModeSerPage);
+            this.TabPageSerialization.Controls.Add(this.BtnDeserializeSerPage);
+            this.TabPageSerialization.Controls.Add(this.BtnSerializeSerPage);
+            this.TabPageSerialization.Controls.Add(this.GroupBoxTypeSerPage);
+            this.TabPageSerialization.Location = new System.Drawing.Point(4, 25);
+            this.TabPageSerialization.Name = "TabPageSerialization";
+            this.TabPageSerialization.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPageSerialization.Size = new System.Drawing.Size(776, 309);
+            this.TabPageSerialization.TabIndex = 4;
+            this.TabPageSerialization.Text = "Serialization page";
+            this.TabPageSerialization.UseVisualStyleBackColor = true;
+            // 
+            // GroupBoxTypeSerPage
+            // 
+            this.GroupBoxTypeSerPage.Controls.Add(this.RadioButtonBinarySerPage);
+            this.GroupBoxTypeSerPage.Controls.Add(this.RadioButtonJsonSerPage);
+            this.GroupBoxTypeSerPage.Controls.Add(this.RadioButtonXmlSerPage);
+            this.GroupBoxTypeSerPage.Location = new System.Drawing.Point(50, 51);
+            this.GroupBoxTypeSerPage.Name = "GroupBoxTypeSerPage";
+            this.GroupBoxTypeSerPage.Size = new System.Drawing.Size(104, 104);
+            this.GroupBoxTypeSerPage.TabIndex = 0;
+            this.GroupBoxTypeSerPage.TabStop = false;
+            this.GroupBoxTypeSerPage.Text = "Select type";
+            // 
+            // RadioButtonXmlSerPage
+            // 
+            this.RadioButtonXmlSerPage.AutoSize = true;
+            this.RadioButtonXmlSerPage.Location = new System.Drawing.Point(7, 22);
+            this.RadioButtonXmlSerPage.Name = "RadioButtonXmlSerPage";
+            this.RadioButtonXmlSerPage.Size = new System.Drawing.Size(57, 21);
+            this.RadioButtonXmlSerPage.TabIndex = 0;
+            this.RadioButtonXmlSerPage.TabStop = true;
+            this.RadioButtonXmlSerPage.Text = "XML";
+            this.RadioButtonXmlSerPage.UseVisualStyleBackColor = true;
+            this.RadioButtonXmlSerPage.CheckedChanged += new System.EventHandler(this.RadioButtonSerTypeSerPage_CheckedChanged);
+            // 
+            // RadioButtonJsonSerPage
+            // 
+            this.RadioButtonJsonSerPage.AutoSize = true;
+            this.RadioButtonJsonSerPage.Location = new System.Drawing.Point(7, 49);
+            this.RadioButtonJsonSerPage.Name = "RadioButtonJsonSerPage";
+            this.RadioButtonJsonSerPage.Size = new System.Drawing.Size(66, 21);
+            this.RadioButtonJsonSerPage.TabIndex = 1;
+            this.RadioButtonJsonSerPage.TabStop = true;
+            this.RadioButtonJsonSerPage.Text = "JSON";
+            this.RadioButtonJsonSerPage.UseVisualStyleBackColor = true;
+            this.RadioButtonJsonSerPage.CheckedChanged += new System.EventHandler(this.RadioButtonSerTypeSerPage_CheckedChanged);
+            // 
+            // RadioButtonBinarySerPage
+            // 
+            this.RadioButtonBinarySerPage.AutoSize = true;
+            this.RadioButtonBinarySerPage.Location = new System.Drawing.Point(7, 76);
+            this.RadioButtonBinarySerPage.Name = "RadioButtonBinarySerPage";
+            this.RadioButtonBinarySerPage.Size = new System.Drawing.Size(69, 21);
+            this.RadioButtonBinarySerPage.TabIndex = 2;
+            this.RadioButtonBinarySerPage.TabStop = true;
+            this.RadioButtonBinarySerPage.Text = "Binary";
+            this.RadioButtonBinarySerPage.UseVisualStyleBackColor = true;
+            this.RadioButtonBinarySerPage.CheckedChanged += new System.EventHandler(this.RadioButtonSerTypeSerPage_CheckedChanged);
+            // 
+            // BtnSerializeSerPage
+            // 
+            this.BtnSerializeSerPage.Location = new System.Drawing.Point(50, 253);
+            this.BtnSerializeSerPage.Name = "BtnSerializeSerPage";
+            this.BtnSerializeSerPage.Size = new System.Drawing.Size(159, 50);
+            this.BtnSerializeSerPage.TabIndex = 1;
+            this.BtnSerializeSerPage.Text = "Serialize";
+            this.BtnSerializeSerPage.UseVisualStyleBackColor = true;
+            this.BtnSerializeSerPage.Click += new System.EventHandler(this.BtnSerializeSerPage_Click);
+            // 
+            // BtnDeserializeSerPage
+            // 
+            this.BtnDeserializeSerPage.Location = new System.Drawing.Point(228, 253);
+            this.BtnDeserializeSerPage.Name = "BtnDeserializeSerPage";
+            this.BtnDeserializeSerPage.Size = new System.Drawing.Size(159, 50);
+            this.BtnDeserializeSerPage.TabIndex = 2;
+            this.BtnDeserializeSerPage.Text = "Deserialize";
+            this.BtnDeserializeSerPage.UseVisualStyleBackColor = true;
+            this.BtnDeserializeSerPage.Click += new System.EventHandler(this.BtnDeserializeSerPage_Click);
+            // 
+            // LabelDefaultModeSerPage
+            // 
+            this.LabelDefaultModeSerPage.AutoSize = true;
+            this.LabelDefaultModeSerPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LabelDefaultModeSerPage.Location = new System.Drawing.Point(348, 3);
+            this.LabelDefaultModeSerPage.Name = "LabelDefaultModeSerPage";
+            this.LabelDefaultModeSerPage.Size = new System.Drawing.Size(156, 29);
+            this.LabelDefaultModeSerPage.TabIndex = 3;
+            this.LabelDefaultModeSerPage.Text = "Default mode";
+            // 
+            // LblPhotoMessageSerPage
+            // 
+            this.LblPhotoMessageSerPage.AutoSize = true;
+            this.LblPhotoMessageSerPage.Location = new System.Drawing.Point(201, 51);
+            this.LblPhotoMessageSerPage.Name = "LblPhotoMessageSerPage";
+            this.LblPhotoMessageSerPage.Size = new System.Drawing.Size(106, 17);
+            this.LblPhotoMessageSerPage.TabIndex = 4;
+            this.LblPhotoMessageSerPage.Text = "Photo message";
+            // 
+            // LblVideoMessageSerPage
+            // 
+            this.LblVideoMessageSerPage.AutoSize = true;
+            this.LblVideoMessageSerPage.Location = new System.Drawing.Point(202, 138);
+            this.LblVideoMessageSerPage.Name = "LblVideoMessageSerPage";
+            this.LblVideoMessageSerPage.Size = new System.Drawing.Size(105, 17);
+            this.LblVideoMessageSerPage.TabIndex = 5;
+            this.LblVideoMessageSerPage.Text = "Video message";
+            // 
+            // RichTextBoxContentSerPage
+            // 
+            this.RichTextBoxContentSerPage.Location = new System.Drawing.Point(483, 51);
+            this.RichTextBoxContentSerPage.Name = "RichTextBoxContentSerPage";
+            this.RichTextBoxContentSerPage.ReadOnly = true;
+            this.RichTextBoxContentSerPage.Size = new System.Drawing.Size(287, 252);
+            this.RichTextBoxContentSerPage.TabIndex = 6;
+            this.RichTextBoxContentSerPage.Text = "";
+            // 
+            // RichTextBoxPhotoMesSerPage
+            // 
+            this.RichTextBoxPhotoMesSerPage.Location = new System.Drawing.Point(204, 73);
+            this.RichTextBoxPhotoMesSerPage.Name = "RichTextBoxPhotoMesSerPage";
+            this.RichTextBoxPhotoMesSerPage.Size = new System.Drawing.Size(258, 48);
+            this.RichTextBoxPhotoMesSerPage.TabIndex = 7;
+            this.RichTextBoxPhotoMesSerPage.Text = "";
+            // 
+            // RichTextBoxVideoMesSerPage
+            // 
+            this.RichTextBoxVideoMesSerPage.Location = new System.Drawing.Point(204, 158);
+            this.RichTextBoxVideoMesSerPage.Name = "RichTextBoxVideoMesSerPage";
+            this.RichTextBoxVideoMesSerPage.Size = new System.Drawing.Size(258, 48);
+            this.RichTextBoxVideoMesSerPage.TabIndex = 8;
+            this.RichTextBoxVideoMesSerPage.Text = "";
+            // 
             // MediaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -614,6 +770,10 @@
             this.TabPageDelete.PerformLayout();
             this.TabPageStatic.ResumeLayout(false);
             this.TabPageStatic.PerformLayout();
+            this.TabPageSerialization.ResumeLayout(false);
+            this.TabPageSerialization.PerformLayout();
+            this.GroupBoxTypeSerPage.ResumeLayout(false);
+            this.GroupBoxTypeSerPage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -664,6 +824,19 @@
         private System.Windows.Forms.Button BtnStaticPageGetPhotos;
         private System.Windows.Forms.ComboBox ComboBoxStaticPageMode;
         private System.Windows.Forms.Label LblStaticPageSelectMode;
+        private System.Windows.Forms.TabPage TabPageSerialization;
+        private System.Windows.Forms.RichTextBox RichTextBoxVideoMesSerPage;
+        private System.Windows.Forms.RichTextBox RichTextBoxPhotoMesSerPage;
+        private System.Windows.Forms.RichTextBox RichTextBoxContentSerPage;
+        private System.Windows.Forms.Label LblVideoMessageSerPage;
+        private System.Windows.Forms.Label LblPhotoMessageSerPage;
+        private System.Windows.Forms.Label LabelDefaultModeSerPage;
+        private System.Windows.Forms.Button BtnDeserializeSerPage;
+        private System.Windows.Forms.Button BtnSerializeSerPage;
+        private System.Windows.Forms.GroupBox GroupBoxTypeSerPage;
+        private System.Windows.Forms.RadioButton RadioButtonBinarySerPage;
+        private System.Windows.Forms.RadioButton RadioButtonJsonSerPage;
+        private System.Windows.Forms.RadioButton RadioButtonXmlSerPage;
     }
 }
 
