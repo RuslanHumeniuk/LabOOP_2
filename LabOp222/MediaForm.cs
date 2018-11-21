@@ -12,11 +12,13 @@ using LabOp222.Models;
 using LabOp222.Models.Modes;
 using LabOp222.Models.Interfaces;
 using LabOp222.Models.MediaFiles;
+using System.IO;
 
 namespace LabOp222
 {
     public partial class MediaForm : Form
     {
+        #region Initialize etc
         List<MediaFile> HelpedList = new List<MediaFile>();
         object objectToEdit = null;
 
@@ -37,9 +39,15 @@ namespace LabOp222
             foreach (var item in Mode.AllModes)
             {
                 item.DeserializeXml();
-                //item.DeserializeJSON();
-                //item.DeserializeBinary();
             }
+        }
+        #endregion
+
+        private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CPClearAndHideAll();
+            DPHideElements();
+            SerPageUpdateMessages();
         }
 
         #region Creating page
@@ -679,13 +687,7 @@ namespace LabOp222
             else
                 MessageBox.Show("Okey");
         }
-        #endregion
-
-        private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CPClearAndHideAll();
-            DPHideElements();
-        }
+        #endregion        
 
         #region Static page        
         private void BtnStaticPageGetPhotos_Click(object sender, EventArgs e)
@@ -749,6 +751,103 @@ namespace LabOp222
         }
         #endregion
 
-       
+        #region Serialization Page
+        private void RadioButtonSerTypeSerPage_CheckedChanged(object sender, EventArgs e)
+        {
+            if (TabControlMain.SelectedIndex == 3)
+            {
+                SerPageUpdateMessages();
+                SerPageUpdateContentOfFile();                
+            }
+        }
+
+        private void SerPageUpdateContentOfFile()
+        {            
+            string content = String.Empty;
+            string path = typeof(DefaultMode).Name;
+
+            if (RadioButtonXmlSerPage.Checked)
+            {
+                using (StreamReader reader = new StreamReader(path + ".xml"))
+                {
+                    content = reader.ReadToEnd();
+                }                
+            }
+            else if (RadioButtonJsonSerPage.Checked)
+            {
+                using (StreamReader reader = new StreamReader(path + ".json"))
+                {
+                    content = reader.ReadToEnd();
+                }
+            }
+            else if (RadioButtonBinarySerPage.Checked)
+            {              
+                content = "Bytes:\n\r";
+                using (BinaryReader fs = new BinaryReader(new FileStream(path + ".dat", FileMode.Open)))
+                {
+                    while (fs.PeekChar() > -1)
+                    {
+                        content += fs.ReadByte();
+                    }
+                    fs.Close();
+                }                                
+            }
+
+            RichTextBoxContentSerPage.Text = content;            
+        }
+        private void SerPageUpdateMessages()
+        {
+            RichTextBoxPhotoMesSerPage.Text = DefaultMode.GetInstance().PhotoMessage;
+            RichTextBoxVideoMesSerPage.Text = DefaultMode.GetInstance().VideoMessage;
+        }
+
+        private void BtnSerializeSerPage_Click(object sender, EventArgs e)
+        {
+            if (
+                String.IsNullOrWhiteSpace(RichTextBoxPhotoMesSerPage.Text)
+                ||
+                String.IsNullOrWhiteSpace(RichTextBoxVideoMesSerPage.Text)
+               )
+            {
+                MessageBox.Show("Wrong message! Try again!");
+                return;
+            }
+
+            DefaultMode.GetInstance().PhotoMessage = RichTextBoxPhotoMesSerPage.Text;
+            DefaultMode.GetInstance().VideoMessage = RichTextBoxVideoMesSerPage.Text;
+
+            if (RadioButtonXmlSerPage.Checked)
+            {
+                MessageBox.Show(DefaultMode.GetInstance().SerializeXml());
+            }
+            else if (RadioButtonJsonSerPage.Checked)
+            {
+                MessageBox.Show(DefaultMode.GetInstance().SerializeJSON());
+            }
+            else if (RadioButtonBinarySerPage.Checked)
+            {
+                MessageBox.Show(DefaultMode.GetInstance().SerializeBinary());
+            }
+
+            SerPageUpdateContentOfFile();
+        }
+        private void BtnDeserializeSerPage_Click(object sender, EventArgs e)
+        {
+            if (RadioButtonXmlSerPage.Checked)
+            {
+                MessageBox.Show(DefaultMode.GetInstance().DeserializeXml());
+            }
+            else if (RadioButtonJsonSerPage.Checked)
+            {
+                MessageBox.Show(DefaultMode.GetInstance().DeserializeJSON());
+            }
+            else if (RadioButtonBinarySerPage.Checked)
+            {
+                MessageBox.Show(DefaultMode.GetInstance().DeserializeBinary());
+            }
+
+            SerPageUpdateMessages();
+        }
+        #endregion
     }
 }
