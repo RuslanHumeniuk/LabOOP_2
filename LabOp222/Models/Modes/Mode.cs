@@ -32,8 +32,8 @@ namespace LabOp222.Models.Modes
         ~Mode()
         {
             SerializeXml();
-            SerializeJSON();
-            SerializeBinary();
+            //SerializeJSON();
+            //SerializeBinary();
         }
 
         public override string ToString()
