@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
-
+using System.Xml.Serialization;
 using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models.Modes
 {
     [DataContract]
     [Serializable]
+    [XmlRoot("DefaultMode")]
     public class DefaultMode : Mode, IPhotoMode, IVideoMode
     {
         [DataMember]
@@ -17,6 +20,7 @@ namespace LabOp222.Models.Modes
         [DataMember]
         private string videoMessage = "You have made a video by default mode";
 
+        [XmlIgnore]
         private static DefaultMode instance = null;
 
         private DefaultMode() { }
@@ -60,6 +64,37 @@ namespace LabOp222.Models.Modes
         public string RecordVideo()
         {
             return VideoMessage;
-        }        
+        }
+
+        //public override string SerializeXml()
+        //{
+        //    XmlSerializer formatter = new XmlSerializer(this.GetType());
+        //    using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Create))
+        //    {
+        //        formatter.Serialize(fileStream, instance);
+        //    }
+        //    return this + " is serialized";
+        //}
+        //public override string DeserializeXml()
+        //{
+        //    XmlSerializer formatter = new XmlSerializer(this.GetType());
+        //    using (FileStream fileStream = new FileStream(this.GetType().Name + ".xml", FileMode.Open))
+        //    {
+        //        instance = formatter.Deserialize(fileStream) as DefaultMode;                               
+        //        photoMessage = instance.photoMessage;
+        //        videoMessage = instance.videoMessage;
+        //        return instance + " is deserialized";
+        //    }
+        //}
+
+        public override string SerializeJSON()
+        {
+            DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(this.GetType());
+            using (FileStream stream = new FileStream(this.GetType().Name + ".json", FileMode.Create))
+            {
+                jsonSerializer.WriteObject(stream, GetInstance());
+            }
+            return "All objects of " + this.GetType().Name + " are serialized";
+        }
     }
 }
