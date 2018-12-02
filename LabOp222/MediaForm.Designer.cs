@@ -250,7 +250,7 @@
             this.ComboBoxCreatePageSelectedObjects.Size = new System.Drawing.Size(165, 24);
             this.ComboBoxCreatePageSelectedObjects.TabIndex = 34;
             this.ComboBoxCreatePageSelectedObjects.Visible = false;
-            this.ComboBoxCreatePageSelectedObjects.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePageSelectedObjects_SelectedIndexChanged);
+            this.ComboBoxCreatePageSelectedObjects.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxCreatePageSelectedObjects_SelectionChangeCommitted);
             // 
             // LblCreatePageSelectedObject
             // 
@@ -295,7 +295,7 @@
             this.ComboBoxCreatePageVideos.Size = new System.Drawing.Size(165, 24);
             this.ComboBoxCreatePageVideos.TabIndex = 30;
             this.ComboBoxCreatePageVideos.Visible = false;
-            this.ComboBoxCreatePageVideos.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePageVideos_SelectedIndexChanged);
+            this.ComboBoxCreatePageVideos.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxCreatePageVideos_SelectionChangeCommitted);
             // 
             // LblCreatePageVideos
             // 
@@ -335,7 +335,7 @@
             this.ComboBoxCreatePagePhotos.Size = new System.Drawing.Size(165, 24);
             this.ComboBoxCreatePagePhotos.TabIndex = 26;
             this.ComboBoxCreatePagePhotos.Visible = false;
-            this.ComboBoxCreatePagePhotos.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCreatePagePhotos_SelectedIndexChanged);
+            this.ComboBoxCreatePagePhotos.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxCreatePagePhotos_SelectionChangeCommitted);
             // 
             // LblCreatePagePhotos
             // 
@@ -379,6 +379,7 @@
             this.ComboBoxCreatePageSelectClass.Name = "ComboBoxCreatePageSelectClass";
             this.ComboBoxCreatePageSelectClass.Size = new System.Drawing.Size(156, 24);
             this.ComboBoxCreatePageSelectClass.TabIndex = 18;
+            this.ComboBoxCreatePageSelectClass.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxCreatePageSelectClass_SelectionChangeCommitted);
             // 
             // LblCreatePageClass
             // 
@@ -582,7 +583,7 @@
             this.ComboBoxStaticPageMode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ComboBoxStaticPageMode.Name = "ComboBoxStaticPageMode";
             this.ComboBoxStaticPageMode.Size = new System.Drawing.Size(181, 24);
-            this.ComboBoxStaticPageMode.TabIndex = 38;            
+            this.ComboBoxStaticPageMode.TabIndex = 38;
             // 
             // LblStaticPageSelectMode
             // 
