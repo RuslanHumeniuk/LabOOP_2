@@ -1,9 +1,5 @@
-﻿using System;
+﻿using LabOp222.Models.Modes;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using LabOp222.Models.Modes;
 
 namespace LabOp222.Models.MediaFiles
 {
@@ -11,43 +7,53 @@ namespace LabOp222.Models.MediaFiles
     {
         protected Mode mode = DefaultMode.GetInstance();
 
-        public bool IsInGallery
+        public bool IsInGallery(Repository<Gallery> repository)
         {
-            get => Gallery != null;
+            return GetGalleries(repository) != null;
+        }
+        public IList<Gallery> GetGalleries(Repository<Gallery> galleryRepository)
+        {
+            List<Gallery> galleries = new List<Gallery>();
+            foreach (var gallery in galleryRepository.MediaInfoObjects)
+            {
+                if (gallery.Files != null && gallery.Files.Contains(this))
+                {
+                    galleries.Add(gallery);
+                }
+            }
+            return galleries;
         }
 
-        public Gallery Gallery
+        public static void RemoveFromAllGalleries(Repository<Gallery> galleryRepository, MediaFile file)
         {
-            get
+            file.RemoveFromAllGalleries(galleryRepository);
+        }
+        public void RemoveFromAllGalleries(Repository<Gallery> galleryRepository)
+        {
+            foreach (var gallery in galleryRepository.MediaInfoObjects)
             {
-                foreach (var gallery in Gallery.Galleries)
-                {                    
-                    if (gallery.Files != null && gallery.Files.Contains(this))
-                        return gallery;
-                }
-                return null;
+                gallery.RemoveMediaFileFromGallery(this);
             }
         }
 
-        public override string GetInfo()
+        public static IList<MediaFile> GetMediaFilesByMode(Mode mode, Repository<Photo> photoRepository = null, Repository<Video> videoRepository = null)
         {
-            return base.GetInfo() + "\nGallery: " + (Gallery?.Title ?? "no one");
-        }      
-
-        public static List<MediaFile> GetMediaFilesByMode(Mode mode)
-        {
-            if (Photo.AllPhotos.Count < 1 && Video.AllVideos.Count < 1) return null;
+            if ((photoRepository == null && videoRepository == null) ||
+                (photoRepository?.MediaInfoObjects.Count < 1 && videoRepository?.MediaInfoObjects.Count < 1))
+            {
+                return null;
+            }
 
             List<MediaFile> files = new List<MediaFile>();
 
-            if(mode is Interfaces.IPhotoMode)
+            if (mode is Interfaces.IPhotoMode && photoRepository != null)
             {
-                files.AddRange(Photo.GetPhotosByMode(mode as Interfaces.IPhotoMode) ?? new List<Photo>());
+                files.AddRange(Photo.GetPhotosByMode(photoRepository, mode as Interfaces.IPhotoMode) ?? new List<Photo>());
             }
 
-            if(mode is Interfaces.IVideoMode)
+            if (mode is Interfaces.IVideoMode && videoRepository != null)
             {
-                files.AddRange(Video.GetVideosByMode(mode as Interfaces.IVideoMode) ?? new List<Video>());
+                files.AddRange(Video.GetVideosByMode(videoRepository, mode as Interfaces.IVideoMode) ?? new List<Video>());
             }
 
             return files.Count > 0 ? files : null;
