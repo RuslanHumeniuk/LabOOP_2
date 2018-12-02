@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using LabOp222.Models.Interfaces;
 
 namespace LabOp222.Models
 {
-    abstract public class MediaInfo
+    public abstract class MediaInfo
     {
         public readonly Guid Id;
 
@@ -15,22 +10,26 @@ namespace LabOp222.Models
 
         public string Title
         {
-            get => title;
+            get => this.title;
             set
             {
                 if (!String.IsNullOrWhiteSpace(value))
-                    title = value;
+                {
+                    this.title = value;
+                }
                 else
+                {
                     throw new ArgumentException("Title can not be null or empty!");
+                }
             }
         }
-        
+
 
         public MediaInfo()
         {
-            Id = Guid.NewGuid();
-            Title = DateTime.Now.ToLocalTime().ToString();
-        }   
+            this.Id = Guid.NewGuid();
+            Title = GetType().Name + DateTime.Now.Millisecond;
+        }
 
         public virtual string GetInfo()
         {
@@ -41,13 +40,10 @@ namespace LabOp222.Models
         {
             return GetType().Name + ": " + Title;
         }
-        
 
-        public static void Delete(MediaInfo obj)
+        public static void RemoveFromRepository<T>(Repository<T> repository, T obj) where T : MediaInfo
         {
-            obj.Delete();
-        }        
-
-        public abstract void Delete();                
+            repository?.Remove(obj);
+        }
     }
 }

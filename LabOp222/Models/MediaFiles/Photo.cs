@@ -1,34 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using LabOp222.Models.Interfaces;
 using LabOp222.Models.Modes;
-using LabOp222.Models;
-using LabOp222.Models.Interfaces;
+using System.Collections.Generic;
 
 namespace LabOp222.Models.MediaFiles
 {
     public class Photo : MediaFile
     {
-        public static List<Photo> AllPhotos = new List<Photo>();     
-
         public IPhotoMode Mode
         {
-            get => mode as IPhotoMode;
+            get => this.mode as IPhotoMode;
             set
             {
-                if(value != null && value is IPhotoMode)
+                if (value != null && value is IPhotoMode)
                 {
-                    mode = value as Mode;
+                    this.mode = value as Mode;
                 }
             }
         }
 
-        public Photo() : base()
-        {            
-            AllPhotos.Add(this);
-        }
+        public Photo() : base() { }
         public Photo(string title) : this()
         {
             Title = title;
@@ -42,16 +32,16 @@ namespace LabOp222.Models.MediaFiles
             Title = title;
         }
 
-        ~Photo()
-        {
-            System.Windows.Forms.MessageBox.Show("Photo " + Title + " is desctructed");
-        }
-
         public string TakeAPhoto()
         {
             if (Mode != null)
+            {
                 return Mode.TakeAPhoto();
-            else return "Please select some mode!";
+            }
+            else
+            {
+                return "Please select some mode!";
+            }
         }
 
         public override string GetInfo()
@@ -59,27 +49,17 @@ namespace LabOp222.Models.MediaFiles
             return base.GetInfo() + "\nCurrent mode: " + Mode?.GetType().Name ?? "unknown";
         }
 
-        public static void Delete(int index)
+        public static IList<Photo> GetPhotosByMode(Repository<Photo> repository, IPhotoMode mode)
         {
-            if (index < 0 || index >= AllPhotos.Count)
-                throw new ArgumentException(index + " is wrong index!");
-            Photo photo = AllPhotos[index];
-            photo.Delete();
-        }
-        public override void Delete()
-        {
-            AllPhotos.Remove(this);
-            Gallery?.RemovePhotoFromGallery(this.Id);
-        }
-
-        public static List<Photo> GetPhotosByMode(IPhotoMode mode)
-        {
-            if (AllPhotos.Count < 1) return null;
+            if (repository.MediaInfoObjects.Count < 1)
+            {
+                return null;
+            }
 
             List<Photo> photos = new List<Photo>();
-            foreach (var photo in AllPhotos)
+            foreach (var photo in repository.MediaInfoObjects)
             {
-                if(photo.Mode == mode)
+                if (photo.Mode == mode)
                 {
                     photos.Add(photo);
                 }

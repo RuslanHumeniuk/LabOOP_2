@@ -1,52 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using LabOp222.Models.Interfaces;
 using LabOp222.Models.Modes;
-using LabOp222.Models;
-using LabOp222.Models.Interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace LabOp222.Models.MediaFiles
 {
     public class Video : MediaFile
     {
-        public static List<Video> AllVideos = new List<Video>();
-
         private int length = 0;
         public int Length
         {
-            get => length;
-            set
-            {                
-                if (value >= 0)
-                    length = value;
-                else
-                    throw new ArgumentException("Length shoud be non-negative");
-            }
-        }
-        
-        public IVideoMode Mode
-        {
-            get => mode as IVideoMode;
+            get => this.length;
             set
             {
-                if(value != null && value is IVideoMode)
+                if (value >= 0)
                 {
-                    mode = value as Mode;
+                    this.length = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Length shoud be non-negative");
                 }
             }
         }
 
-        public Video() : base()
+        public IVideoMode Mode
         {
-            AllVideos.Add(this);
+            get => this.mode as IVideoMode;
+            set
+            {
+                if (value != null && value is IVideoMode)
+                {
+                    this.mode = value as Mode;
+                }
+            }
         }
-        public Video(string title) : this()
+
+        public Video() : base() { }
+        public Video(string title) : base()
         {
             Title = title;
         }
-        public Video(IVideoMode mode) : this()
+        public Video(IVideoMode mode) : base()
         {
             Mode = mode;
         }
@@ -55,46 +50,34 @@ namespace LabOp222.Models.MediaFiles
             Title = title;
         }
 
-        ~Video()
-        {
-            System.Windows.Forms.MessageBox.Show("Video " + Title + " is desctructed");
-        }
-
         public string RecordVideo()
         {
             if (Mode != null)
             {
                 return Mode.RecordVideo();
             }
-            else return "Please select some mode";
+            else
+            {
+                return "Please select some mode";
+            }
         }
 
         public override string GetInfo()
         {
-            return base.GetInfo() + ("\nCurrent mode: " + Mode?.GetType().Name ?? "unknown") + "\nLength of video: " + length;
+            return base.GetInfo() + ("\nCurrent mode: " + Mode?.GetType().Name ?? "unknown") + "\nLength of video: " + this.length;
         }
 
-        public static void Delete(int index)
+        public static IList<Video> GetVideosByMode(Repository<Video> repository, IVideoMode mode)
         {
-            if (index < 0 || index >= AllVideos.Count)
-                throw new ArgumentException(index + " is wrong index!");
-            Video video = AllVideos[index];
-            video.Delete();
-        }
-        public override void Delete()
-        {
-            AllVideos.Remove(this);
-            Gallery?.RemoveVideoFromGallery(this.Id);
-        }
-
-        public static List<Video> GetVideosByMode(IVideoMode mode)
-        {
-            if (AllVideos.Count < 1) return null;
+            if (repository.MediaInfoObjects.Count < 1)
+            {
+                return null;
+            }
 
             List<Video> videos = new List<Video>();
-            foreach (var video in AllVideos)
+            foreach (var video in repository.MediaInfoObjects)
             {
-                if(video.Mode == mode)
+                if (video.Mode == mode)
                 {
                     videos.Add(video);
                 }

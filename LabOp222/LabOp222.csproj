@@ -66,6 +66,7 @@
     <Compile Include="Models\Modes\TimeLaps.cs" />
     <Compile Include="Models\Modes\ProfessionalMode.cs" />
     <Compile Include="Models\MediaFiles\Video.cs" />
+    <Compile Include="Models\Repository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MediaForm.resx">
