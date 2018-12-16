@@ -729,17 +729,17 @@ namespace LabOp222
                 MediaInfo obj = this.ComboBoxDeletePageSelectObject.SelectedItem as MediaInfo;
                 if (obj is Photo)
                 {
-                    MediaInfo.RemoveFromRepository<Photo>(this.PhotoRepository, obj as Photo);
+                    MediaInfo.RemoveFromRepository(this.PhotoRepository, obj as Photo);
                     MediaFile.RemoveFromAllGalleries(GalleryRepository, obj as Photo);
                 }
                 else if (obj is Video)
                 {
-                    MediaInfo.RemoveFromRepository<Video>(this.VideoRepository, obj as Video);
+                    MediaInfo.RemoveFromRepository(this.VideoRepository, obj as Video);
                     MediaFile.RemoveFromAllGalleries(GalleryRepository, obj as Video);
                 }
                 else if (obj is Gallery)
                 {
-                    MediaInfo.RemoveFromRepository<Gallery>(this.GalleryRepository, obj as Gallery);
+                    MediaInfo.RemoveFromRepository(this.GalleryRepository, obj as Gallery);
                 }
 
                 MessageBox.Show(obj.ToString() + " is deleted!");
