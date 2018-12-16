@@ -11,29 +11,26 @@ using System.Windows.Forms;
 namespace LabOp222
 {
     public partial class MediaForm : Form
-    {        
-        private Mode[] Modes = new Mode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
-        private IPhotoMode[] PhotoModes = new IPhotoMode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance() };
-        private IVideoMode[] VideoModes = new IVideoMode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };
-
+    {
+        #region Init region
         private List<MediaFile> HelpedList = new List<MediaFile>();
         private object objectToEdit = null;
 
-        private Repository<Video> VideoRepository = new Repository<Video>();
-        private Repository<Photo> PhotoRepository = new Repository<Photo>();
-        private Repository<Gallery> GalleryRepository = new Repository<Gallery>();
+        private readonly Repository<Video> VideoRepository = new Repository<Video>();
+        private readonly Repository<Photo> PhotoRepository = new Repository<Photo>();
+        private readonly Repository<Gallery> GalleryRepository = new Repository<Gallery>();
 
         public MediaForm()
         {
             InitializeComponent();
 
-            Photo firstPhoto = new Photo("First Ph") { Mode = this.PhotoModes[3] as IPhotoMode };
+            Photo firstPhoto = new Photo("First Ph") { Mode = Mode.PhotoModes[3] };
             Photo secondPhoto = new Photo("Second Ph");
 
             this.PhotoRepository.Add(firstPhoto);
             this.PhotoRepository.Add(secondPhoto);
 
-            Video firstVideo = new Video("First Vid") { Mode = this.VideoModes[3] as IVideoMode };
+            Video firstVideo = new Video("First Vid") { Mode = Mode.VideoModes[3] };
             Video secondVideo = new Video("Second Vid");
             this.VideoRepository.Add(firstVideo);
             this.VideoRepository.Add(secondVideo);
@@ -46,9 +43,10 @@ namespace LabOp222
 
             gallery.AddFile(firstPhoto);
             gallery.AddFile(secondVideo);
-            
-            this.ComboBoxStaticPageMode.DataSource = this.Modes;
+
+            this.ComboBoxStaticPageMode.DataSource = Mode.AllModes;
         }
+        #endregion
 
         #region Creating page
 
@@ -99,7 +97,7 @@ namespace LabOp222
                         }
                     case 3:
                         {
-                            CPUpdateComboBoxes(null, null, null, this.Modes);
+                            CPUpdateComboBoxes(null, null, null, Mode.AllModes);
                             break;
                         }
                 }
@@ -113,7 +111,7 @@ namespace LabOp222
             CPUpdateGroupBoxes(2, null);
             CPUpdateLabels(photo != null ? "Select photo" : null, "Title", null, null, "Select photo mode", null, null);
             CPUpdateTextBoxes(photo?.Title ?? String.Empty, null, null);
-            CPUpdateComboBoxes(this.PhotoModes, null, null, photo != null ? this.PhotoRepository.MediaInfoObjects.ToArray() : null);
+            CPUpdateComboBoxes(Mode.PhotoModes, null, null, photo != null ? this.PhotoRepository.MediaInfoObjects.ToArray() : null);
             CPUpdateButtons(photo == null, true);
 
             this.ComboBoxCreatePagePhotos.SelectedItem = photo?.Mode;
@@ -125,7 +123,7 @@ namespace LabOp222
             CPUpdateGroupBoxes(2, null);
             CPUpdateLabels(video != null ? "Select video" : null, "Title", "Length of video", null, null, "Select video mode", null);
             CPUpdateTextBoxes(video?.Title ?? String.Empty, video?.Length.ToString() ?? String.Empty, null);
-            CPUpdateComboBoxes(null, this.VideoModes, null, video != null ? this.VideoRepository.MediaInfoObjects.ToArray() : null);
+            CPUpdateComboBoxes(null, Mode.VideoModes, null, video != null ? this.VideoRepository.MediaInfoObjects.ToArray() : null);
             CPUpdateButtons(video == null, true);
 
             this.ComboBoxCreatePageVideos.SelectedItem = video?.Mode;
@@ -150,7 +148,7 @@ namespace LabOp222
             CPUpdateModeGroupBox(new bool[] { isPhotoMode, isVideoMode });
             CPUpdateLabels("Select mode", "Title", isPhotoMode ? "Photo message" : null, isVideoMode ? "Video message" : null, null, null, null);
             CPUpdateTextBoxes(mode?.GetType().Name, isPhotoMode ? (mode as IPhotoMode).PhotoMessage : null, isVideoMode ? (mode as IVideoMode).VideoMessage : null);
-            CPUpdateComboBoxes(null, null, null, this.Modes);
+            CPUpdateComboBoxes(null, null, null, Mode.AllModes);
         }
 
         #region Update
@@ -754,20 +752,14 @@ namespace LabOp222
                 MessageBox.Show("Okey");
             }
         }
-        #endregion
-
-        private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            CPClearAndHideAll();
-            DPHideElements();
-        }
+        #endregion        
 
         #region Static page        
         private void BtnStaticPageGetPhotos_Click(object sender, EventArgs e)
         {
             if (this.ComboBoxStaticPageMode.SelectedItem != null)
             {
-                Photo[] result = Photo.GetPhotosByMode(this.PhotoRepository, this.ComboBoxStaticPageMode.SelectedItem as IPhotoMode) as Photo[];
+                var result = Photo.GetPhotosByMode(this.PhotoRepository, this.ComboBoxStaticPageMode.SelectedItem as IPhotoMode);
                 if (result == null)
                 {
                     this.RichTextBoxStaticPageResult.Text = "No one photo with this mode";
@@ -785,7 +777,7 @@ namespace LabOp222
         {
             if (this.ComboBoxStaticPageMode.SelectedItem != null)
             {
-                Video[] result = Video.GetVideosByMode(this.VideoRepository, this.ComboBoxStaticPageMode.SelectedItem as IVideoMode) as Video[];
+                var result = Video.GetVideosByMode(this.VideoRepository, this.ComboBoxStaticPageMode.SelectedItem as IVideoMode);
                 if (result == null)
                 {
                     this.RichTextBoxStaticPageResult.Text = "No one video with this mode";
@@ -803,7 +795,7 @@ namespace LabOp222
         {
             if (this.ComboBoxStaticPageMode.SelectedItem != null)
             {
-                MediaFile[] result = MediaFile.GetMediaFilesByMode(this.ComboBoxStaticPageMode.SelectedItem as Mode, this.PhotoRepository, this.VideoRepository) as MediaFile[];
+                var result = MediaFile.GetMediaFilesByMode(this.ComboBoxStaticPageMode.SelectedItem as Mode, this.PhotoRepository, this.VideoRepository);
                 if (result == null)
                 {
                     this.RichTextBoxStaticPageResult.Text = "No one file with this mode";
@@ -822,7 +814,12 @@ namespace LabOp222
         {
             this.RichTextBoxStaticPageResult.Clear();
         }
-
         #endregion
+
+        private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CPClearAndHideAll();
+            DPHideElements();
+        }
     }
 }
