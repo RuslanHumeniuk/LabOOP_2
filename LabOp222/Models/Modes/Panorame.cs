@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using LabOp222.Models.Interfaces;
 
-using LabOp222.Models.Interfaces;
+using System;
 
 namespace LabOp222.Models.Modes
 {
+    [Serializable]
     public class Panorame : Mode, IPhotoMode
     {
         private string photoMessage = "Wow, this is a panorama";

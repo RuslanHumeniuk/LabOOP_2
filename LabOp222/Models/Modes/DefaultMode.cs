@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using LabOp222.Models.Interfaces;
 
-using LabOp222.Models.Interfaces;
+using System;
 
 namespace LabOp222.Models.Modes
 {
+    [Serializable]
     public class DefaultMode : Mode, IPhotoMode, IVideoMode
     {
         private string photoMessage = "You have made a photo by default mode";

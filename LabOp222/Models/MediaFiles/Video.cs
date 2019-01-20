@@ -2,27 +2,22 @@
 using LabOp222.Models.Modes;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace LabOp222.Models.MediaFiles
 {
-    public class Video : MediaFile
+    [Serializable]
+    public class Video : MediaFile, IBinarySerialization
     {
         private int length = 0;
         public int Length
         {
             get => this.length;
-            set
-            {
-                if (value >= 0)
-                {
-                    this.length = value;
-                }
-                else
-                {
-                    throw new ArgumentException("Length shoud be non-negative");
-                }
-            }
+            set => length = value >= 0 ? value : throw new ArgumentException("Length shoud be non-negative");
         }
+        private readonly bool isSerialize = true;
 
         public IVideoMode Mode
         {
@@ -36,7 +31,10 @@ namespace LabOp222.Models.MediaFiles
             }
         }
 
-        public Video() : base() { }
+        public Video(bool isSerializable = true) : base()
+        {
+            isSerialize = isSerializable;
+        }
         public Video(string title) : base()
         {
             Title = title;
@@ -50,16 +48,15 @@ namespace LabOp222.Models.MediaFiles
             Title = title;
         }
 
+        ~Video()
+        {
+            if(isSerialize)
+                Serialize();
+        }
+
         public string RecordVideo()
         {
-            if (Mode != null)
-            {
-                return Mode.RecordVideo();
-            }
-            else
-            {
-                return "Please select some mode";
-            }
+            return Mode?.RecordVideo();
         }
 
         public override string GetInfo()
@@ -83,6 +80,36 @@ namespace LabOp222.Models.MediaFiles
                 }
             }
             return videos.Count > 0 ? videos : null;
+        }
+
+        public string Serialize()
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream stream = new FileStream("Video" + GetHashCode() + ".dat", FileMode.Create))
+            {
+                formatter.Serialize(stream, this);
+                return ToString() + " is serialized!";
+            }
+        }
+
+        public Video[] Deserialize()
+        {
+            List<Video> videos = new List<Video>();
+            BinaryFormatter formatter = new BinaryFormatter();
+            foreach (var file in Directory.GetFiles(Environment.CurrentDirectory).Where(name => name.Contains("Video")))
+            {
+                using (FileStream stream = new FileStream(file, FileMode.Open))
+                {
+                    Video video = (Video)formatter.Deserialize(stream);
+                    video.Mode = Modes.Mode.AllModes.First(mode => mode.ToString().Equals(video.Mode.ToString())) as IVideoMode;                    
+                    videos.Add(video);
+                }
+            }
+            foreach (var file in Directory.GetFiles(Environment.CurrentDirectory).Where(name => name.Contains("Video")))
+            {
+                File.Delete(file);
+            }
+            return videos.ToArray();
         }
     }
 }
