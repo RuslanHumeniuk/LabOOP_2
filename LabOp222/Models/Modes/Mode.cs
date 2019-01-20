@@ -1,4 +1,5 @@
 ﻿using LabOp222.Models.Interfaces;
+using System;
 
 namespace LabOp222.Models.Modes
 {
