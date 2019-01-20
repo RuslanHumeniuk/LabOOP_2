@@ -2,6 +2,7 @@
 
 namespace LabOp222.Models
 {
+    [Serializable]
     public abstract class MediaInfo
     {
         public readonly Guid Id;

@@ -4,6 +4,7 @@ using System;
 
 namespace LabOp222.Models.Modes
 {
+    [Serializable]
     public class DefaultMode : Mode, IPhotoMode, IVideoMode
     {
         private string photoMessage = "You have made a photo by default mode";

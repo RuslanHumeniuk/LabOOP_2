@@ -30,10 +30,8 @@ namespace LabOp222
             this.PhotoRepository.Add(firstPhoto);
             this.PhotoRepository.Add(secondPhoto);
 
-            Video firstVideo = new Video("First Vid") { Mode = Mode.VideoModes[3] };
-            Video secondVideo = new Video("Second Vid");
-            this.VideoRepository.Add(firstVideo);
-            this.VideoRepository.Add(secondVideo);
+            //Video firstVideo = new Video("First Vid") { Mode = Mode.VideoModes[3] };
+            //Video secondVideo = new Video("Second Vid");
 
             Gallery gallery = new Gallery("Main gallery");
             Gallery secondGallery = new Gallery("Second gallery");
@@ -42,7 +40,8 @@ namespace LabOp222
             this.GalleryRepository.Add(secondGallery);
 
             gallery.AddFile(firstPhoto);
-            gallery.AddFile(secondVideo);
+
+            VideoRepository.MediaInfoObjects = new Video(false).Deserialize().ToList();
 
             this.ComboBoxStaticPageMode.DataSource = Mode.AllModes;
         }

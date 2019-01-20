@@ -1,9 +1,10 @@
 ﻿using LabOp222.Models.Modes;
-
+using System;
 using System.Collections.Generic;
 
 namespace LabOp222.Models.MediaFiles
 {
+    [Serializable]
     public abstract class MediaFile : MediaInfo
     {
         protected Mode mode = DefaultMode.GetInstance();

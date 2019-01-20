@@ -2,6 +2,7 @@
 
 namespace LabOp222.Models.Modes
 {
+    [Serializable]
     public abstract class Mode
     {     
         public static Mode[] AllModes = new Mode[] { DefaultMode.GetInstance(), MakeUp.GetInstance(), Panorame.GetInstance(), ProfessionalMode.GetInstance(), TimeLaps.GetInstance() };     
